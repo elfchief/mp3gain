@@ -198,6 +198,7 @@ static
 unsigned long fillBuffer(long savelastbytes) {
 	unsigned long i;
 	unsigned long skip;
+    unsigned long skipbuf;
 
 	skip = 0;
 	if (savelastbytes < 0) {
@@ -213,13 +214,19 @@ unsigned long fillBuffer(long savelastbytes) {
 	if (savelastbytes != 0) /* save some of the bytes at the end of the buffer */
 		memmove((void*)buffer,(const void*)(buffer+inbuffer-savelastbytes),savelastbytes);
 	
-	if (skip != 0) { /* skip some bytes from the input file */
-		i = fread(buffer,1,skip,inf);
+	while (skip > 0) { /* skip some bytes from the input file */
+        skipbuf = skip > BUFFERSIZE ? BUFFERSIZE : skip;
+
+		i = fread(buffer,1,skipbuf,inf);
+        if (i != skipbuf)
+            return 0;
+
 		if (UsingTemp && NowWriting) {
-			if (fwrite(buffer,1,skip,outf) != skip)
+			if (fwrite(buffer,1,skipbuf,outf) != skipbuf)
             			return 0;
 		}
-		filepos = filepos + i;
+		filepos += i;
+        skip -= skipbuf;
 	}
 	i = fread(buffer+savelastbytes,1,BUFFERSIZE-savelastbytes,inf);
 
