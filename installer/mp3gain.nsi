@@ -7,12 +7,45 @@
 !define VER_MINOR .2
 !define VER_REL .3
 
+; MUI 1.67 compatible ------
+!include "MUI.nsh"
+
+; MUI Settings
+!define MUI_ABORTWARNING
+!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+
+; Welcome page
+!insertmacro MUI_PAGE_WELCOME
+; License page
+;!insertmacro MUI_PAGE_LICENSE "..\path\to\licence\YourSoftwareLicence.txt"
+; Components page
+!insertmacro MUI_PAGE_COMPONENTS
+; Directory page
+!insertmacro MUI_PAGE_DIRECTORY
+; Instfiles page
+!insertmacro MUI_PAGE_INSTFILES
+; Finish page
+!define MUI_FINISHPAGE_RUN "$INSTDIR\MP3GainGUI.exe"
+!insertmacro MUI_PAGE_FINISH
+
+; Uninstaller pages
+!insertmacro MUI_UNPAGE_INSTFILES
+
+; Language files
+!insertmacro MUI_LANGUAGE "English"
+
+; Reserve files
+!insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
+
+; MUI end ------
+
 Name "MP3Gain"
 Caption "MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL}"
-Icon misc\mp3gain16.ico
+Icon misc\mp3gain.ico
 
-UninstallText "This will uninstall MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} from your system. Would you like to go ahead?" "Uninstalling: "
-UninstallCaption "Uninstalling"
+;UninstallText "This will uninstall MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} from your system. Would you like to go ahead?" "Uninstalling: "
+;UninstallCaption "Uninstalling"
 ShowUninstDetails hide
 ;UninstallButtonText Uninstall
 UninstallIcon misc/uninstall.ico
@@ -157,7 +190,7 @@ Function .onInit
   Goto DoneCheck
 
 DLLCheckFailed:
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION 'Some Microsoft files used by MP3Gain are missing or out-of-date on your system.$\r$\nYou will probably need to go back to the MP3Gain web site and download the "Microsoft VB Run-Time files" before MP3Gain will work.$\r$\n$\r$\nWould you like to install MP3Gain right now?' IDNO InstLater
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION 'Some Microsoft files used by MP3Gain are missing or out-of-date on your system.$\r$\nYou will probably need to go back to the MP3Gain web site and download the "full" installer before MP3Gain will work.$\r$\n$\r$\nWould you like to install MP3Gain right now?' IDNO InstLater
   Goto DoneCheck
 InstLater:
   Abort
@@ -449,8 +482,16 @@ Function .onInstSuccess
   WriteRegStr HKCR "MP3GainAnalysisResults" "" "MP3Gain Analysis Results"
   WriteRegStr HKCR "MP3GainAnalysisResults\shell" "" "open"
   WriteRegStr HKCR "MP3GainAnalysisResults\shell\open\command" "" `"$INSTDIR\MP3GainGUI.exe" "%1"`
-  MessageBox MB_OK \
-             'MP3Gain is now installed in $INSTDIR'
+FunctionEnd
+
+Function un.onUninstSuccess
+  HideWindow
+  MessageBox MB_ICONINFORMATION|MB_OK "MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} was successfully removed from your computer."
+FunctionEnd
+
+Function un.onInit
+  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "This will uninstall MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} from your system. Would you like to go ahead?" IDYES +2
+  Abort
 FunctionEnd
 
 Section Uninstall
@@ -483,11 +524,7 @@ Section Uninstall
 !endif
   ; if $INSTDIR was removed, skip these next ones
   IfFileExists $INSTDIR 0 Removed 
-;    MessageBox MB_YESNO|MB_ICONQUESTION \
-;      `Would you like to delete any remaining files from "$INSTDIR"? (Click "No" if want to keep additional files you've installed in that folder)` IDNO Removed
-;    Delete $INSTDIR\*.* ; this would be skipped if the user hits no
     SetOutPath $TEMP
-;    RMDir /r $INSTDIR
     RMDir $INSTDIR
     IfFileExists $INSTDIR 0 Removed 
       MessageBox MB_OK|MB_ICONEXCLAMATION \
@@ -507,5 +544,6 @@ DoNotDeleteM3GKey:
   ClearErrors
   RegRemoved:
 
+  SetAutoClose true
 SectionEnd
 
