@@ -4,7 +4,7 @@ Begin VB.Form frmMain
    Caption         =   "MP3 Gain"
    ClientHeight    =   6405
    ClientLeft      =   165
-   ClientTop       =   735
+   ClientTop       =   855
    ClientWidth     =   9540
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
@@ -2820,9 +2820,9 @@ Private Sub RadioSingleFile(itmX As ListItem, mp3Inf As Mp3Info)
     arrTokens = Split(strBlah, vbTab, , vbBinaryCompare)
     If UBound(arrTokens) < 18 Then
         If Not blnCancel Then
-            If UBound(arrTokens) >= 4 Then
-                If InStr(arrTokens(4), itmX.Text) Then
-                    LogErr GetLocalString("frmMain.LCL_ERROR_ANALYZING", "Error while analyzing") & ": " & arrTokens(4)
+            If UBound(arrTokens) >= 6 Then
+                If InStr(arrTokens(6), itmX.Text) Then
+                    LogErr GetLocalString("frmMain.LCL_ERROR_ANALYZING", "Error while analyzing") & ": " & arrTokens(6)
                 Else
                     LogErr Replace(GetLocalString("frmMain.LCL_FILE_ERROR_ANALYZING", _
                         "Error while analyzing %%filename%%"), _
