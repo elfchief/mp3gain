@@ -390,7 +390,7 @@ AnalyzeSamples ( const Float_t* left_samples, const Float_t* right_samples, size
             double  val  = STEPS_per_dB * 10. * log10 ( (lsum+rsum) / totsamp * 0.5 + 1.e-37 );
             int     ival = (int) val;
             if ( ival <                     0 ) ival = 0;
-            if ( ival >= sizeof(A)/sizeof(*A) ) ival = sizeof(A)/sizeof(*A) - 1;
+            if ( ival >= (int)(sizeof(A)/sizeof(*A)) ) ival = sizeof(A)/sizeof(*A) - 1;
             A [ival]++;
             lsum = rsum = 0.;
             memmove ( loutbuf , loutbuf  + totsamp, MAX_ORDER * sizeof(Float_t) );
@@ -448,7 +448,7 @@ GetTitleGain ( void )
 
     retval = analyzeResult ( A, sizeof(A)/sizeof(*A) );
 
-    for ( i = 0; i < sizeof(A)/sizeof(*A); i++ ) {
+    for ( i = 0; i < (int)(sizeof(A)/sizeof(*A)); i++ ) {
         B[i] += A[i];
         A[i]  = 0;
     }
