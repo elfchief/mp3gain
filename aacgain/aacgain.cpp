@@ -185,10 +185,12 @@ static int parseMp4File(GainDataPtr gd, ProgressCallback reportProgress, int com
         try 
         {
             mp4MetaFile->ReadSample(theTrack, sampleId, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
-        } catch (MP4Error*)
+        } catch (MP4Error* e)
         {
-            fprintf(stderr, "Reading from MP4 file failed.\n");
+            e->Print();
+            fprintf(stderr, "Reading from MP4 file failed. \n");
             NeAACDecClose(hDecoder);
+            free (e);
             return 1;
         }
 
@@ -355,12 +357,13 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
             throw new MP4Error();
         }
         gd->mp4MetaFile = mp4MetaFile;
-    } catch (MP4Error*)
+    } catch (MP4Error* e)
     {
         /* unable to open file */
         fprintf(stderr, "Error opening file: %s\n", gd->mp4file_name);
         gd->abort = 1;
         aac_close(gd);
+        free (e);
         return 1;
     }
 
