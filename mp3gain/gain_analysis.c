@@ -139,7 +139,9 @@ static Uint32_t  B [(size_t)(STEPS_per_dB * MAX_dB)];
 // [0] 48 kHz, [1] 44.1 kHz, [2] 32 kHz, [3] 24 kHz, [4] 22050 Hz, [5] 16 kHz, [6] 12 kHz, [7] is 11025 Hz, [8] 8 kHz
 
 #ifdef WIN32
+#ifndef __GNUC__
 #pragma warning ( disable : 4305 )
+#endif
 #endif
 
 static const Float_t ABYule[9][2*YULE_ORDER + 1] = {
@@ -168,7 +170,9 @@ static const Float_t ABButter[9][2*BUTTER_ORDER + 1] = {
 
 
 #ifdef WIN32
+#ifndef __GNUC__
 #pragma warning ( default : 4305 )
+#endif
 #endif
 
 // When calling these filter procedures, make sure that ip[-order] and op[-order] point to real data!
