@@ -765,7 +765,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '
-'  HandleError.bas - Simple error log writer for MP3GainGUI
+'  frmMain.frm - Big, ugly main form for MP3GainGUI
 '
 '  Copyright (C) 2003 Glen Sawyer
 '

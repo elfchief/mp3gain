@@ -39,7 +39,7 @@ RevisionVer=1
 AutoIncrementVer=0
 ServerSupportFiles=0
 VersionCompanyName="Snelg Enterprises"
-VersionFileDescription="Front end for mp3gain (mp3 volume normalizer)"
+VersionFileDescription="MP3Gain GUI"
 VersionLegalCopyright="Copyright © 2003 Glen Sawyer"
 VersionProductName="MP3Gain GUI"
 CondComp="GLENDEBUG = 0"
