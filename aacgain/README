@@ -93,41 +93,49 @@ d) Uses portable versions of all library functions, and has been
    successfully compiled under Linux. Thanks to Prakash Punnoor
    for his help with this.
    
-BUILD INSTRUCTIONS
+BUILDING AACGAIN FROM SOURCE CODE
 
-I am distibuting AACGain in source code form only
-a) to avoid any MPEG royalty issues,
-b) to ensure that early users have the knowledge to fix whatever
-   bugs they find :-)
-   
 I created AACGain using MSVC++.NET 2003. Thanks to Glen Sawyer for converting
 the .sln/.vcproj files to .dsw/.dsp. Thanks to Prakash Punoor, the source 
 code is portable, and has been compiled under Linux.
 
-In order to build AACGain from source code, the following additional 
-components are required. You may download them from the links listed below:
+In order to build AACGain from source code, the following components are 
+required. You may download them from the links listed below:
 
-a) mp3gain
-   You must check out the source code from sourceforge's CVS repository. A cvs
+a) aacgain
+
+   Thanks to Glen Sawyer, aacgain source code is checked into the sourceforge
+   CVS repository as part of the mp3gain project. A CVS client is required.
+   See the instructions at http://sourceforge.net/cvs/?group_id=49979. The
+   commands to check out the aacgain source code are:
+   cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain login 
+   cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain co -P aacgain
+
+b) mp3gain
+   You must check out the source code from sourceforge's CVS repository. A CVS
    client is required. The zipped source code files available for download
    from http://mp3gain.sourceforge.net/download.php is currently at version 
    1.4.6 and is not compatible with AACGain source code. When version 1.4.7 
-   is released, use of cvs will no longer be required.
+   is released, use of CVS will no longer be required. The commands to check 
+   out the mp3gain source code are:
+   cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain login 
+   cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain co -P mp3gain
    
-b) faad2 
+c) faad2 
    Download the latest "FAAD2 CVS snapshot" from
    http://www.audiocoding.com/modules/mydownloads/ AACGain is based on FAAD2 
    as of Sept. 15, 2004. DO NOT DOWNLOAD THE REGULAR SOURCE FILE PACKAGE FROM
    sourceforge.net or audiocoding.com. It is older and not compatible with the 
-   code in AACGain.
+   code in AACGain. You may also check out the latest source code from CVS.
    
-c) mpeg4ip version 1.2, download from http://www.mpeg4ip.net
+d) mpeg4ip version 1.2, download from http://www.mpeg4ip.net
    Extract the files from the archive using a tool that writes
    the text files with DOS-style line-endings (\r\n). Winzip works fine.
    If the files are written with Unix-style line-endings (\r), MSVC++ 
    will not be able to open the project files. If this happens, you 
-   can use unix2dos to repair the files.
-   RENAME THE ROOT DIRECTORY FROM mpeg4ip-1.2 to mpeg4ip.
+   can use unix2dos to repair the files. RENAME THE ROOT DIRECTORY FROM 
+   mpeg4ip-1.2 to mpeg4ip. You may also check out the source code from CVS, 
+   in which case the root directory will be correctly named mpeg4ip.
    
 The components must be arranged in the following directory hierarchy:
 -- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
@@ -153,10 +161,9 @@ a) Adds support for the iTunes "grouping" metadata tag.
 b) PREVENTS FILE CORRUPTION when a file is opened using MP4Modify or
    MP4File::Modify and additional metadata tags are added.
 
-Bill May has checked these changes into mpeg4ip's CVS, so if you checkout
+Bill May has checked these changes into mpeg4ip's CVS, so if you checked out
 the latest sources from http://sourceforge.net/cvs/?group_id=18676, instead
-of downloading the archive, you don't need to apply the patch. Make sure 
-that file mpeg4ip/include/mpeg4ip_version.h is version 1.2.2 or later.
+of downloading the archive, you don't need to apply the patch.
 
 To apply the patch:
 a) cd mpeg4ip
@@ -224,4 +231,4 @@ as a learning exercise. I couldn't have done it without the help of others:
 
 Dave Lasker
 dave@altosdesign.com
-March 19, 2005
+March 20, 2005
