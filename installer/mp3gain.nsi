@@ -456,6 +456,11 @@ SetOutPath $INSTDIR
 File "otherlang\Russian.mp3gain.ini"
 SectionEnd
 
+Section "Serbian"
+SetOutPath $INSTDIR
+File "otherlang\Srpski.mp3gain.ini"
+SectionEnd
+
 !ifndef SPANISH
 Section "Spanish"
 SetOutPath $INSTDIR
