@@ -61,7 +61,7 @@ struct APETagStruct {
 };
 
 struct FileTagsStruct {
-	unsigned long tagOffset;
+	long tagOffset;
 	struct APETagStruct *apeTag;
     unsigned char *lyrics3tag;
 	unsigned long lyrics3TagSize;

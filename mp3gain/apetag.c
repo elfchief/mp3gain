@@ -5,10 +5,14 @@
 #include <stdio.h>
 #include <memory.h>
 #include <string.h>
+#ifdef WIN32
+#include <io.h>
+#include <fcntl.h>
+#endif
 
-#ifdef __FreeBSD__
+#ifndef WIN32
 #define stricmp strcasecmp
-#endif /* __FreeBSD__ */
+#endif /* WIN32 */
 
 int ReadMP3ID3v1Tag(FILE *fi, unsigned char **tagbuff, long *tag_offset) {
     char tmp[128];
@@ -295,13 +299,37 @@ int ReadMP3APETag ( FILE *fp,  struct MP3GainTagInfo *info, struct APETagStruct 
     return 1;
 }
 
-int truncate_file (char *filename, unsigned long truncLength) {
+int truncate_file (char *filename, long truncLength) {
+
+#ifdef WIN32
+    
+   int fh, result;
+
+   /* Open a file */
+    if( (fh = _open(filename, _O_RDWR))  != -1 )
+    {
+        if( ( result = _chsize( fh, truncLength ) ) == 0 ) {
+            _close(fh);
+            return 1;
+        } else {
+            _close(fh);
+            return 0;
+        }
+   } else {
+       return 0;
+   }
+   return 1;
+
+#else
+
+/* if other OS specific truncate commands are available, this would be a good place to put them... */
+
     FILE *orig;
     FILE *tmp;
     char *newfilename;
     char buff[10000];
     long actualRead;
-    unsigned long byteCount;
+    long byteCount;
     
     newfilename = malloc(strlen(filename) + 5);
 
@@ -364,6 +392,7 @@ int truncate_file (char *filename, unsigned long truncLength) {
 	};
     free(newfilename);
     return 1;
+#endif
 }
 
 int ReadMP3GainAPETag (char *filename, struct MP3GainTagInfo *info, struct FileTagsStruct *fileTags) {
