@@ -5,7 +5,7 @@
 
 !define VER_MAJOR 1
 !define VER_MINOR 3
-!define VER_REL 1
+!define VER_REL 2
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
@@ -439,6 +439,11 @@ SectionEnd
 Section "Portuguese"
 SetOutPath $INSTDIR
 File "otherlang\Portugues.mp3gain.ini"
+SectionEnd
+
+Section "Portuguese (Brasil)"
+SetOutPath $INSTDIR
+File "otherlang\Portugues (Brasil).mp3gain.ini"
 SectionEnd
 
 Section "Romanian"
