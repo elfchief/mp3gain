@@ -29,7 +29,7 @@
  *
  *  DLL-ification by John Zitterkopf (zitt@hotmail.com)
  *
- *  Additional tweaks by Artur Polaczynski
+ *  Additional tweaks by Artur Polaczynski, Mark Armbrust, and others
  */
 
 
@@ -2251,13 +2251,13 @@ int main(int argc, char **argv) {
 				}
 			}
 			else {
-				if (autoClip) {
-					int intMaxNoClipGain = (int)(floor(-4.0 * log10(maxmaxsample) / log10(2.0)));
-					if (intGainChange > intMaxNoClipGain) {
-						fprintf(stdout,"Applying auto-clipped mp3 gain change of %d to album\n(Original suggested gain was %d)\n",intMaxNoClipGain,intGainChange);
-						intGainChange = intMaxNoClipGain;
-					}
-				}
+/*MAA*/			if (autoClip) {
+/*MAA*/				int intMaxNoClipGain = (int)(floor(-4.0 * log10(maxmaxsample) / log10(2.0)));
+/*MAA*/				if (intGainChange > intMaxNoClipGain) {
+/*MAA*/					fprintf(stdout,"Applying auto-clipped mp3 gain change of %d to album\n(Original suggested gain was %d)\n",intMaxNoClipGain,intGainChange);
+/*MAA*/					intGainChange = intMaxNoClipGain;
+/*MAA*/				}
+/*MAA*/			}
 				for (mainloop = fileStart; mainloop < argc; mainloop++) {
 					if (fileok[mainloop]) {
 						goAhead = !0;
