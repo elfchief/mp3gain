@@ -27,7 +27,9 @@
 //
 //4) Exposes the protected member function MP4File::TempFileName
 //
-
+//5) Preserves original property values for bufferSizeDB, maxBitrate and avgBitrate.
+//
+//6) Preserves 'free' atom between 'moov' and 'mtda' atoms in files created by iTunes
 #ifndef __MP4_META_FILE_H__
 #define __MP4_META_FILE_H__
 
@@ -42,16 +44,16 @@ public:
     MP4MetaFile(u_int32_t verbosity = 0);
 
     bool DeleteMetadataFreeForm(char *pName);
-
     void ModifySampleByte(MP4TrackId trackId, MP4SampleId sampleId, u_int8_t byte,
                           u_int32_t byteOffset, u_int8_t bitOffset);
-
     u_int64_t GetFileSize();
-
     const char* TempFileName();
+    u_int64_t GetFreeAtomSize();
 
+    //overrides of MP4File member functions
     void Close();
     void FinishWrite();
+    void Optimize(const char* orgFileName, const char* newFileName=NULL, u_int32_t freeAtomSize=0);
 };
 
 #endif //__MP4_META_FILE_H__

@@ -304,6 +304,11 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
 
     *gh = NULL;
 
+    //In order to allow processed files to play on iPod Shuffle, which is extremley sensitive to
+    // file format, we always use a temp file. This runs the MP4File::Optimize function,
+    // which rewrites the processed file in the connanical order.
+    use_temp = true;
+
     file_name_len = strlen(mp4_file_name);
     if ((file_name_len >= 5) && (strcmp(mp4_file_name + file_name_len - 4, ".m4p") == 0))
     {
@@ -356,6 +361,7 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
             fprintf(stderr, "File must contain a single audio track.\n");
             throw new MP4Error();
         }
+        gd->free_atom_size = (u_int32_t)mp4MetaFile->GetFreeAtomSize();
         gd->mp4MetaFile = mp4MetaFile;
     } catch (MP4Error* e)
     {
@@ -654,8 +660,8 @@ int aac_close(AACGainHandle gh)
         {
             //use MP4File::Optimize to undo the wasted space created by MP4File::Modify
             //send optimize output to a temp file "just in case"
-            MP4File f;
-            f.Optimize(gd->temp_name, tempFileName);
+            MP4MetaFile f;
+            f.Optimize(gd->temp_name, tempFileName, gd->free_atom_size);
 
             //rename the temp file back to original name
             int rc = remove(gd->mp4file_name);

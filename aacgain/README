@@ -41,17 +41,10 @@ USAGE NOTES
    with the Visual Basic front-end MP3GainGUI.exe.
 6. When calculating or applying album gain, you may mix aac and mp3 files
    in the same command.
-7. The /t (use temp file) parameter is highly recommended. Without it, if
-   you interrupt AACGain while it is updating the gain or metadata, your
-   aac file will be left in a corrupted state. Without the /t option, the
-   metadata atoms are moved to the end of the file so there is room to add
-   the additional tags described below. /t uses the mp4v2 Optimize 
-   function which moves the tags back to their normal place. Optimize also 
-   reduces the final file size. The extra processing time added by the /t 
-   option is barely noticable. Users have reported that the /t option is
-   required for the processed files to be playable on the iPod Shuffle.
-   If you run AACGain from MP3GainGUI, /t is set by default. Don't it 
-   off!
+7. The /t (use temp file) option is ignored for aac files. A temp file
+   is always used. The mpeg4ip/mp4v2 Optimize function is used to copy the
+   processed file back to the original name. Experience has shown that this
+   is required for processed music files to play on the iPod Shuffle.
 8. The /w (wrap) flag is ignored for aac files, since allowing an aac file
    to wrap will leave it in an unplayable state.
 9. The /f (assume input file is an MPEG 2 Layer III) option is ignored
@@ -71,13 +64,18 @@ USAGE NOTES
     to view the tags.
 
 WHAT'S NEW IN VERSION 1.3
-a) Preserves original values of MP4 properties bufferSizeDB, maxBitrate and 
-   avgBitrate. This resolves problems which prevented files processed by
-   AACGain from playing on iPod Shuffle.
-b) Incorporates recent changes to mp3gain which prevent crashes when
-   working with 48Kbs files on Linux.
-c) Source code directory structure was reorganized to be compatible with mp3gain 
-   CVS on sourceforge. Thanks to Glen Sawyer, the AACGainsource code is now 
+a) Always uses the /t (use temp file) option, even if it is not specified
+   on the command line. This resolves issues where processed files would
+   not play on the iPod Shuffle.
+b) Preserves original values of MP4 properties bufferSizeDB, maxBitrate and 
+   avgBitrate. Without this change, mpeg4ip/mp4vs was recalulating the
+   actual values of these parameters. This caused bitrate as displayed by
+   iTunes to change slightly, i.e. songs ripped at 320KB would display as
+   319KB.
+c) Incorporates recent changes to mp3gain which prevent crashes when
+   working with 48KB files on Linux.
+d) Source code directory structure was reorganized to be compatible with mp3gain 
+   CVS on sourceforge. Thanks to Glen Sawyer, the AACGain source code is now 
    hosted on sourceforge's CVS repository as part of the mp3gain project.
 
 WHAT'S NEW IN VERSION 1.2

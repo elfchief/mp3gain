@@ -19,30 +19,58 @@
 
 #include "MP4MetaFile.h"
 
+//MyMP4Track is a kluge to allow us to call protected member function
+// MP4Track::GetSampleFileOffset(), and to override MP4Track::FinishWrite. 
+// We do this by casting a MP4Track to MyMP4Track. I'm not sure if that is
+// a C++ legal downcast, but based on my userstanding of how C++ generated
+// code handles the "this" pointer as an extra parameter, it should work.
 class MyMP4Track : public MP4Track
 {
 private:
     MyMP4Track(); //can not be instantiated, only cast
 
 public:
-    //This is a kluge to allow us to call protected member function
-    // MP4Track::GetSampleFileOffset(). We do this by casting
-    // a MP4Track to MyMP4Track. I'm not sure if that is a C++ legal
-    // downcast, but based on my userstanding of how C++ code is generated,
-    // it should work.
     u_int64_t	GetSampleFileOffset(MP4SampleId sampleId)
     {
         return MP4Track::GetSampleFileOffset(sampleId);
     }
 
-    //We override MP4Track::FinishWrite to preserve original 
-    // bufferSizeDB, maxBitrate and avgBitrate.
-    //iPod Shuffle got unhappy when these were changed and refused to play files
-    //that had been processed with MP4File.
+    //Override MP4Track::FinishWrite to preserve original 
+    // bufferSizeDB, maxBitrate and avgBitrate. This preserves the
+    // original values of these properties, so that iTunes displays
+    // then as "whole" numbers, i.e 320KB instead of 319KB.
     void FinishWrite()
     {
 	    // write out any remaining samples in chunk buffer
 	    WriteChunkBuffer();
+    }
+};
+
+//A similar kluge to allow us to override protected member function
+// MP4RootAtom::BeginOptimalWrite() to write the extra 'free'
+// atom used by iTunes
+class MyMP4RootAtom : public MP4RootAtom
+{
+private:
+    MyMP4RootAtom();
+
+public:
+    void BeginOptimalWrite(u_int32_t freeAtomSize)
+    {
+	    WriteAtomType("ftyp", OnlyOne);
+	    WriteAtomType("moov", OnlyOne);
+	    WriteAtomType("udta", Many);
+        //AACGain: write the extra 'free' atom used by iTunes
+        if (freeAtomSize)
+        {
+            MP4FreeAtom* freeAtom = new MP4FreeAtom();
+            freeAtom->SetFile(m_pFile);
+            freeAtom->SetSize(freeAtomSize);
+            freeAtom->Write();
+            delete freeAtom;
+        }
+
+	    m_pChildAtoms[GetLastMdatIndex()]->BeginWrite(m_pFile->Use64Bits("mdat"));
     }
 };
 
@@ -128,6 +156,19 @@ const char* MP4MetaFile::TempFileName()
     return strdup(MP4File::TempFileName());
 }
 
+//return the size of the 'free' atom used for padding between 'moov' and 'mdta'
+u_int64_t MP4MetaFile::GetFreeAtomSize()
+{
+    u_int32_t nChildren = m_pRootAtom->GetNumberOfChildAtoms();
+    while (nChildren-- > 0) 
+    {
+        MP4Atom* child = m_pRootAtom->GetChildAtom(nChildren);
+        if (!strcmp(child->GetType(), "free"))
+            return child->GetSize();
+    }
+    return 0;
+}
+
 //override MP4File::Close to call MP4MetaFile::FinishWrite
 void MP4MetaFile::Close()
 {
@@ -166,5 +207,58 @@ void MP4MetaFile::FinishWrite()
 		pFreeAtom->SetSize(size);
 		pFreeAtom->Write();
 		delete pFreeAtom;
+	}
+}
+
+//override MP4File::Optimize to preserve extra 'free' atom used by iTunes
+void MP4MetaFile::Optimize(const char* orgFileName, const char* newFileName, u_int32_t freeAtomSize)
+{
+	m_fileName = MP4Stralloc(orgFileName);
+	m_mode = 'r';
+
+	// first load meta-info into memory
+	Open("rb");
+	ReadFromFile();
+
+	CacheProperties();	// of moov atom
+
+	// now switch over to writing the new file
+	MP4Free(m_fileName);
+
+	// create a temporary file if necessary
+	if (newFileName == NULL) {
+		m_fileName = MP4Stralloc(TempFileName());
+	} else {
+		m_fileName = MP4Stralloc(newFileName);
+	}
+
+	FILE* pReadFile = m_pFile;
+	m_pFile = NULL;
+	m_mode = 'w';
+
+	Open("wb");
+
+	SetIntegerProperty("moov.mvhd.modificationTime", 
+		MP4GetAbsTimestamp());
+
+	// writing meta info in the optimal order
+    //AACGain: call MyMP4RootAtom::BeginOptimalWrite to write the extra 'free' atom used by iTunes
+	((MyMP4RootAtom*)m_pRootAtom)->BeginOptimalWrite(freeAtomSize);
+
+	// write data in optimal order
+	RewriteMdat(pReadFile, m_pFile);
+
+	// finish writing
+	((MP4RootAtom*)m_pRootAtom)->FinishOptimalWrite();
+
+
+	// cleanup
+	fclose(m_pFile);
+	m_pFile = NULL;
+	fclose(pReadFile);
+
+	// move temporary file into place
+	if (newFileName == NULL) {
+		Rename(m_fileName, orgFileName);
 	}
 }

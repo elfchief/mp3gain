@@ -50,6 +50,7 @@ typedef struct GainData
     GainFixupPtr GainHead, GainTail;
     decode_t peak;
     unsigned char min_gain, max_gain;
+    unsigned int free_atom_size;
 } GainData, *GainDataPtr;
 
 #ifdef __cplusplus
