@@ -14,6 +14,7 @@
 !define MUI_ABORTWARNING
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_COMPONENTSPAGE_NODESC
 
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
