@@ -4,8 +4,8 @@
 ;/DFRENCH will make a French installer
 
 !define VER_MAJOR 1
-!define VER_MINOR .3
-!define VER_REL .1
+!define VER_MINOR 3
+!define VER_REL 1
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
@@ -42,10 +42,10 @@
 ; MUI end ------
 
 Name "MP3Gain"
-Caption "MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL}"
+Caption "MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL}"
 Icon misc\mp3gain.ico
 
-;UninstallText "This will uninstall MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} from your system. Would you like to go ahead?" "Uninstalling: "
+;UninstallText "This will uninstall MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL} from your system. Would you like to go ahead?" "Uninstalling: "
 ;UninstallCaption "Uninstalling"
 ShowUninstDetails hide
 ;UninstallButtonText Uninstall
@@ -53,23 +53,23 @@ UninstallIcon misc/uninstall.ico
 
 !ifdef FULL
   !ifdef DEUTSCH
-    OutFile MP3GainFULLDeutschInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainFULLDeutschInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else ifdef SPANISH
-    OutFile MP3GainFULLEspañolInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainFULLEspañolInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else ifdef FRENCH
-    OutFile MP3GainFULLFrenchInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainFULLFrenchInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else
-    OutFile mp3gain-win-full-${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile mp3gain-win-full-${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !endif
 !else
   !ifdef DEUTSCH
-    OutFile MP3GainNORMALDeutschInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainNORMALDeutschInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else ifdef SPANISH
-    OutFile MP3GainNORMALEspañolInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainNORMALEspañolInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else ifdef FRENCH
-    OutFile MP3GainNORMALFrenchInstall_${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile MP3GainNORMALFrenchInstall_${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !else
-    OutFile mp3gain-win-${VER_MAJOR}${VER_MINOR}${VER_REL}.exe
+    OutFile mp3gain-win-${VER_MAJOR}_${VER_MINOR}_${VER_REL}.exe
   !endif
 !endif
 
@@ -87,7 +87,7 @@ FileErrorText `Can't overwrite $0. Please close any programs which may be using 
 DirText "Installation Directory"
 
 !ifdef NSIS_CONFIG_COMPONENTPAGE
-ComponentText "This will install MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} on your computer:"
+ComponentText "This will install MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL} on your computer:"
 !ifdef FULL
 InstType "Full"
 !endif
@@ -502,18 +502,18 @@ FunctionEnd
 
 Function un.onUninstSuccess
   HideWindow
-  MessageBox MB_ICONINFORMATION|MB_OK "MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} was successfully removed from your computer."
+  MessageBox MB_ICONINFORMATION|MB_OK "MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL} was successfully removed from your computer."
 FunctionEnd
 
 Function un.onInit
-  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "This will uninstall MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} from your system. Would you like to go ahead?" IDYES +2
+  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "This will uninstall MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL} from your system. Would you like to go ahead?" IDYES +2
   Abort
 FunctionEnd
 
 Section Uninstall
   
   IfFileExists "$INSTDIR\MP3GainGUI.exe" skip_confirmation
-    MessageBox MB_YESNO `MP3Gain ${VER_MAJOR}${VER_MINOR}${VER_REL} might not be installed properly in "$INSTDIR"$\r$\nWould you still like to try to uninstall (not recommended)?` IDYES skip_confirmation
+    MessageBox MB_YESNO `MP3Gain ${VER_MAJOR}.${VER_MINOR}.${VER_REL} might not be installed properly in "$INSTDIR"$\r$\nWould you still like to try to uninstall (not recommended)?` IDYES skip_confirmation
     Abort "Cancelled Uninstall"
   skip_confirmation:
   
