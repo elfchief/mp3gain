@@ -1,0 +1,1 @@
+#define IDH_GENERAL	1000

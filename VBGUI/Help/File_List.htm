@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<html>
+
+<head>
+
+<title>File List</title>
+
+<link rel=StyleSheet href=NewDefault.css>
+
+</head>
+
+<body>
+
+<h3>File List</h3>
+
+<hr>
+The File List shows you 
+ all files that have been added for processing. If a file name
+ is colored <span style="color: #ff0000;">RED</span>, then one or more
+ of the following conditions is true:
+<ul>
+	
+	<li>The file is currently clipping <i>(indicated by a "Y" in the "clipping" column)</i>.</li>
+	
+	<li>The file will have clipping if you apply <b>Track Gain</b> <i>(indicated by a "Y" in the "clip(Track)" column)</i></li>
+	
+	<li>The file will have clipping if you apply <b>Album Gain</b> <i>(indicated by a "Y" in the "clip(Album)" column)</i></li>
+</ul>
+
+<p>
+
+<center><img src="FileList1.jpg" width=400 height=121></center>
+
+<p>
+Here is what each of the columns in the file list means:
+<table>
+<col style="width: 20.3%; font-weight: bold">
+<col style="width: 79.7%;">
+
+<tr>
+<td>Volume</td>
+<td>The current volume of 
+ the mp3, in dB SPL. If you play back the mp3 in a calibrated system, it 
+ will have this average sound pressure level in decibels.</td></tr>
+
+<tr>
+<td>clipping</td>
+<td>This column has a <b>Y</b> if the mp3 file is currently clipping. 
+ <b>“Clipping”</b> means that when the mp3 file is decoded by your player, some 
+ of the sound samples will be too loud. The player will “clip” these samples 
+ so that they do not exceed the maximum allowable value. This clipping 
+ creates a sort of rough, “scratchy” sound during loud parts of the song.</td></tr>
+
+<tr>
+<td>Track Gain</td>
+<td>The dB change that should 
+ be applied to this mp3 so that its average volume is as close to the target 
+ volume as possible.</td></tr>
+
+<tr>
+<td>clip (Track)</td>
+<td>
+This column has a <b>Y</b> if the mp3 will clip if the suggested 
+ <b>Track Gain</b> is applied.</td></tr>
+
+<tr>
+<td>Max Noclip Gain</td>
+<td><i>(Only visible when <a href="Options_menu.htm#Maximizing">Maximizing</a> features are enabled)</i><br>
+Shows the maximum gain change that can be applied to this file without any clipping</td>
+</tr>
+<tr>
+<td>Album Volume</td>
+<td>The current overall volume of the <b>Album</b>.</td></tr>
+
+<tr>
+<td>Album Gain</td>
+<td>The dB change that should 
+ be applied to all the mp3s in the <b>Album</b> 
+ so that the overall volume is as close to the target volume as possible.</td></tr>
+
+<tr>
+<td>clip (Album)</td>
+<td>This column has a <b>Y</b> if the mp3 will clip if the suggested 
+ <b>Album Gain</b> is applied.</td></tr>
+</table>
+
+<p>
+
+<i>NOTE:</i> - The 
+ <b>Track Gain</b> and <b>Album 
+ Gain</b> columns are rounded to the nearest 
+ 1.5 dB change. The <a href="Concepts.htm#Lossless">lossless method</a> 
+ MP3Gain uses to modify mp3 files is limited to 1.5 dB as the smallest 
+ possible volume change.
+ 
+<p>
+
+If there is a <b>???</b> 
+ in the <b>clipping</b> column for a file, 
+ then the mp3 probably has some bad data in it. This 
+ bad data could have been caused by a download error, a poor job of splicing 
+ two mp3s into one, or other factors. Listen closely to the mp3, and somewhere 
+ you'll probably be able to hear a loud click, pop, “chk”, or other sound. Because 
+ of this bad data, the program cannot accurately determine the maximum 
+ amplitude, because the bad data is causing extreme clipping.<br>
+
+Fortunately, in most cases 
+ the amount of bad data is small enough that it does not affect the calculation 
+ of the overall volume of the file. The suggested <b>Track</b> 
+ and <b>Album</b> gains are probably still valid. 
+ 
+</body>
+
+</html>

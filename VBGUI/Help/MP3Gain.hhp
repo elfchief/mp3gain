@@ -1,0 +1,44 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=MP3Gain.chm
+Contents file=MP3Gain.hhc
+Default Window=NewWindow
+Default topic=MP3Gain.htm
+Display compile notes=No
+Display compile progress=No
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=MP3Gain
+
+[WINDOWS]
+NewWindow="MP3Gain Help","MP3Gain.hhc",,,"MP3Gain.htm","http://www.geocities.com/mp3gain/","MP3Gain Web",,,0x40520,,0x4300e,[0,0,800,580],,,,,,,0
+
+[FILES]
+Concepts.htm
+Overview.htm
+MP3Gain.htm
+Credits.htm
+Help_menu.htm
+Modify_Gain_menu.htm
+Options_menu.htm
+Analysis_menu.htm
+File_menu.htm
+Button_Bar.htm
+Target_Volume.htm
+File_List.htm
+Status.htm
+MP3Gain_Interface.htm
+Menus.htm
+Correct_Several_Unrelated_Songs.htm
+Correct_a_Complete_Album_of_Songs.htm
+How_Do_I.htm
+Language_menu.htm
+
+[ALIAS]
+IDH_GENERAL=MP3Gain.htm
+
+[MAP]
+#include MP3GainMappings.h
+
+[INFOTYPES]
+

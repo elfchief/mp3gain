@@ -1,0 +1,164 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<html>
+
+<head>
+
+<title>Options menu</title>
+
+<link rel=StyleSheet href=NewDefault.css>
+
+</head>
+
+<body>
+
+<h3>Options menu</h3>
+
+<hr>
+
+The <b>Options</b> menu has the following items:
+
+<table>
+<col style="width: 33.728%; font-weight: bold;">
+<col style="width: 66.272%;">
+
+<tr>
+<td>Always on Top</td>
+<td>If this option is checked, 
+ the MP3Gain window will always stay on top of other windows.</td></tr>
+
+<tr>
+<td>Work on Selected files only</td>
+<td>If this option is checked, 
+ then only those files that are currently selected will be operated on if 
+ you do an <b>Analysis</b> or <b>Gain</b>.</td></tr>
+
+<tr>
+<td>Add Subfolders</td>
+<td>If checked, then when 
+ you <b>Add a Folder</b>, all of the mp3s 
+ in all of the folders inside the selected folder will be added to the 
+ list.</td></tr>
+
+<tr>
+<td>Preserve file date/time</td>
+<td>If checked, changed files 
+ will keep their original timestamp. If 
+ unchecked, file timestamps will change when Gain changes are applied.</td></tr>
+
+<tr>
+<td>No check for Layer I or II</td>
+<td>MP3Gain will only work on mp3 files. 
+On rare occasions, MP3Gain will mis-identify an mp3 file as an mp2 or mp1 file and refuse to 
+do analysis or gain changes on the file.<br>
+Enabling this option forces mp3Gain to skip the safety check, 
+allowing you to change the gain on these mis-identified files.
+<p>
+Be careful, though; if you have any mp2 or mp1 files that are accidentally mis-named as mp3 files,
+then when you use MP3Gain to make gain chages on those files, the program will just corrupt the data
+in those files.
+</td></tr>
+
+<tr>
+<td><a name=Logs></a>Logs...</td>
+<td>You can have MP3Gain record its 
+ operations to various logfiles. Selecting 
+ this item will launch the <b>Logs</b> 
+ window:</p>
+<p>
+<center><img src="Log.jpg" width=300 height=148></center>
+<p>
+You can specify the directory 
+ and filename for log files that will collect all errors, analysis results 
+ and changes made.</td></tr>
+
+<tr>
+<td>Toolbar</td>
+<td>You can modify the look 
+ of the toolbar with this item. Available 
+ options for the toolbar are:
+<p>
+Big Buttons<br>
+Small Buttons<br>
+Text Buttons<br>
+No Buttons</td></tr>
+
+<tr>
+<td>Filename Display</td>
+<td>You can select how files 
+ are displayed in the <a href="File_List.htm">File List</a>. By 
+ default, files are shown with their full path and filename. Available 
+ options for the filename display are:
+<p>
+Show Path/File<br>
+Show File only<br>
+Show Path &amp; File (as separate columns)</td></tr>
+
+<tr>
+<td>Minimize to Tray</td>
+<td>If this option is checked, then when you minimize the MP3Gain window it will appear as an
+icon in the system tray notification area (the little rectangle in the bottom right corner of
+your screen) instead of appearing on your taskbar.<br>
+Useful for keeping your taskbar clean while MP3Gain is working in the background.</td></tr>
+
+<tr>
+<td>Reset Default Column Widths</td>
+<td>This option will reset 
+ the column positions &amp; sizes to their default settings. Use 
+ this if you accidentally hide a column under another, or off the screen.</td></tr>
+
+<tr>
+<td>Reset &quot;Warning&quot; messages</td>
+<td>The first time you perform some actions in MP3Gain (<b>Clear Analysis</b>, for example),
+ the program pops up a dialog box with a warning message. On this dialog box, there's 
+ a check box that says <b>Don't ask me again</b>. 
+ If you check that box, the program stops showing that particular warning message.
+ <p>
+Clicking <b>Reset &quot;Warning&quot; Messages</b> makes those 
+warning messages start popping up again.</td></tr>
+
+<tr>
+<td>Advanced...</td>
+<td>Advanced options allows 
+ you to modify <b>Thread Priority</b> 
+ and <b>Performance</b> variables, and allows you to turn on "maximizing" features.</p>
+<p>
+<center><img src="AdvOptions.jpg" width=299 height=177></center>
+<p>
+<table>
+<col style="width: 40.164%; font-weight: bold;">
+<col style="width: 59.836%;">
+
+<tr>
+<td>Thread Priority</td>
+<td>This adjusts what priority 
+ the program has in using your computer's resources. If you know what this 
+ means, feel free to play with this setting. If you don't know what this 
+ means, just leave it alone :)</td></tr>
+
+<tr>
+<td>Performance</td>
+<td>Checking these boxes might make MP3Gain run slightly faster on your machine. Unfortunately,
+it also might make your computer freeze up when you apply Gain changes.
+If that happens, just reboot, start MP3Gain again, and un-check the box you checked.</td></tr>
+
+<tr>
+<a name=Maximizing></a>
+<td>Enable &quot;Maximizing&quot; features</td>
+<td>"Maximizing" is the word I use to describe what most audio programs call "normalizing":
+finding the maximum amplitude of sound files and setting them to a specified level.<br>
+This is <b>not</b> a good way to make audio files sound like they're the same volume. It was my
+experience with a "normalizing" program that made me write MP3Gain.<br>
+When you check this box, a message pops up with a link to some files that demonstrate the volume differences
+that can remain between songs when you maximize the amplitudes of audio files instead of
+volume normalizing.
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+
+
+</body>
+
+</html>
