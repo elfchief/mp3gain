@@ -49,6 +49,9 @@ public:
     u_int64_t GetFileSize();
 
     const char* TempFileName();
+
+    void Close();
+    void FinishWrite();
 };
 
 #endif //__MP4_META_FILE_H__

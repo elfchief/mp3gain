@@ -19,20 +19,30 @@
 
 #include "MP4MetaFile.h"
 
-//this is a kluge to allow us to call protected member function
-// MP4Track::GetSampleFileOffset(). We do this by casting
-// a MP4Track to MyMP4Track. I'm not sure if that is a C++ legal
-// downcast, but based on my userstanding of how C++ code is generated,
-// it should work.
 class MyMP4Track : public MP4Track
 {
 private:
     MyMP4Track(); //can not be instantiated, only cast
 
 public:
+    //This is a kluge to allow us to call protected member function
+    // MP4Track::GetSampleFileOffset(). We do this by casting
+    // a MP4Track to MyMP4Track. I'm not sure if that is a C++ legal
+    // downcast, but based on my userstanding of how C++ code is generated,
+    // it should work.
     u_int64_t	GetSampleFileOffset(MP4SampleId sampleId)
     {
         return MP4Track::GetSampleFileOffset(sampleId);
+    }
+
+    //We override MP4Track::FinishWrite to preserve original 
+    // bufferSizeDB, maxBitrate and avgBitrate.
+    //iPod Shuffle got unhappy when these were changed and refused to play files
+    //that had been processed with MP4File.
+    void FinishWrite()
+    {
+	    // write out any remaining samples in chunk buffer
+	    WriteChunkBuffer();
     }
 };
 
@@ -116,4 +126,45 @@ const char* MP4MetaFile::TempFileName()
     //strdup the result of MP4File::TempFileName() since
     // the string needs to outlive the class instance
     return strdup(MP4File::TempFileName());
+}
+
+//override MP4File::Close to call MP4MetaFile::FinishWrite
+void MP4MetaFile::Close()
+{
+	if (m_mode == 'w') {
+		SetIntegerProperty("moov.mvhd.modificationTime", 
+			MP4GetAbsTimestamp());
+
+		FinishWrite();
+	}
+
+	fclose(m_pFile);
+	m_pFile = NULL;
+}
+
+//override MP4File::FinishWrite to call MyMP4Track::FinishWrite
+void MP4MetaFile::FinishWrite()
+{
+	// for all tracks, flush chunking buffers
+	for (u_int32_t i = 0; i < m_pTracks.Size(); i++) {
+		ASSERT(m_pTracks[i]);
+        ((MyMP4Track*)m_pTracks[i])->MyMP4Track::FinishWrite();
+	}
+
+	// ask root atom to write
+	m_pRootAtom->FinishWrite();
+
+	// check if file shrunk, e.g. we deleted a track
+	if (GetSize() < m_orgFileSize) {
+		// just use a free atom to mark unused space
+		// MP4Optimize() should be used to clean up this space
+		MP4Atom* pFreeAtom = MP4Atom::CreateAtom("free");
+		ASSERT(pFreeAtom);
+		pFreeAtom->SetFile(this);
+		int64_t size = m_orgFileSize - (m_fileSize + 8);
+		if (size < 0) size = 0;
+		pFreeAtom->SetSize(size);
+		pFreeAtom->Write();
+		delete pFreeAtom;
+	}
 }
