@@ -2071,12 +2071,13 @@ int main(int argc, char **argv) {
                                         intGainChange = intMaxNoClipGain;
                                     }
                                 } else if (!ignoreClipWarning) {
-									if (maxsample * (Float_t)(pow(2.0,(double)(intGainChange)/4.0)) > 32767.0) 
+                                    if (maxsample * (Float_t)(pow(2.0,(double)(intGainChange)/4.0)) > 32767.0) {
                                         if (queryUserForClipping(argv[mainloop],intGainChange)) {
     									    fprintf(stdout,"Applying mp3 gain change of %d to %s...\n\n",intGainChange,argv[mainloop]);
                                         } else {
                                             goAhead = 0;
                                         }
+                                    }
                                 }
                                 if (goAhead) {
 									fprintf(stdout,"Applying mp3 gain change of %d to %s...\n\n",intGainChange,argv[mainloop]);
