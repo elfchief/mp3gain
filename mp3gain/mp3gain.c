@@ -2101,7 +2101,7 @@ int main(int argc, char **argv) {
 							
 							if (intGainChange == 0) {
 								fprintf(stdout,"No changes to %s are necessary\n",argv[mainloop]);
-								if (tagInfo[mainloop].dirty) {
+								if (!skipTag && tagInfo[mainloop].dirty) {
 									fprintf(stdout,"...but tag needs update: Writing tag information for %s\n",argv[mainloop]);
 									WriteMP3GainAPETag(argv[mainloop],tagInfo + mainloop, fileTags + mainloop, saveTime);
 								}
@@ -2263,7 +2263,7 @@ int main(int argc, char **argv) {
 						goAhead = !0;
 						if (intGainChange == 0) {
 							fprintf(stdout,"\nNo changes to %s are necessary\n",argv[mainloop]);
-							if (tagInfo[mainloop].dirty) {
+							if (!skipTag && tagInfo[mainloop].dirty) {
 								fprintf(stdout,"...but tag needs update: Writing tag information for %s\n",argv[mainloop]);
 								WriteMP3GainAPETag(argv[mainloop],tagInfo + mainloop, fileTags + mainloop, saveTime);
 							}
