@@ -171,15 +171,20 @@ static const Float_t ABButter[9][2*BUTTER_ORDER + 1] = {
 #pragma warning ( default : 4305 )
 #endif
 
-// When calling this procedure, make sure that ip[-order] and op[-order] point to real data!
+// When calling these filter procedures, make sure that ip[-order] and op[-order] point to real data!
+
+// If your compiler complains that "'operation on 'output' may be undefined", you can
+// either ignore the warnings or uncomment the three "y" lines (and comment out the indicated line)
 
 static void
 filterYule (const Float_t* input, Float_t* output, size_t nSamples, const Float_t* kernel)
 {
-    //register double  y;
+    //register Float_t  y;
 
     while (nSamples--) {
-        *output++ =  input [0]  * kernel[0]
+        //y =  // COMMENT OUT the "*output++ = " line below if you uncomment this line
+        *output++ =  
+           input [0]  * kernel[0]
          - output[-1] * kernel[1]
          + input [-1] * kernel[2]
          - output[-2] * kernel[3]
@@ -201,22 +206,24 @@ filterYule (const Float_t* input, Float_t* output, size_t nSamples, const Float_
          - output[-10]* kernel[19]
          + input [-10]* kernel[20];
         ++input;
-        //*output++ = (Float_t)y;
+        //*output++ = y;
     }
 }
 
 static void
 filterButter (const Float_t* input, Float_t* output, size_t nSamples, const Float_t* kernel)
-{   //register double  y;
+{   //register Float_t  y;
 
     while (nSamples--) {
-        *output++ =  input [0]  * kernel[0]
+        //y =  // COMMENT OUT the "*output++ = " line below if you uncomment this line
+        *output++ =  
+           input [0]  * kernel[0]
          - output[-1] * kernel[1]
          + input [-1] * kernel[2]
          - output[-2] * kernel[3]
          + input [-2] * kernel[4];
         ++input;
-        //*output++ = (Float_t)y;
+        //*output++ = y;
     }
 }
 
