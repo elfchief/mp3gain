@@ -335,7 +335,7 @@ int truncate_file (char *filename, long truncLength) {
     long actualRead;
     long byteCount;
     
-    newfilename = malloc(strlen(filename) + 5);
+    newfilename = (char *)malloc(strlen(filename) + 5);
 
     strcpy(newfilename,filename);
     strcat(newfilename,".tmp");
