@@ -4,9 +4,9 @@
 # Mike Oliphant (oliphant@gtk.org)
 #
 
-CC=     g++
+CC=     gcc
 
-CFLAGS= -Wall -O3 -DHAVE_MEMCPY -DNIX
+CFLAGS= -Wall -O3 -DHAVE_MEMCPY
 
 ifneq ($(OSTYPE),beos)
 INSTALL_PATH= /usr/local/bin
