@@ -724,7 +724,7 @@ int changeGain(char *filename, int leftgainchange, int rightgainchange) {
 		if (!ok) {
             if (!BadLayer)
 				passError( MP3GAIN_UNSPECIFED_ERROR, 3,
-                    "Can't find any valid MP3 frames in file ", filename, "\n\n");
+                    "Can't find any valid MP3 frames in file ", filename, "\n");
 		}
 		else {
 			LayerSet = 1; /* We've found at least one valid layer 3 frame.
@@ -1172,8 +1172,8 @@ static
 void errUsage(char *progname) {
 	showVersion(progname);
 	fprintf(stderr,"copyright(c) 2003 by Glen Sawyer\n");
-	fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n\n");
-	fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n\n",progname);
+	fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
+	fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n",progname);
 	fprintf(stderr,"  --use \"%s %c?\" for a full list of options\n",progname,SWITCH_CHAR);
     fclose(stdout);
     fclose(stderr);
@@ -1186,15 +1186,15 @@ static
 void fullUsage(char *progname) {
 		showVersion(progname);
 		fprintf(stderr,"copyright(c) 2003 by Glen Sawyer\n");
-		fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n\n");
-		fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n\n",progname);
+		fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
+		fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n",progname);
 		fprintf(stderr,"options:\n");
 		fprintf(stderr,"\t%cv - show version number\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cg <i>  - apply gain i to mp3 without doing any analysis\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cl 0 <i> - apply gain i to channel 0 (left channel) of mp3\n",SWITCH_CHAR);
 		fprintf(stderr,"\t          without doing any analysis (ONLY works for STEREO mp3s,\n");
 		fprintf(stderr,"\t          not Joint Stereo mp3s)\n");
-		fprintf(stderr,"\t%cl 1 <i> - apply gain i to channel 1 (right channel) of mp3\n\n",SWITCH_CHAR);
+		fprintf(stderr,"\t%cl 1 <i> - apply gain i to channel 1 (right channel) of mp3\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cr - apply Track gain automatically (all files set to equal loudness)\n",SWITCH_CHAR);
     	fprintf(stderr,"\t%ck - automatically lower Track gain to not clip audio\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%ca - apply Album gain automatically (files are all from the same\n",SWITCH_CHAR);
@@ -1212,14 +1212,14 @@ void fullUsage(char *progname) {
 		fprintf(stderr,"\t%cx - Only find max. amplitude of mp3\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cf - Force mp3gain to assume input file is an MPEG 2 Layer III file\n",SWITCH_CHAR);
 		fprintf(stderr,"\t     (i.e. don't check for mis-named Layer I or Layer II files)\n");
-		fprintf(stderr,"\t%c? - show this message\n\n",SWITCH_CHAR);
+		fprintf(stderr,"\t%c? - show this message\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cs c - only check stored tag info (no other processing)\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cs d - delete stored tag info (no other processing)\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cs s - skip (ignore) stored tag info (do not read or write tags)\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cs r - force re-calculation (do not read tag info)\n",SWITCH_CHAR);
-		fprintf(stderr,"\t%cu - undo changes made by mp3gain (based on stored tag info)\n\n",SWITCH_CHAR);
+		fprintf(stderr,"\t%cu - undo changes made by mp3gain (based on stored tag info)\n",SWITCH_CHAR);
         fprintf(stderr,"\t%cw - \"wrap\" gain change if gain+change > 255 or gain+change < 0\n",SWITCH_CHAR);
-        fprintf(stderr,"\t      (use \"%c? wrap\" switch for a complete explanation)\n\n",SWITCH_CHAR);
+        fprintf(stderr,"\t      (use \"%c? wrap\" switch for a complete explanation)\n",SWITCH_CHAR);
 		fprintf(stderr,"If you specify %cr and %ca, only the second one will work\n",SWITCH_CHAR,SWITCH_CHAR);
 		fprintf(stderr,"If you do not specify %cc, the program will stop and ask before\n     applying gain change to a file that might clip\n",SWITCH_CHAR);
         fclose(stdout);
@@ -1514,7 +1514,7 @@ int main(int argc, char **argv) {
 					break;
 
 				default:
-					fprintf(stderr,"I don't recognize option %s\n\n",argv[i]);
+					fprintf(stderr,"I don't recognize option %s\n",argv[i]);
 			}
 		}
 	}
@@ -1797,7 +1797,7 @@ int main(int argc, char **argv) {
 		  }
 
 		  if ((inf == NULL)&&(needRecalc > 0)) {
-			  fprintf(stdout, "Can't open %s for reading\n\n",argv[mainloop]);
+			  fprintf(stdout, "Can't open %s for reading\n",argv[mainloop]);
               fflush(stdout);
 		  }
 		  else {
@@ -1836,7 +1836,7 @@ int main(int argc, char **argv) {
 				
 				if (!ok) {
                     if (!BadLayer) {
-						fprintf(stdout,"Can't find any valid MP3 frames in file %s\n\n",argv[mainloop]);
+						fprintf(stdout,"Can't find any valid MP3 frames in file %s\n",argv[mainloop]);
                         fflush(stdout);
                     }
 				}
@@ -1999,7 +1999,7 @@ int main(int argc, char **argv) {
 					}
 
 					if (dBchange == GAIN_NOT_ENOUGH_SAMPLES) {
-						fprintf(stdout,"Not enough samples in %s to do analysis\n\n",argv[mainloop]);
+						fprintf(stdout,"Not enough samples in %s to do analysis\n",argv[mainloop]);
                         fflush(stdout);
 						numFiles--;
 					}
@@ -2077,20 +2077,20 @@ int main(int argc, char **argv) {
                                 if (autoClip) {
                                     int intMaxNoClipGain = (int)(floor(4.0 * log10(32767.0 / maxsample) / log10(2.0)));
                                     if (intGainChange > intMaxNoClipGain) {
-                                        fprintf(stdout,"Applying auto-clipped mp3 gain change of %d to %s\n(Original suggested gain was %d)\n\n",intMaxNoClipGain,argv[mainloop],intGainChange);
+                                        fprintf(stdout,"Applying auto-clipped mp3 gain change of %d to %s\n(Original suggested gain was %d)\n",intMaxNoClipGain,argv[mainloop],intGainChange);
                                         intGainChange = intMaxNoClipGain;
                                     }
                                 } else if (!ignoreClipWarning) {
                                     if (maxsample * (Float_t)(pow(2.0,(double)(intGainChange)/4.0)) > 32767.0) {
                                         if (queryUserForClipping(argv[mainloop],intGainChange)) {
-    									    fprintf(stdout,"Applying mp3 gain change of %d to %s...\n\n",intGainChange,argv[mainloop]);
+    									    fprintf(stdout,"Applying mp3 gain change of %d to %s...\n",intGainChange,argv[mainloop]);
                                         } else {
                                             goAhead = 0;
                                         }
                                     }
                                 }
                                 if (goAhead) {
-									fprintf(stdout,"Applying mp3 gain change of %d to %s...\n\n",intGainChange,argv[mainloop]);
+									fprintf(stdout,"Applying mp3 gain change of %d to %s...\n",intGainChange,argv[mainloop]);
                                     if (skipTag) {
 	                                    changeGain(argv[mainloop],intGainChange,intGainChange);
                                     } else {
@@ -2128,7 +2128,7 @@ int main(int argc, char **argv) {
 		}
 
 		if (dBchange == GAIN_NOT_ENOUGH_SAMPLES) {
-			fprintf(stdout,"Not enough samples in mp3 files to do analysis\n\n");
+			fprintf(stdout,"Not enough samples in mp3 files to do analysis\n");
             fflush(stdout);
 		}
 		else {
@@ -2204,7 +2204,7 @@ int main(int argc, char **argv) {
 			if (!applyAlbum) {
 				if (!databaseFormat) {
 					fprintf(stdout,"\nRecommended \"Album\" dB change for all files: %f\n",dBchange);
-					fprintf(stdout,"Recommended \"Album\" mp3 gain change for all files: %d\n\n",intGainChange);
+					fprintf(stdout,"Recommended \"Album\" mp3 gain change for all files: %d\n",intGainChange);
 					for (mainloop = fileStart; mainloop < argc; mainloop++) {
 						if (fileok[mainloop])
 							if (tagInfo[mainloop].trackPeak * (Float_t)(pow(2.0,(double)(intGainChange)/4.0)) > 1.0) {
