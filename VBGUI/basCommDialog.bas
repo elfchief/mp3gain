@@ -11,6 +11,8 @@ Attribute VB_Name = "basCommDialog"
 ' Ken Getz and Paul Litwin
 ' Waite Group Press, 1996
 
+'Modifications as marked by Glen Sawyer
+
 Type tagOPENFILENAME
     lStructSize As Long
     hwndOwner As Long

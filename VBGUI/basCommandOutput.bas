@@ -11,7 +11,7 @@ Attribute VB_Name = "basCommandOutput"
 ''
 ''
 '' Copyright ©2000-2001, Mattias Sjögren
-''
+'' Extensively modified (probably made worse!) by Glen Sawyer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Option Explicit

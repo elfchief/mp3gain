@@ -13,6 +13,34 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'
+'  MP3Info.cls - MP3GainGUI class to store MP3 Replay Gain information
+'
+'  Copyright (C) 2003 Glen Sawyer
+'
+'  This library is free software; you can redistribute it and/or
+'  modify it under the terms of the GNU Lesser General Public
+'  License as published by the Free Software Foundation; either
+'  version 2.1 of the License, or (at your option) any later version.
+'
+'  This library is distributed in the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty of
+'  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+'  Lesser General Public License for more details.
+'
+'  You should have received a copy of the GNU Lesser General Public
+'  License along with this library; if not, write to the Free Software
+'  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+'
+'  coding by Glen Sawyer (mp3gain@hotmail.com) 735 W 255 N, Orem, UT 84057-4505 USA
+'
+'  DISCLAIMER: The MP3GainGUI code is ugly. REALLY ugly. It was A) my first major
+'     VB program, and B) supposed to be just a small proof-of-concept thing, but
+'     it kept growing and growing...
+'     So there's a LOT in here that I would do completely differently if I were
+'     to start over from scratch.
+'
+
 'local variable(s) to hold property value(s)
 Private mvarRadiodBGain As Double 'local copy
 Private mvarAlbumdBGain As Double 'local copy
