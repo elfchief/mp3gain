@@ -13,6 +13,7 @@ Title=MP3Gain
 [WINDOWS]
 NewWindow="MP3Gain Help","MP3Gain.hhc",,,"MP3Gain.htm","http://mp3gain.sourceforge.net/","MP3Gain Web",,,0x40520,,0x4300e,[0,0,800,580],,,,,,,0
 
+
 [FILES]
 Concepts.htm
 Overview.htm
@@ -33,6 +34,10 @@ Correct_Several_Unrelated_Songs.htm
 Correct_a_Complete_Album_of_Songs.htm
 How_Do_I.htm
 Language_menu.htm
+Troubleshooting.htm
+BlackScreen.htm
+TagProblems.htm
+Tags.htm
 
 [ALIAS]
 IDH_GENERAL=MP3Gain.htm

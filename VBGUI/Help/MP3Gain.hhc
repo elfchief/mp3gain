@@ -88,6 +88,11 @@
 				</OBJECT>
 		</UL>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Tags">
+			<param name="Local" value="Tags.htm">
+			<param name="ImageNumber" value="11">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="How Do I...?">
 			<param name="Local" value="How_Do_I.htm">
 			</OBJECT>
@@ -100,6 +105,22 @@
 			<LI> <OBJECT type="text/sitemap">
 				<param name="Name" value="Make each mp3 folder the same average volume">
 				<param name="Local" value="Correct_a_Complete_Album_of_Songs.htm">
+				<param name="ImageNumber" value="11">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Troubleshooting">
+			<param name="Local" value="Troubleshooting.htm">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Black screen">
+				<param name="Local" value="BlackScreen.htm">
+				<param name="ImageNumber" value="11">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Tag Problems">
+				<param name="Local" value="TagProblems.htm">
 				<param name="ImageNumber" value="11">
 				</OBJECT>
 		</UL>
