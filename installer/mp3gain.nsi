@@ -4,8 +4,8 @@
 ;/DFRENCH will make a French installer
 
 !define VER_MAJOR 1
-!define VER_MINOR .2
-!define VER_REL .3
+!define VER_MINOR .3
+!define VER_REL .1
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
@@ -395,6 +395,21 @@ HaveGermanHelp:
 
 SectionEnd
 !endif
+
+Section "Greek"
+SetOutPath $INSTDIR
+File "otherlang\Greek.mp3gain.ini"
+SectionEnd
+
+Section "Hellenic"
+SetOutPath $INSTDIR
+File "otherlang\Hellenic.mp3gain.ini"
+SectionEnd
+
+Section "Hebrew"
+SetOutPath $INSTDIR
+File "otherlang\Hebrew.mp3gain.ini"
+SectionEnd
 
 Section "Hungarian"
 SetOutPath $INSTDIR
