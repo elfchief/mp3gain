@@ -27,6 +27,8 @@ OBJS=	mp3gain.o apetag.o gain_analysis.o rg_error.o \
 	mpglibDBL/decode_i386.o mpglibDBL/interface.o \
 	mpglibDBL/layer3.o mpglibDBL/tabinit.o
 
+all: mp3gain
+
 mp3gain: $(OBJS)
 	$(CC) -o mp3gain $(OBJS) $(LIBS)
 ifeq ($(OSTYPE),beos)
