@@ -678,9 +678,19 @@ int changeGain(char *filename, int leftgainchange, int rightgainchange) {
   if (UsingTemp) {
 	  fflush(stderr);
 	  fflush(stdout);
-	  outfilename = (char *)malloc(strlen(filename)+5);
+	  outlength = strlen(filename);
+	  outfilename = (char *)malloc(outlength+5);
 	  strcpy(outfilename,filename);
-	  strcat(outfilename,".tmp");
+	  if ((filename[outlength-3] == 'T' || filename[outlength-3] == 't') &&
+			(filename[outlength-2] == 'M' || filename[outlength-2] == 'm') &&
+			(filename[outlength-1] == 'P' || filename[outlength-1] == 'p')) {
+		  strcat(outfilename,".TMP");
+	  }
+	  else {
+		  outfilename[outlength-3] = 'T';
+		  outfilename[outlength-2] = 'M';
+		  outfilename[outlength-1] = 'P';
+	  }
 
       inf = fopen(filename,"r+b");
 
