@@ -158,7 +158,7 @@ int ReadMP3APETag ( FILE *fp,  struct MP3GainTagInfo *info, struct APETagStruct 
     int                         is_info;
 	char						tmpString[10];
 
-	if ( *tag_offset < sizeof(T) ) return 0;
+	if ( *tag_offset < (long)(sizeof(T)) ) return 0;
     if ( fseek(fp,*tag_offset - sizeof(T),SEEK_SET) ) return 0;
     if ( fread (&T, 1, sizeof(T), fp) != sizeof(T) ) return 0;
     if ( memcmp (T.ID, "APETAGEX", sizeof(T.ID)) ) return 0;
