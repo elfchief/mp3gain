@@ -684,6 +684,11 @@ int RemoveMP3GainAPETag (char *filename, int saveTimeStamp) {
 	info.haveMinMaxGain = 0;
 	info.haveAlbumMinMaxGain = 0;
 	info.haveUndo = 0;
+    
+    fileTags.apeTag = NULL;
+    fileTags.id31tag = NULL;
+    fileTags.lyrics3tag = NULL;
+    fileTags.lyrics3TagSize = 0;
 
 	ReadMP3GainAPETag(filename, &info, &fileTags);
 
