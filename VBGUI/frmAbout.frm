@@ -143,7 +143,7 @@ Begin VB.Form frmAbout
       WordWrap        =   -1  'True
    End
    Begin VB.Label Label4 
-      Caption         =   "http://www.geocities.com/mp3gain"
+      Caption         =   "http://mp3gain.sourceforge.net"
       ForeColor       =   &H8000000D&
       Height          =   255
       Left            =   1080

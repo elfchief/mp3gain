@@ -42,7 +42,7 @@ Begin VB.Form frmDonate
    End
    Begin VB.Label Label3 
       AutoSize        =   -1  'True
-      Caption         =   $"frmDonate.frx":04E6
+      Caption         =   $"frmDonate.frx":04E3
       Height          =   585
       Left            =   120
       TabIndex        =   4
@@ -61,7 +61,7 @@ Begin VB.Form frmDonate
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
-      Caption         =   $"frmDonate.frx":0578
+      Caption         =   $"frmDonate.frx":0575
       Height          =   780
       Left            =   120
       TabIndex        =   2

@@ -24,23 +24,23 @@ Begin VB.Form frmMaximizing
    End
    Begin VB.Label Label2 
       AutoSize        =   -1  'True
-      Caption         =   "http://privatewww.essex.ac.uk/~djmrob/replaygain/faq_norm.html"
+      Caption         =   "http://replaygain.hydrogenaudio.org/faq_norm.html"
       ForeColor       =   &H8000000D&
-      Height          =   255
+      Height          =   195
       Left            =   120
       TabIndex        =   2
       Top             =   720
-      Width           =   4710
+      Width           =   3615
    End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
-      Caption         =   "http://www.geocities.com/mp3gain/MaxAmpBad.html"
+      Caption         =   "http://mp3gain.sourceforge.net/maximizing.php"
       ForeColor       =   &H8000000D&
-      Height          =   255
+      Height          =   195
       Left            =   120
       TabIndex        =   3
       Top             =   1500
-      Width           =   3825
+      Width           =   3360
    End
    Begin VB.Label Label5 
       AutoSize        =   -1  'True

@@ -11,7 +11,7 @@ Language=0x409 English (United States)
 Title=MP3Gain
 
 [WINDOWS]
-NewWindow="MP3Gain Help","MP3Gain.hhc",,,"MP3Gain.htm","http://www.geocities.com/mp3gain/","MP3Gain Web",,,0x40520,,0x4300e,[0,0,800,580],,,,,,,0
+NewWindow="MP3Gain Help","MP3Gain.hhc",,,"MP3Gain.htm","http://mp3gain.sourceforge.net/","MP3Gain Web",,,0x40520,,0x4300e,[0,0,800,580],,,,,,,0
 
 [FILES]
 Concepts.htm
