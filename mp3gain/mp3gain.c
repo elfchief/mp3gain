@@ -1827,6 +1827,7 @@ int main(int argc, char **argv) {
               fflush(stdout);
 		  }
 		  else {
+			InitMP3(&mp);
 			if (tagInfo[mainloop].recalc == 0) {
 				maxsample = tagInfo[mainloop].trackPeak * 32768.0;
 				maxgain = tagInfo[mainloop].maxGain;
@@ -1839,7 +1840,6 @@ int main(int argc, char **argv) {
 				else {
 					maxsample = 0;
 				}
-				InitMP3(&mp);
 				BadLayer = 0;
 				LayerSet = Reckless;
 				maxgain = 0;
