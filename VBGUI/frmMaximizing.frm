@@ -34,13 +34,13 @@ Begin VB.Form frmMaximizing
    End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
-      Caption         =   "http://mp3gain.sourceforge.net/maximizing.php"
+      Caption         =   "http://mp3gain.sourceforge.net/faq.php#peak"
       ForeColor       =   &H8000000D&
       Height          =   195
       Left            =   120
       TabIndex        =   3
       Top             =   1500
-      Width           =   3360
+      Width           =   3300
    End
    Begin VB.Label Label5 
       AutoSize        =   -1  'True
