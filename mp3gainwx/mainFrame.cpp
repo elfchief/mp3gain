@@ -313,3 +313,4 @@ void mainFrame::EnableStuff(const bool enable) {
 		mainMenu->Enable(ID_MENU_CLEAR_ALL, enable);
 	}
 }
+
