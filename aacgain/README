@@ -1,0 +1,231 @@
+/*
+** aacgain - modifications to mp3gain to support mp4/m4a files
+** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with this program; if not, write to the Free Software
+** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+**/
+
+AACGAIN VERSION 1.3
+
+aacgain is a modification to Glen Sawyer's mp3gain, to support AAC 
+(mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
+mp3gain, stop reading this, and go to http://mp3gain.sourceforge.net
+
+aacgain is released in source code form only
+a) to avoid any MPEG royalty issues,
+b) to ensure that early users have the knowledge to fix whatever
+   bugs they find :-)
+   
+WHAT'S NEW IN VERSION 1.3
+a) Directory structure reorganized to be compatible with mp3gain CVS
+   on sourceforge
+
+WHAT'S NEW IN VERSION 1.2
+a) Fixes compatibility issue with MP3GainGUI version 1.2.5 or 1.3.4.
+b) All temporary files created are erased.
+   
+WHAT'S NEW IN VERSION 1.1
+a) Multi-channel and mono files now work.
+b) Fixes compatibility issues with MP3GainGUI:
+   - /o option always outputs Album gain
+c) /f option is ignored for AAC files - see usage notes below.
+d) Uses portable versions of all library functions, and has been
+   successfully compiled under Linux. Thanks to Prakash Punnoor
+   for his help with this.
+   
+BUILD INSTRUCTIONS
+
+I created aacgain using MSVC++.NET 2003, and created the MSVC++6.0 workspace
+and project files using prjconverter. Thanks to Prakash Punoor, the source code
+is portable, and has been compiled under Linux. If anyone wants to contribute
+Makefiles and build instructions for Linux or other OS, please email them
+to me.
+
+aacgain requires, but does not include, the following  additional components.
+You need to download them from the links listed below:
+
+a) mp3gain
+   version 1.45, download file mp3gain-1_4_5-src.zip from 
+   http://mp3gain.sourceforge.net
+   
+b) faad2 
+   Download the latest "FAAD2 CVS snapshot" from
+   http://www.audiocoding.com/modules/mydownloads/ aacgain is based on FAAD2 
+   as of Sept. 15, 2004. DO NOT DOWNLOAD THE REGULAR SOURCE FILE PACKAGE FROM
+   sourceforge.net or audiocoding.com. It is older and not compatible with the 
+   code in aacgain.
+   
+c) mpeg4ip version 1.2, download from http://www.mpeg4ip.net
+   Extract the files from the archive using a tool that writes
+   the text files with DOS-style line-endings (\r\n). Winzip works fine.
+   If the files are written with Unix-style line-endings (\r), MSVC++ 
+   will not be able to open the project files. If this happens, you 
+   can use unix2dos to repair the files.
+   RENAME THE ROOT DIRECTORY FROM mpeg4ip-1.2 to mpeg4ip.
+   
+The components must be arranged in the following directory hierarchy:
+-- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
+-- faad2 (create this directory and extract the faad2 archive into it)
+   -- include
+   -- libfaad containing libfaad.dsp
+      -- codebook
+      -- fftw
+   other directories are not used and can be pruned if desired
+-- mpeg4ip (rename from mpeg4ip-1.2 to be consistent with sourceforge CVS)
+   -- include
+   -- lib
+      -- mp4v2 containing libmp4v2_st60.dsp
+         -- util
+      -- gnu containing libmissing60.dsp
+   other directories are not used and can be pruned if desired
+-- mp3gain (create this directory and extract the mp3gain archive into it)
+   -- mpglibDBL
+      
+APPLY THE PATCH in file aacgain\mpeg4ip12.patch to mpeg4ip. This fixes
+2 issues with libmp4v2:
+a) Adds support for the iTunes "grouping" metadata tag.
+b) PREVENTS FILE CORRUPTION when a file is opened using MP4Modify or
+   MP4File::Modify and additional metadata tags are added.
+
+Bill May has checked these changes into mpeg4ip's CVS, so if you checkout
+the latest sources from http://sourceforge.net/cvs/?group_id=18676, instead
+of downloading the archive, you don't need to apply the patch. Make sure 
+that file mpeg4ip/include/mpeg4ip_version.h is version 1.2.2 or later.
+
+To apply the patch:
+a) cd mpeg4ip
+b) patch -p0 -i ..\aacgain\mpeg4ip12.patch
+c) the file mpeg4ip12.patch has DOS-style line endings (\r\n). If you
+   downloaded mpeg4ip with unix-style line endings (\n), you must run dos2unix
+   on the patch file to convert it. If patch.exe fails with "Assertion failed:
+   hunk, file patch.c, line 343", this means the line endings on the patch
+   file and mpeg4ip source are not the same.
+   
+If you don't have patch.exe, you can download it from
+http://gnuwin32.sourceforge.net The gnuwin32 distribution of patch.exe
+requires that you also install the dlls from packages LibIconv and LibIntl
+which may be downloaded from the same site.
+
+If you use MSVC++.NET, open the following MSVC++6.0 project files and convert
+them to .vcproj files in the same directory:
+ - faad2\libfaad\libfaad.dsp
+ - mpeg4ip\lib\mp4v2\libmp4v2_st60.dsp
+ - mp3g4ip\lib\gnu\libmissing60.dsp
+Then, open the solution file aacgain\aacgain.sln.
+
+If you use MSVC++6.0, open the workspace file aacgain\aacgain.dsw. 
+Unfortunately prjconverter does not convert project dependencies, so
+you must make project aacgain dependent on the other projects,
+so that it links last. If anyone has MSVC++6.0 and can email me a correct
+aacgain.dsw file, please do so.
+
+With either compiler, there should be 5 projects in your workspace/solution:
+1. aacgain
+2. libfaad
+3. libmissing60
+4. libmp4v2_st
+5. mp3gainlib
+            
+Make the following changes to the libfaad project properties:
+a) Change the C++/Code generation/Runtime Library property for libfaad to
+   "Single-threaded Debug (/MLd)" for debug build and "Single-threaded (/ML)"
+   for release build. 
+b) Change the Librarian/Ignore All Default Libraries property to 
+   "Yes (/NODEFAULTLIB)" for both debug and release builds.
+
+At this point, you may press F7 and cross your fingers:-)
+
+USAGE NOTES
+
+1. BACK UP YOUR MUSIC FILES BEFORE USING AACGAIN! THIS IS BETA SOFTWARE.
+   I AM NOT RESPONSIBLE FOR DAMAGED FILES.
+2. aacgain supports files in the mp4/Quicktime file format. These files
+   usually have a file extension of .mp4 or .m4a. Raw AAC files, or
+   files encoded with HE-AAC/SBR are not supported.
+3. DRM'ed files purchased from the iTunes music store are not supported. You
+   may convert these to .m4a format by burning them to a CD-ROM and importing
+   them back into iTunes, or by using one of the underground methods to
+   directly convert them to .m4a.
+4. aacgain takes the same command line options as mp3gain - no
+   changes have been made to the command usage.
+5. If you rename the aacgain.exe executable to mp3gain.exe, it will work 
+   with the Visual Basic front-end MP3GainGUI.exe. There are some compatibility
+   issues regarding error codes. Glen Sawyer has requested I leave these codes
+   as-is, and a future release of MP3GainGUI will interpret them correctly.
+   If you don't get any errors you should not have any problems.
+6. When calculating or applying album gain, you may mix aac and mp3 files
+   in the same command.
+7. The /t (use temp file) parameter is highly recommended. Without it, if
+   you interrupt aacgain while it is updating the gain or metadata, your
+   aac file will be left in a corrupted state. /t uses the mp4v2 Optimize 
+   function which reduces the final file size. The extra processing
+   time added by the /t option is barely noticable.
+8. The /w (wrap) flag is ignored for aac files, since allowing an aac file
+   to wrap will leave it in an unplayable state.
+9. The /f (assume input file is an MPEG 2 Layer III) option is ignored
+   for AAC files. If a file starts with a 'ftyp' atom, it is assumed to be
+   AAC, even if /f was specified.
+10. The following metadata tags will be added to your files:
+     - replaygain_track_gain
+     - replaygain_album_gain
+     - replaygain_track_peak
+     - replaygain_album_peak
+     - replaygain_track_minmax
+     - replaygain_album_minmax
+     - replaygain_undo
+    These are all free-form metadata tags (moov.udta.meta.ilst.----)
+    with 'data' text fields in the same format as the mp3gain
+    equivalents. You may use mp4dump (located in mpeg4ip\lib\mp4v2\util)
+    to view the tags.
+11. I have tested aacgain for compatibility with both iTunes and
+    fubar2000, and I am not aware of any problems. Please let me know
+    if you find any.
+
+HOW IT WORKS
+
+Files syntax.c and decoder.c are slightly modified versions of the
+corresponding files from faad2. The modifications allow the positions
+and original values of the global_gain fields to be saved. faad2 is
+also used to decode the compressed audio into linear PCM for analysis
+by the replaygain algorithm.
+
+mpeg4ip/lib/mp4v2 is used to parse the mp4/QuickTime file format, to
+read individual samples so that they can be passed to faad2, and to
+read and write metadata tags. File MP4MetaFile.cpp subclasses mp4v2
+class MP4File. Additional functionality was added to modify the global_gain
+fields within a sample.
+
+aacgain.cpp is a wrapper for the above functionality.
+
+mp3gain.c is a minor modification of the original version, which calls
+the above wrapper functions so that AAC files may be used.
+
+The mp3gainlib project builds and links all of the original mp3gain files,
+with the exception of mp3gain.c and replaygaindll.c, into a static library
+that is used by aacgain's version of mp3gain.c.
+   
+ACKNOWLEDGEMENTS
+
+I am a total newbie to digital audio, and I created aacgain primarily
+as a learning exercise. I couldn't have done it without the help of others:
+
+1. Thanks to the user community at hydrogenaudio.org and audiocoding.com,
+   especially Menno and Hans-Jürgen.
+2. Thanks to Bill May for helping me get started with mpeg4ip.
+3. Last, but not least, thanks to Glen Sawyer for creating mp3gain.
+
+Dave Lasker
+dave@altosdesign.com
+December 18, 2004

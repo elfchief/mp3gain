@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aacgain", "aacgain.vcproj", "{A0EE08F7-FE03-472E-9A9D-D63C361454CE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaad", "..\faad2\libfaad\libfaad.vcproj", "{B721F36A-A606-41CE-B696-AEEFF575F793}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmp4v2_st", "..\mpeg4ip\lib\mp4v2\libmp4v2_st60.vcproj", "{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmissing60", "..\mpeg4ip\lib\gnu\libmissing60.vcproj", "{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp3gain", "mp3gain.vcproj", "{E0520611-1986-49CE-BF13-8A9E38255F6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF} = {ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}
+		{B721F36A-A606-41CE-B696-AEEFF575F793} = {B721F36A-A606-41CE-B696-AEEFF575F793}
+		{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314} = {569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}
+		{A0EE08F7-FE03-472E-9A9D-D63C361454CE} = {A0EE08F7-FE03-472E-9A9D-D63C361454CE}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A0EE08F7-FE03-472E-9A9D-D63C361454CE}.Debug.ActiveCfg = Debug|Win32
+		{A0EE08F7-FE03-472E-9A9D-D63C361454CE}.Debug.Build.0 = Debug|Win32
+		{A0EE08F7-FE03-472E-9A9D-D63C361454CE}.Release.ActiveCfg = Release|Win32
+		{A0EE08F7-FE03-472E-9A9D-D63C361454CE}.Release.Build.0 = Release|Win32
+		{B721F36A-A606-41CE-B696-AEEFF575F793}.Debug.ActiveCfg = Debug|Win32
+		{B721F36A-A606-41CE-B696-AEEFF575F793}.Debug.Build.0 = Debug|Win32
+		{B721F36A-A606-41CE-B696-AEEFF575F793}.Release.ActiveCfg = Release|Win32
+		{B721F36A-A606-41CE-B696-AEEFF575F793}.Release.Build.0 = Release|Win32
+		{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}.Debug.ActiveCfg = Debug|Win32
+		{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}.Debug.Build.0 = Debug|Win32
+		{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}.Release.ActiveCfg = Release|Win32
+		{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}.Release.Build.0 = Release|Win32
+		{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}.Debug.ActiveCfg = Debug|Win32
+		{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}.Debug.Build.0 = Debug|Win32
+		{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}.Release.ActiveCfg = Release|Win32
+		{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}.Release.Build.0 = Release|Win32
+		{E0520611-1986-49CE-BF13-8A9E38255F6B}.Debug.ActiveCfg = Debug|Win32
+		{E0520611-1986-49CE-BF13-8A9E38255F6B}.Debug.Build.0 = Debug|Win32
+		{E0520611-1986-49CE-BF13-8A9E38255F6B}.Release.ActiveCfg = Release|Win32
+		{E0520611-1986-49CE-BF13-8A9E38255F6B}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
