@@ -1315,6 +1315,9 @@ void fullUsage(char *progname) {
 		fprintf(stderr,"\t%co - output is a database-friendly tab-delimited list\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%ct - writes modified data to temp file, then deletes original\n",SWITCH_CHAR);
 		fprintf(stderr,"\t     instead of modifying bytes in original file\n");
+#ifdef AACGAIN
+		fprintf(stderr,"\t     A temp file is always used for AAC files.\n");
+#endif
 		fprintf(stderr,"\t%cq - Quiet mode: no status messages\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cp - Preserve original file timestamp\n",SWITCH_CHAR);
 		fprintf(stderr,"\t%cx - Only find max. amplitude of file\n",SWITCH_CHAR);
