@@ -18,7 +18,7 @@
  * the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: lame.h,v 1.1 2002/03/29 19:14:40 snelg Exp $ */
+/* $Id: lame.h,v 1.2 2003/08/12 00:02:55 snelg Exp $ */
 
 #ifndef LAME_LAME_H
 #define LAME_LAME_H
