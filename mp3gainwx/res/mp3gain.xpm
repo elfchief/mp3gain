@@ -1,5 +1,5 @@
 /* XPM */
-static char * mp3gain_new_xpm[] = {
+static char * mp3gain_xpm[] = {
 "32 32 10 1",
 " 	c None",
 ".	c #333333",
