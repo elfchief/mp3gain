@@ -183,11 +183,9 @@ static const Float_t ABButter[9][2*BUTTER_ORDER + 1] = {
 static void
 filterYule (const Float_t* input, Float_t* output, size_t nSamples, const Float_t* kernel)
 {
-    //register Float_t  y;
 
     while (nSamples--) {
-        //y =  // COMMENT OUT the "*output++ = " line below if you uncomment this line
-        *output++ =  
+        *output =  
            input [0]  * kernel[0]
          - output[-1] * kernel[1]
          + input [-1] * kernel[2]
@@ -209,25 +207,24 @@ filterYule (const Float_t* input, Float_t* output, size_t nSamples, const Float_
          + input [-9] * kernel[18]
          - output[-10]* kernel[19]
          + input [-10]* kernel[20];
+        ++output;
         ++input;
-        //*output++ = y;
     }
 }
 
 static void
 filterButter (const Float_t* input, Float_t* output, size_t nSamples, const Float_t* kernel)
-{   //register Float_t  y;
+{   
 
     while (nSamples--) {
-        //y =  // COMMENT OUT the "*output++ = " line below if you uncomment this line
-        *output++ =  
+        *output =  
            input [0]  * kernel[0]
          - output[-1] * kernel[1]
          + input [-1] * kernel[2]
          - output[-2] * kernel[3]
          + input [-2] * kernel[4];
+        ++output;
         ++input;
-        //*output++ = y;
     }
 }
 
