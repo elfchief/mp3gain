@@ -2,7 +2,7 @@
  *  mp3gain.c - analyzes mp3 files, determines the perceived volume, 
  *              and adjusts the volume of the mp3 accordingly
  *
- *  Copyright (C) 2003 Glen Sawyer
+ *  Copyright (C) 2001-2004 Glen Sawyer
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -1181,7 +1181,7 @@ void wrapExplanation() {
 static
 void errUsage(char *progname) {
 	showVersion(progname);
-	fprintf(stderr,"copyright(c) 2003 by Glen Sawyer\n");
+	fprintf(stderr,"copyright(c) 2001-2004 by Glen Sawyer\n");
 	fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
 	fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n",progname);
 	fprintf(stderr,"  --use %c? or %ch for a full list of options\n",SWITCH_CHAR,SWITCH_CHAR);
@@ -1195,7 +1195,7 @@ void errUsage(char *progname) {
 static
 void fullUsage(char *progname) {
 		showVersion(progname);
-		fprintf(stderr,"copyright(c) 2003 by Glen Sawyer\n");
+		fprintf(stderr,"copyright(c) 2001-2004 by Glen Sawyer\n");
 		fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
 		fprintf(stderr,"Usage: %s [options] <infile> [<infile 2> ...]\n",progname);
 		fprintf(stderr,"options:\n");
