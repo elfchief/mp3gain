@@ -1931,7 +1931,7 @@ int main(int argc, char **argv) {
 									procSamp = 0;
 									if ((needRecalc & AMP_RECALC) || (needRecalc & FULL_RECALC)) {
 #ifdef WIN32
-#ifndef NIX
+#ifndef __GNUC__
 										__try { /* this is the Windows try/catch equivalent for C.
 												   If you want this in some other system, you should be
 												   able to use the C++ try/catch mechanism. I've tried to keep
@@ -1942,7 +1942,7 @@ int main(int argc, char **argv) {
 #endif
 											decodeSuccess = decodeMP3(&mp,curframe,bytesinframe,&nprocsamp);
 #ifdef WIN32
-#ifndef NIX
+#ifndef __GNUC__
 										}
 										__except(1) {
 											fprintf(stderr,"Error analyzing %s. This mp3 has some very corrupt data.\n",curfilename);
