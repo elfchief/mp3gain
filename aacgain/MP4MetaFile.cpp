@@ -18,6 +18,9 @@
 **/
 
 #include "MP4MetaFile.h"
+#ifdef WIN32
+#include <process.h>
+#endif
 
 //MyMP4Track is a kluge to allow us to call protected member function
 // MP4Track::GetSampleFileOffset(), and to override MP4Track::FinishWrite. 
@@ -149,11 +152,40 @@ u_int64_t MP4MetaFile::GetFileSize()
     return m_fileSize;
 }
 
-const char* MP4MetaFile::TempFileName()
+const char* MP4MetaFile::TempFileName(const char* inputFile)
 {
-    //strdup the result of MP4File::TempFileName() since
-    // the string needs to outlive the class instance
-    return strdup(MP4File::TempFileName());
+    //find the trailing directory delimiter
+#ifdef WIN32
+    static const char delim = '\\';
+#else
+    static const char delim = '/';
+#endif
+    const char* lastDelim = strrchr(inputFile, delim);
+    int dirLen;
+    if (lastDelim)
+    {
+        //find the length of input file directory name (including trailing delim)
+        dirLen = lastDelim - inputFile + 1;
+        //copy the direcory name (including trailing delim)
+        strncpy(m_tempFileName, inputFile, dirLen);
+    } else {
+        dirLen = 0;
+    }
+
+	u_int32_t i;
+	for (i = getpid(); i < 0xFFFFFFFF; i++) {
+		sprintf(m_tempFileName + dirLen, "tmp%u.mp4", i);
+		if (access(m_tempFileName, F_OK) != 0) {
+			break;
+		}
+	}
+	if (i == 0xFFFFFFFF) {
+		throw new MP4Error("can't create temporary file", "TempFileName");
+	}
+
+    //need to strdup the result since it needs to outlast this instance of MP4MetaFile
+    //caller is responsible for freeing the memory
+    return strdup(m_tempFileName);
 }
 
 //return the size of the 'free' atom used for padding between 'moov' and 'mdta'
@@ -227,7 +259,7 @@ void MP4MetaFile::Optimize(const char* orgFileName, const char* newFileName, u_i
 
 	// create a temporary file if necessary
 	if (newFileName == NULL) {
-		m_fileName = MP4Stralloc(TempFileName());
+		m_fileName = MP4Stralloc(TempFileName(newFileName));
 	} else {
 		m_fileName = MP4Stralloc(newFileName);
 	}

@@ -231,7 +231,7 @@ static MP4MetaFile *PrepareToWrite(GainDataPtr gd)
 		if (gd->use_temp)
 		{
 			//if we are using a temp file, create it now...
-			gd->temp_name = mp4MetaFile->TempFileName();
+			gd->temp_name = mp4MetaFile->TempFileName(gd->mp4file_name);
 			FILE *tmpFile = fopen(gd->temp_name, "wb");
 			if (!tmpFile)
 			{
@@ -648,7 +648,7 @@ int aac_close(AACGainHandle gh)
     if (mp4MetaFile)
     {
         if (gd->use_temp && gd->temp_name)
-            tempFileName = mp4MetaFile->TempFileName();
+            tempFileName = mp4MetaFile->TempFileName(gd->mp4file_name);
 
         mp4MetaFile->Close();
         delete mp4MetaFile;
