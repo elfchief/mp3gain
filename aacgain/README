@@ -222,7 +222,7 @@ was added in MP4MetaFile to modify the global_gain fields within a frame.
 aacgain.cpp is a wrapper for the above functionality.
 
 mp3gain.c has been modified to call aacgain when the symbol AACGAIN is
-defined. The version of the file checked into sourceforge's cvs repository
+defined. The version mp3gain.c checked into sourceforge's cvs repository
 has this modification included.
 
 ACKNOWLEDGEMENTS
@@ -233,9 +233,9 @@ as a learning exercise. I couldn't have done it without the help of others:
 1. Thanks to the user community at hydrogenaudio.org and audiocoding.com,
    especially Menno and Hans-Jürgen.
 2. Thanks to Bill May for helping me get started with mpeg4ip.
-3. Thanks to Prakash Punnoor for his help with Linux.
-3. Last, but not least, thanks to Glen Sawyer for creating mp3gain.
+3. Thanks to Prakash Punnoor and Hardloaf for their help with Linux and Mac.
+4. Last, but not least, thanks to Glen Sawyer for creating mp3gain.
 
 Dave Lasker
 dave@altosdesign.com
-March 20, 2005
+April 14, 2005
