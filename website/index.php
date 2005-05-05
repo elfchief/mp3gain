@@ -21,6 +21,13 @@ without decoding and re-encoding.</p>
 <hr />
 <p>
 <strong>Latest news:</strong><br />
+<em>19 March 2005</em><br />
+Just a reminder that the new AAC part of mp3gain is <strong>experimental</strong>. It's simply
+newer, so problems are still being found (and fixed). Use it at your own risk, and I'd suggest
+backing up your files first.
+</p>
+<hr />
+<p>
 <em>10 January 2005</em><br />
 Bug fixed. If you use AACGain with the MP3Gain GUI, make sure you get
 <a href="http://www.rarewares.org/aac.html">aacgain version 1.2</a> or later.</p>
