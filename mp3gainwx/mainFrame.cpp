@@ -310,6 +310,7 @@ void mainFrame::OnClearFiles(wxCommandEvent& WXUNUSED(event)) {
 			mainList->DeleteItem(i);
 		}
 	}
+	EnableStuff(true);
 	return;
 }
 
@@ -350,6 +351,7 @@ void mainFrame::AddFolder(const wxString path) {
 		AddFolder(path + pathSeparator + filename);
 		cont = dir.GetNext(&filename);
 	}
+	mainStatusbar->SetStatusText(wxT(""));
 }
 
 void mainFrame::AddFileToList(const wxString path) {
