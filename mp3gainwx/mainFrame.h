@@ -2,6 +2,8 @@
 
 #include <wx/wx.h>
 #include <wx/image.h>
+#include <wx/dir.h>
+#include <wx/filename.h>
 //#include <wx/toolbar.h>
 
 // begin wxGlade: ::dependencies
@@ -13,8 +15,14 @@
 #ifndef MAINFRAME_H
 #define MAINFRAME_H
 
+#include "mp3Info.h"
+
+WX_DECLARE_STRING_HASH_MAP( mp3Info *, mp3InfoHash ); 
+//WX_DECLARE_STRING_HASH_MAP( bool, mp3InfoHash ); 
+
 enum {
-	ID_TOOL_ADD_FILES=wxID_HIGHEST,
+	ID_WINDOW_MAIN_FRAME=wxID_HIGHEST,
+	ID_TOOL_ADD_FILES,
 	ID_TOOL_ADD_FOLDER,
 	ID_TOOL_ANALYZE,
 	ID_TOOL_GAIN,
@@ -53,15 +61,23 @@ private:
     // end wxGlade
 	
 	float targetVolume;
+	mp3InfoHash mp3InfoList;
+	wxChar pathSeparator;
+	bool cancelProcessing;
 
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnModeChange(wxCommandEvent& event);
 	void OnAddFiles(wxCommandEvent& event);
 	void OnAddFolder(wxCommandEvent& event);
+	void OnClearFiles(wxCommandEvent& event);
+	void OnClearAll(wxCommandEvent& event);
 	void OnVolumeChange(wxScrollEvent& event);
+	void OnCancel(wxCommandEvent& event);
 	void ChangeVolumeLabel();
 	void EnableStuff(const bool enable);
+	void AddFileToList(wxString path);
+	void AddFolder(wxString path);
 	DECLARE_EVENT_TABLE()
 
 protected:

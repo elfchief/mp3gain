@@ -5,7 +5,7 @@ CXX = $(shell wx-config --cxx)
 
 PROGRAM = mp3gain
 
-OBJECTS = $(PROGRAM).o mainFrame.o
+OBJECTS = $(PROGRAM).o mainFrame.o mp3Info.o 
 
 # implementation
 

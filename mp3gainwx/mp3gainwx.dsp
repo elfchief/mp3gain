@@ -53,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wxmswu.lib comctl32.lib winmm.lib rpcrt4.lib advapi32.lib wsock32.lib /nologo /subsystem:windows /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wxmswu.lib comctl32.lib winmm.lib rpcrt4.lib advapi32.lib wsock32.lib mpglib\Release\mpglib.lib /nologo /subsystem:windows /machine:I386
 
 !ELSEIF  "$(CFG)" == "mp3gainwx - Win32 Debug"
 
@@ -79,7 +79,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wxmswud.lib comctl32.lib winmm.lib rpcrt4.lib advapi32.lib wsock32.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd" /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wxmswud.lib comctl32.lib winmm.lib rpcrt4.lib advapi32.lib wsock32.lib mpglib\Debug\mpglib.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd" /pdbtype:sept
 
 !ENDIF 
 
@@ -102,6 +102,43 @@ SOURCE=.\mp3gain.cpp
 
 SOURCE=.\mp3gain.rc
 # End Source File
+# Begin Source File
+
+SOURCE=.\mp3Info.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\foo_rgscan\replaygain.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\foo_rgscan\rg_asm.nas
+
+!IF  "$(CFG)" == "mp3gainwx - Win32 Release"
+
+# Begin Custom Build
+InputPath=.\foo_rgscan\rg_asm.nas
+InputName=rg_asm
+
+"Release/$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	NASMW -O2 -d WIN32 -f win32 -o Release/$(InputName).obj $(InputPath)
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "mp3gainwx - Win32 Debug"
+
+# Begin Custom Build
+InputPath=.\foo_rgscan\rg_asm.nas
+InputName=rg_asm
+
+"Debug/$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	NASMW -O2 -d WIN32 -f win32 -o Debug/$(InputName).obj $(InputPath)
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -109,6 +146,14 @@ SOURCE=.\mp3gain.rc
 # Begin Source File
 
 SOURCE=.\mainFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\mp3Info.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\foo_rgscan\replaygain.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

@@ -13,7 +13,7 @@ class MyApp: public wxApp {
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
-	mainFrame *frame = new mainFrame(NULL, 23, wxT("MP3Gain"));
+	mainFrame *frame = new mainFrame(NULL, ID_WINDOW_MAIN_FRAME, wxT("MP3Gain"));
 	frame->Show(TRUE);
 	SetTopWindow(frame);
 	return TRUE;

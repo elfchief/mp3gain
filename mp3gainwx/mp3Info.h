@@ -21,6 +21,27 @@ public:
 	int maxGain;
 	int minGain;
 
+	mp3Info() {
+		trackVolume = -1;
+		albumVolume = -1;
+		maxAmp = -1;
+		maxGain = -1;
+		minGain = -1;
+	};
+
+	mp3Info(const wxString newPath) {
+		path = newPath;
+		trackVolume = -1;
+		albumVolume = -1;
+		maxAmp = -1;
+		maxGain = -1;
+		minGain = -1;
+	};
+
+	~mp3Info() {
+		//wxMessageBox(wxString::Format(wxT("Deleting object %s"),path.c_str()));
+	};
+
 	float trackDBGain(float target) { return xDBGain(trackVolume, target); };
 	int trackMP3Gain(float target) { return xMP3Gain(trackVolume, target); };
 	float trackMP3DBGain(float target) { return xMP3DBGain(trackVolume, target); };
