@@ -120,6 +120,7 @@ mainFrame::mainFrame(wxWindow* parent, int id, const wxString& title, const wxPo
     // end wxGlade
 
 	pathSeparator = wxFileName::GetPathSeparator();
+	//just checking
 }
 
 
