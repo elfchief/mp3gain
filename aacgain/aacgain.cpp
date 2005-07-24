@@ -352,6 +352,9 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
     gd->mp4file_name = strdup(mp4_file_name);
     gd->temp_name = NULL;
 
+    unsigned char *buffer = NULL;
+    unsigned int buffer_size = 0;
+
     try
     {
         mp4MetaFile = new MP4MetaFile(verbosity);
@@ -363,6 +366,7 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
         }
         gd->free_atom_size = (u_int32_t)mp4MetaFile->GetFreeAtomSize();
         gd->mp4MetaFile = mp4MetaFile;
+        mp4MetaFile->GetTrackESConfiguration(theTrack, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
     } catch (MP4Error* e)
     {
         /* unable to open file */
@@ -376,8 +380,6 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
     NeAACDecHandle hDecoder;
     NeAACDecConfigurationPtr config;
     mp4AudioSpecificConfig mp4ASC;
-    unsigned char *buffer;
-    unsigned int buffer_size;
 
     hDecoder = gd->hDecoder = NeAACDecOpen();
 
@@ -387,9 +389,6 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
     config->downMatrix = 0;
     NeAACDecSetConfiguration(hDecoder, config);
 
-    buffer = NULL;
-    buffer_size = 0;
-    mp4MetaFile->GetTrackESConfiguration(theTrack, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
     if (NeAACDecInit2(hDecoder, buffer, buffer_size,
                     &gd->samplerate, &gd->channels) < 0)
     {
