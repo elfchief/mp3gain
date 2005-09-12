@@ -66,7 +66,7 @@ Download the file and place it in your MP3Gain folder. The new language will app
 <ul>
     <li><a href="Lithuanian.mp3gain.ini">Lithuanian</a></li>
     <li><a href="Slovak.mp3gain.ini">Slovak</a> (updated for version 1.2.5)</li>
-    <li><a href="Ukranian.mp3gain.ini">Ukranian</a></li>
+    <li><a href="Ukrainian.mp3gain.ini">Ukrainian</a></li>
 </ul>
 </p>
 <p>
