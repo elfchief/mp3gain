@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.4
+AACGAIN VERSION 1.5
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -62,6 +62,10 @@ USAGE NOTES
     with 'data' text fields in the same format as the mp3gain
     equivalents. You may use mp4dump (located in mpeg4ip\lib\mp4v2\util)
     to view the tags.
+    
+WHAT'S NEW IN VERSION 1.5
+a) Running AACGain on Apple lossless or other unsupported file format 
+   resulted in a crash with an unhandled exception. This is now fixed.
 
 WHAT'S NEW IN VERSION 1.4
 a) Temporary files are created in the same directory as the input file.
