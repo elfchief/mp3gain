@@ -56,7 +56,7 @@ BEGIN_EVENT_TABLE(mainFrame, wxFrame)
 	EVT_TOOL(ID_TOOL_CLEAR_FILES, mainFrame::OnClearFiles)
 	EVT_TOOL(ID_TOOL_CLEAR_ALL, mainFrame::OnClearAll)
 	EVT_TOOL(ID_TOOL_CANCEL, mainFrame::OnCancel)
-	EVT_SLIDER(ID_SLIDER_VOLUME, mainFrame::OnVolumeChange)
+	EVT_COMMAND_SCROLL(ID_SLIDER_VOLUME, mainFrame::OnVolumeChange)
 END_EVENT_TABLE()
 
 mainFrame::mainFrame(wxWindow* parent, int id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
