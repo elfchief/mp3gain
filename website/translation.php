@@ -64,6 +64,7 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 <b>New Translations (not yet included in main download)</b><br />
 Download the file and place it in your MP3Gain folder. The new language will appear in the "Languages" menu in MP3Gain.
 <ul>
+    <li><a href="Danish.mp3gain.ini">Danish</a></li>
     <li><a href="Lithuanian.mp3gain.ini">Lithuanian</a></li>
     <li><a href="Slovak.mp3gain.ini">Slovak</a> (updated for version 1.2.5)</li>
     <li><a href="Ukrainian.mp3gain.ini">Ukrainian</a></li>
@@ -79,7 +80,7 @@ Pick a language, and just un-zip the file into your MP3Gain folder:
 	<li><a href="help/mp3gain-cesky.zip">Czech</a></li>
 	<li><a href="help/mp3gain-finnish.zip">Finnish</a></li>
 	<li><a href="help/mp3gain-french.zip">French</a></li>
-	<li><a href="help/mp3gain-deutsch.zip">German</a> (also available at the <a href="http://mitglied.lycos.de/dominicjefferies/mp3gain/">translator's site</a>)</li>
+	<li><a href="help/mp3gain-deutsch.zip">German</a></li>
 	<li><a href="help/mp3gain-nederlands.zip">Nederlands</a></li>
     <li><a href="help/mp3gain-russian.zip">Russian</a></li>
     <li><a href="help/mp3gain-espanol.zip">Spanish</a></li>
