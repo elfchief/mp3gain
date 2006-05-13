@@ -8,7 +8,7 @@ include("start.php");
 <h1 class="hide">Translations</h1>
 <p>MP3Gain translations are mostly included with the program. On this page, I provide links for new or newly updated translations which are not yet included in the distribution files.</p>
 <p>(If you download the MP3Gain zip file instead of the installer, then you will need to manually move your chosen translation file from the "otherlang" folder into the main MP3Gain folder)</p>
-<p>If you want to translate the MP3Gain <em>program</em> into a language not listed below, then download the <a href="EnglishUS.mp3gain.ini">original (U.S. English) language file</a> and open it with any text editor. Instructions are inside the file itself.<br />
+<p>If you want to translate the MP3Gain <em>program</em> into a language not listed below, then download the <a href="lang/EnglishUS.mp3gain.ini">original (U.S. English) language file</a> and open it with any text editor. Instructions are inside the file itself.<br />
 If you want to translate the MP3Gain <em>Help file</em> into another language, then download the <a href="mp3gain_help_src.zip">Help HTML source files</a>. The Microsoft HTML Help Workshop project file is included in the zip. If you don't know how to use HTML Help Workshop, you can just translate the HTML files and send them to me. I'll compile them myself.</p>
 <p>
 <b>Languages included with MP3Gain</b>
@@ -64,11 +64,11 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 <b>New Translations (not yet included in main download)</b><br />
 Download the file and place it in your MP3Gain folder. The new language will appear in the "Languages" menu in MP3Gain.
 <ul>
-    <li><a href="Danish.mp3gain.ini">Danish</a></li>
-    <li><a href="Lithuanian.mp3gain.ini">Lithuanian</a></li>
-    <li><a href="Norsk.mp3gain.ini">Norwegian</li>
-    <li><a href="Slovak.mp3gain.ini">Slovak</a> (updated for version 1.2.5)</li>
-    <li><a href="Ukrainian.mp3gain.ini">Ukrainian</a></li>
+    <li><a href="lang/Danish.mp3gain.ini">Danish</a></li>
+    <li><a href="lang/Lithuanian.mp3gain.ini">Lithuanian</a></li>
+    <li><a href="lang/Norsk.mp3gain.ini">Norwegian</li>
+    <li><a href="lang/Slovak.mp3gain.ini">Slovak</a> (updated for version 1.2.5)</li>
+    <li><a href="lang/Ukrainian.mp3gain.ini">Ukrainian</a></li>
 </ul>
 </p>
 <p>
