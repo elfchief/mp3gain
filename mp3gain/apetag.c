@@ -11,7 +11,7 @@
 #endif
 
 #ifndef WIN32
-#define stricmp strcasecmp
+#define _stricmp strcasecmp
 #endif /* WIN32 */
 
 int ReadMP3ID3v1Tag(FILE *fi, unsigned char **tagbuff, long *tag_offset) {
@@ -209,19 +209,19 @@ int ReadMP3APETag ( FILE *fp,  struct MP3GainTagInfo *info, struct APETagStruct 
 		is_info = 0;
 
 		{
-            if (!stricmp (name, "REPLAYGAIN_TRACK_GAIN")) {
+            if (!_stricmp (name, "REPLAYGAIN_TRACK_GAIN")) {
                 info->haveTrackGain = !0;
                 info->trackGain = atof(value);
-            } else if (!stricmp(name,"REPLAYGAIN_TRACK_PEAK")) {
+            } else if (!_stricmp(name,"REPLAYGAIN_TRACK_PEAK")) {
                 info->haveTrackPeak = !0;
                 info->trackPeak = atof(value);
-            } else if (!stricmp(name,"REPLAYGAIN_ALBUM_GAIN")) {
+            } else if (!_stricmp(name,"REPLAYGAIN_ALBUM_GAIN")) {
                 info->haveAlbumGain = !0;
                 info->albumGain = atof(value);
-            } else if (!stricmp(name,"REPLAYGAIN_ALBUM_PEAK")) {
+            } else if (!_stricmp(name,"REPLAYGAIN_ALBUM_PEAK")) {
                 info->haveAlbumPeak = !0;
                 info->albumPeak = atof(value);
-            } else if (!stricmp(name,"MP3GAIN_UNDO")) {
+            } else if (!_stricmp(name,"MP3GAIN_UNDO")) {
 				/* value should be something like "+003,+003,W" */
                 info->haveUndo = !0;
                 vp = value;
@@ -238,7 +238,7 @@ int ReadMP3APETag ( FILE *fp,  struct MP3GainTagInfo *info, struct APETagStruct 
                 } else {
                     info->undoWrap = 0;
                 }
-            } else if (!stricmp(name,"MP3GAIN_MINMAX")) {
+            } else if (!_stricmp(name,"MP3GAIN_MINMAX")) {
 				/* value should be something like "001,153" */
                 info->haveMinMaxGain = !0;
                 vp = value;
@@ -249,7 +249,7 @@ int ReadMP3APETag ( FILE *fp,  struct MP3GainTagInfo *info, struct APETagStruct 
 				memcpy(tmpString,vp,3);
 				tmpString[3] = '\0';
                 info->maxGain = atoi(tmpString);
-            } else if (!stricmp(name,"MP3GAIN_ALBUM_MINMAX")) {
+            } else if (!_stricmp(name,"MP3GAIN_ALBUM_MINMAX")) {
 				/* value should be something like "001,153" */
                 info->haveAlbumMinMaxGain = !0;
                 vp = value;

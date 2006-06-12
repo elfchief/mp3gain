@@ -302,7 +302,7 @@ AnalyzeSamples ( const Float_t* left_samples, const Float_t* right_samples, size
         return GAIN_ANALYSIS_OK;
 
     cursamplepos = 0;
-    batchsamples = num_samples;
+    batchsamples = (long)num_samples;
 
     switch ( num_channels) {
     case  1: right_samples = left_samples;
