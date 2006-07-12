@@ -348,7 +348,7 @@ void passError(MMRESULT lerrnum, int numStrings, ...)
 }
 
 static
-unsigned long frameSearch(int startup, int needFullFrame) {
+unsigned long frameSearch(int startup) {
 	unsigned long ok;
 	int done;
     static int startfreq;
@@ -434,7 +434,7 @@ unsigned long frameSearch(int startup, int needFullFrame) {
 	}
 
 	if (ok) {
-		if (needFullFrame && (inbuffer - (wrdpntr-buffer) < (arrbytesinframe[(wrdpntr[2] >> 4) & 0x0F] + ((wrdpntr[2] >> 1) & 0x01)))) {
+		if (inbuffer - (wrdpntr-buffer) < (arrbytesinframe[(wrdpntr[2] >> 4) & 0x0F] + ((wrdpntr[2] >> 1) & 0x01))) {
 			ok = fillBuffer(inbuffer-(wrdpntr-buffer));
 			wrdpntr = buffer;
 		}
@@ -785,7 +785,7 @@ int changeGain(char *filename, int leftgainchange, int rightgainchange) {
 
 		ok = skipID3v2();
 
-		ok = frameSearch(!0,0);
+		ok = frameSearch(!0);
 		if (!ok) {
             if (!BadLayer)
 				passError( MP3GAIN_UNSPECIFED_ERROR, 3,
@@ -825,7 +825,7 @@ int changeGain(char *filename, int leftgainchange, int rightgainchange) {
 
 					wrdpntr = curframe + bytesinframe;
 
-					ok = frameSearch(0,0);
+					ok = frameSearch(0);
 				}
 			}
 			
@@ -953,7 +953,7 @@ int changeGain(char *filename, int leftgainchange, int rightgainchange) {
 					}
 				}
 				wrdpntr = curframe+bytesinframe;
-				ok = frameSearch(0,0);
+				ok = frameSearch(0);
 			}
 		}
 	}
@@ -2119,7 +2119,7 @@ int main(int argc, char **argv) {
 
 					ok = skipID3v2();
 
-					ok = frameSearch(!0,!0);
+					ok = frameSearch(!0);
 				}
 				
 #ifdef AACGAIN
@@ -2176,7 +2176,7 @@ int main(int argc, char **argv) {
 
 								wrdpntr = curframe + bytesinframe;
 
-								ok = frameSearch(0,!0);
+								ok = frameSearch(0);
 							}
 						}
 						
@@ -2270,7 +2270,7 @@ int main(int argc, char **argv) {
 
 								if (!analysisError) {
 									wrdpntr = curframe+bytesinframe;
-									ok = frameSearch(0,!0);
+									ok = frameSearch(0);
 								}
 
 								if (!QuietMode) {
