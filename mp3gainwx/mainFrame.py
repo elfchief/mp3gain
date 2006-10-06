@@ -93,9 +93,9 @@ class mainFrame(wx.Frame):
         self.__set_properties()
         self.__do_layout()
 
-        self.Bind(wx.EVT_MENU, self.OnAddFile, id=ID_MENU_ADD_FILES)
+        self.Bind(wx.EVT_MENU, self.OnAddFiles, id=ID_MENU_ADD_FILES)
         self.Bind(wx.EVT_MENU, self.OnAddFolder, id=ID_MENU_ADD_FOLDER)
-        self.Bind(wx.EVT_MENU, self.OnClearFile, id=ID_MENU_CLEAR_FILES)
+        self.Bind(wx.EVT_MENU, self.OnClearFiles, id=ID_MENU_CLEAR_FILES)
         self.Bind(wx.EVT_MENU, self.OnClearAll, id=ID_MENU_CLEAR_ALL)
         self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
         self.Bind(wx.EVT_MENU, self.OnModeChange, id=ID_MENU_MODE_TRACK)
@@ -106,11 +106,11 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnTrackGain, id=ID_MENU_TRACK_GAIN)
         self.Bind(wx.EVT_MENU, self.OnAlbumGain, id=ID_MENU_ALBUM_GAIN)
         self.Bind(wx.EVT_MENU, self.OnManualGain, id=ID_MENU_MANUAL_GAIN)
-        self.Bind(wx.EVT_TOOL, self.OnAddFile, id=ID_TOOL_ADD_FILES)
+        self.Bind(wx.EVT_TOOL, self.OnAddFiles, id=ID_TOOL_ADD_FILES)
         self.Bind(wx.EVT_TOOL, self.OnAddFolder, id=ID_TOOL_ADD_FOLDER)
         self.Bind(wx.EVT_TOOL, self.OnAnalysisButton, id=ID_TOOL_ANALYZE)
         self.Bind(wx.EVT_TOOL, self.OnGainButton, id=ID_TOOL_GAIN)
-        self.Bind(wx.EVT_TOOL, self.OnClearFile, id=ID_TOOL_CLEAR_FILES)
+        self.Bind(wx.EVT_TOOL, self.OnClearFiles, id=ID_TOOL_CLEAR_FILES)
         self.Bind(wx.EVT_TOOL, self.OnClearAll, id=ID_TOOL_CLEAR_ALL)
         self.Bind(wx.EVT_TOOL, self.OnCancel, id=ID_TOOL_CANCEL)
         self.Bind(wx.EVT_COMMAND_SCROLL, self.OnVolumeChange, id=ID_SLIDER_VOLUME)
@@ -133,6 +133,17 @@ class mainFrame(wx.Frame):
         self.mainToolbar.SetToolBitmapSize((48, 48))
         self.mainToolbar.Realize()
         # end wxGlade
+
+        self.mainList.InsertColumn(0,"Path/File")
+        self.mainList.InsertColumn(1,"Volume")
+        self.mainList.InsertColumn(2,"clipping")
+        self.mainList.InsertColumn(3,"Track Gain")
+        self.mainList.InsertColumn(4,"clip(Track)")
+        self.mainList.InsertColumn(5,"Album Volume")
+        self.mainList.InsertColumn(6,"Album Gain")
+        self.mainList.InsertColumn(7,"clip(Album)")
+
+        self.EnableStuff(True)
 
     def __do_layout(self):
         # begin wxGlade: mainFrame.__do_layout
@@ -163,22 +174,45 @@ class mainFrame(wx.Frame):
         self.SetSizer(mainSplit)
         self.Layout()
         # end wxGlade
+        self.ChangeVolumeLabel()
 
-    def OnAddFile(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnAddFile' not implemented!"
-        event.Skip()
+    def NotImpYet(self, msg):
+        d = wx.MessageDialog(self, "Event handler '"+msg+"' not implemented yet!", "Not implemented", wx.OK)
+        d.ShowModal()
+        d.Destroy()
+        
+    def OnAddFiles(self, event): # wxGlade: mainFrame.<event_handler>
+        d = wx.FileDialog(self, "Choose mp3 files", "", "", "MP3 files (*.mp3)|*.mp3", wx.OPEN|wx.MULTIPLE|wx.CHANGE_DIR)
+        if d.ShowModal() == wx.ID_CANCEL:
+            return
+
+        paths = d.GetPaths()
+        for p in paths:
+            self.AddFileToList(p)
+        d.Destroy()
+        
+        self.EnableStuff(True)
+        
+            
 
     def OnAddFolder(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnAddFolder' not implemented!"
+        self.NotImpYet("OnAddFolder")
         event.Skip()
 
-    def OnClearFile(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnClearFile' not implemented!"
-        event.Skip()
+    def OnClearFiles(self, event): # wxGlade: mainFrame.<event_handler>
+        idx = self.mainList.GetFirstSelected()
+        while idx != -1:
+            self.mainList.DeleteItem(idx)
+            idx = self.mainList.GetNextSelected(idx - 1)
+            # need to check from idx - 1 in case the very next one in line
+            # is selected-- thusly when the current idx is deleted, the next
+            # one shifs up so that it's in the just-deleted one's idx spot
+
+        self.EnableStuff(True)
 
     def OnClearAll(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnClearAll' not implemented!"
-        event.Skip()
+        self.mainList.DeleteAllItems()
+        self.EnableStuff(True)
 
     def OnExit(self, event): # wxGlade: mainFrame.<event_handler>
         self.Close()
@@ -204,7 +238,22 @@ class mainFrame(wx.Frame):
             
         tb.Realize()
 
+        self.EnableStuff(True)
 
+
+    def OnAnalysisButton(self, event): # wxGlade: mainFrame.<event_handler>
+        if self.Mode == TRACK_MODE:
+            self.OnTrackAnalysis(event)
+        else:
+            self.OnAlbumAnalysis(event)
+
+    def OnGainButton(self, event): # wxGlade: mainFrame.<event_handler>
+        if self.Mode == TRACK_MODE:
+            self.OnTrackGain(event)
+        elif self.Mode == ALBUM_MODE:
+            self.OnAlbumGain(event)
+        else:
+            self.OnManualGain(event)
 
     def OnTrackAnalysis(self, event): # wxGlade: mainFrame.<event_handler>
         print "Event handler `OnTrackAnalysis' not implemented!"
@@ -226,30 +275,6 @@ class mainFrame(wx.Frame):
         print "Event handler `OnManualGain' not implemented!"
         event.Skip()
 
-    def OnAddFile(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnAddFile' not implemented!"
-        event.Skip()
-
-    def OnAddFolder(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnAddFolder' not implemented!"
-        event.Skip()
-
-    def OnTrackAnalysis(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnTrackAnalysis' not implemented!"
-        event.Skip()
-
-    def OnTrackGain(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnTrackGain' not implemented!"
-        event.Skip()
-
-    def OnClearFile(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnClearFile' not implemented!"
-        event.Skip()
-
-    def OnClearAll(self, event): # wxGlade: mainFrame.<event_handler>
-        print "Event handler `OnClearAll' not implemented!"
-        event.Skip()
-
     def OnCancel(self, event): # wxGlade: mainFrame.<event_handler>
         print "Event handler `OnCancel' not implemented!"
         event.Skip()
@@ -260,21 +285,54 @@ class mainFrame(wx.Frame):
     def ChangeVolumeLabel(self):
         targetVolume = self.volumeSlider.GetValue() / 10.0
         self.volumeLabel.SetLabel("%0.1f dB" % targetVolume)
+
+    def AddFileToList(self, path):
+        idx = self.mainList.InsertStringItem(0, path)
+        self.mainList.SetStringItem(idx, 1, "88.2")
+        self.mainList.SetStringItem(idx, 3, "1.5")
+        self.mainList.SetStringItem(idx, 5, "101.3")
+        self.mainList.SetStringItem(idx, 6, "-12.0")
+        self.mainList.SetItemData(idx, 12345) # need to actually make this some index into an array
         
-    def OnAnalysisButton(self, event): # wxGlade: mainFrame.<event_handler>
-        if self.Mode == TRACK_MODE:
-            self.OnTrackAnalysis(event)
-        else:
-            self.OnAlbumAnalysis(event)
+        
+    def EnableStuff(self, enable):
+        tb = self.mainToolbar
+        mn = self.mainMenu
 
-    def OnGainButton(self, event): # wxGlade: mainFrame.<event_handler>
-        if self.Mode == TRACK_MODE:
-            self.OnTrackGain(event)
-        elif self.Mode == ALBUM_MODE:
-            self.OnAlbumGain(event)
-        else:
-            self.OnManualGain(event)
+        tb.EnableTool(ID_TOOL_ADD_FILES, enable)
+        tb.EnableTool(ID_TOOL_ADD_FOLDER, enable)
+        tb.EnableTool(ID_TOOL_CANCEL, not enable)
+        mn.Enable(ID_MENU_ADD_FILES, enable)
+        mn.Enable(ID_MENU_ADD_FOLDER, enable)
+        mn.Enable(ID_MENU_MODE_TRACK, enable)
+        mn.Enable(ID_MENU_MODE_ALBUM, enable)
+        mn.Enable(ID_MENU_MODE_MANUAL, enable)
 
+        if self.mainList.GetItemCount() == 0:
+            tb.EnableTool(ID_TOOL_ANALYZE, False)
+            tb.EnableTool(ID_TOOL_GAIN, False)
+            tb.EnableTool(ID_TOOL_CLEAR_FILES, False)
+            tb.EnableTool(ID_TOOL_CLEAR_ALL, False)
+            mn.Enable(ID_MENU_TRACK_ANALYSIS, False)
+            mn.Enable(ID_MENU_ALBUM_ANALYSIS, False)
+            mn.Enable(ID_MENU_TRACK_GAIN, False)
+            mn.Enable(ID_MENU_ALBUM_GAIN, False)
+            mn.Enable(ID_MENU_MANUAL_GAIN, False)
+            mn.Enable(ID_MENU_CLEAR_FILES, False)
+            mn.Enable(ID_MENU_CLEAR_ALL, False)
+        else:
+            tb.EnableTool(ID_TOOL_ANALYZE, enable)
+            tb.EnableTool(ID_TOOL_GAIN, enable)
+            tb.EnableTool(ID_TOOL_CLEAR_FILES, enable)
+            tb.EnableTool(ID_TOOL_CLEAR_ALL, enable)
+            mn.Enable(ID_MENU_TRACK_ANALYSIS, enable)
+            mn.Enable(ID_MENU_ALBUM_ANALYSIS, enable)
+            mn.Enable(ID_MENU_TRACK_GAIN, enable)
+            mn.Enable(ID_MENU_ALBUM_GAIN, enable)
+            mn.Enable(ID_MENU_MANUAL_GAIN, enable)
+            mn.Enable(ID_MENU_CLEAR_FILES, enable)
+            mn.Enable(ID_MENU_CLEAR_ALL, enable)
+            
 # end of class mainFrame
 
 

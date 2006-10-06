@@ -17,7 +17,7 @@
                         <label>Add Files</label>
                         <id>ID_MENU_ADD_FILES=?</id>
                         <help_str>Add mp3 files to list</help_str>
-                        <handler>OnAddFile</handler>
+                        <handler>OnAddFiles</handler>
                     </item>
                     <item>
                         <label>Add Folder</label>
@@ -34,7 +34,7 @@
                         <label>Clear files</label>
                         <id>ID_MENU_CLEAR_FILES=?</id>
                         <help_str>Remove selected files from list</help_str>
-                        <handler>OnClearFile</handler>
+                        <handler>OnClearFiles</handler>
                     </item>
                     <item>
                         <label>Clear all files</label>
@@ -130,7 +130,7 @@
                     <long_help>Add mp3 files to list</long_help>
                     <bitmap1>res/big_add_files.xpm</bitmap1>
                     <bitmap2></bitmap2>
-                    <handler>OnAddFile</handler>
+                    <handler>OnAddFiles</handler>
                 </tool>
                 <tool>
                     <id>ID_TOOL_ADD_FOLDER=?</id>
@@ -188,7 +188,7 @@
                     <long_help>Remove selected files from list</long_help>
                     <bitmap1>res/big_remove_files.xpm</bitmap1>
                     <bitmap2></bitmap2>
-                    <handler>OnClearFile</handler>
+                    <handler>OnClearFiles</handler>
                 </tool>
                 <tool>
                     <id>ID_TOOL_CLEAR_ALL=?</id>
