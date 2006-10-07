@@ -292,6 +292,7 @@ class mainFrame(wx.Frame):
 
     def OnCancel(self, event): # wxGlade: mainFrame.<event_handler>
         self.cancelProcessing = True
+        self.mainToolbar.EnableTool(ID_TOOL_CANCEL, False)
         self.mainStatusbar.SetStatusText("Cancelling...")
 
     def OnVolumeChange(self, event): # wxGlade: mainFrame.<event_handler>
