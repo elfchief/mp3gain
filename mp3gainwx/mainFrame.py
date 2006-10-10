@@ -303,9 +303,9 @@ class mainFrame(wx.Frame):
         self.volumeLabel.SetLabel("%0.1f dB" % targetVolume)
 
     def AddFileToList(self, path):
-        if not path[-4:].lower() == ".mp3":
+        if not path.lower().endswith('.mp3'):
             return
-        if self.mp3s.has_key(path):
+        if path in self.mp3s:
             return
         
         self.mp3s[path] = mp3Info.mp3Info()
