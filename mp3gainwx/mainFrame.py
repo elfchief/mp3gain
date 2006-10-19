@@ -119,7 +119,12 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_COMMAND_SCROLL, self.OnVolumeChange, id=ID_SLIDER_VOLUME)
         # end wxGlade
 
-        self.Mode = TRACK_MODE
+        self.mode = TRACK_MODE
+        self.trackGainIcon = wx.Bitmap("res/big_adjust_radio.xpm", wx.BITMAP_TYPE_ANY)
+        self.trackAnalysisIcon = wx.Bitmap("res/big_scan_radio.xpm", wx.BITMAP_TYPE_ANY)
+        self.albumGainIcon = wx.Bitmap("res/big_adjust_album.xpm", wx.BITMAP_TYPE_ANY)
+        self.albumAnalysisIcon = wx.Bitmap("res/big_scan_album.xpm", wx.BITMAP_TYPE_ANY)
+        self.manualGainIcon = wx.Bitmap("res/big_adjust_constant.xpm", wx.BITMAP_TYPE_ANY)
 
     def __set_properties(self):
         # begin wxGlade: mainFrame.__set_properties
@@ -240,16 +245,16 @@ class mainFrame(wx.Frame):
 
         id = event.GetId()
         if id == ID_MENU_MODE_TRACK:
-            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Track Gain", wx.Bitmap("res/big_adjust_radio.xpm", wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
-            tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Track Analysis", wx.Bitmap("res/big_scan_radio.xpm", wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
-            self.Mode = TRACK_MODE
+            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Track Gain", self.trackGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
+            tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Track Analysis", self.trackAnalysisIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
+            self.mode = TRACK_MODE
         elif id == ID_MENU_MODE_ALBUM:
-            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Album Gain", wx.Bitmap("res/big_adjust_album.xpm", wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
-            tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Album Analysis", wx.Bitmap("res/big_scan_album.xpm", wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
-            self.Mode = ALBUM_MODE
+            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Album Gain", self.albumGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
+            tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Album Analysis", self.albumAnalysisIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
+            self.mode = ALBUM_MODE
         else:
-            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Manual Gain", wx.Bitmap("res/big_adjust_constant.xpm", wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
-            self.Mode = MANUAL_MODE
+            tb.InsertLabelTool(3,ID_TOOL_GAIN, "Manual Gain", self.manualGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
+            self.mode = MANUAL_MODE
             
         tb.Realize()
 
@@ -257,15 +262,15 @@ class mainFrame(wx.Frame):
 
 
     def OnAnalysisButton(self, event): # wxGlade: mainFrame.<event_handler>
-        if self.Mode == TRACK_MODE:
+        if self.mode == TRACK_MODE:
             self.OnTrackAnalysis(event)
         else:
             self.OnAlbumAnalysis(event)
 
     def OnGainButton(self, event): # wxGlade: mainFrame.<event_handler>
-        if self.Mode == TRACK_MODE:
+        if self.mode == TRACK_MODE:
             self.OnTrackGain(event)
-        elif self.Mode == ALBUM_MODE:
+        elif self.mode == ALBUM_MODE:
             self.OnAlbumGain(event)
         else:
             self.OnManualGain(event)
