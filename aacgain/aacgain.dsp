@@ -41,8 +41,8 @@ RSC=rc.exe
 # PROP Output_Dir ".\Debug"
 # PROP Intermediate_Dir ".\Debug"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MLd /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /ZI /W4 /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp".\Debug/aacgain.pch" /Fo".\Debug/" /Fd".\Debug/" /GZ /c /GX 
-# ADD CPP /nologo /MLd /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /ZI /W4 /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp".\Debug/aacgain.pch" /Fo".\Debug/" /Fd".\Debug/" /GZ /c /GX 
+# ADD BASE CPP /nologo /MLd /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W4 /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /Fp".\Debug/aacgain.pch" /Fo".\Debug/" /Fd".\Debug/" /GZ /c /GX 
+# ADD CPP /nologo /MLd /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W4 /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /Fp".\Debug/aacgain.pch" /Fo".\Debug/" /Fd".\Debug/" /GZ /c /GX 
 # ADD BASE MTL /nologo /win32 
 # ADD MTL /nologo /win32 
 # ADD BASE RSC /l 1033 
@@ -66,8 +66,8 @@ LIB32=link.exe -lib
 # PROP Output_Dir ".\Release"
 # PROP Intermediate_Dir ".\Release"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /ML /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W3 /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp".\Release/aacgain.pch" /Fo".\Release/" /Fd".\Release/" /c /GX 
-# ADD CPP /nologo /ML /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W3 /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp".\Release/aacgain.pch" /Fo".\Release/" /Fd".\Release/" /c /GX 
+# ADD BASE CPP /nologo /ML /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W3 /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /Fp".\Release/aacgain.pch" /Fo".\Release/" /Fd".\Release/" /c /GX 
+# ADD CPP /nologo /ML /I "..\faad2\include" /I "..\faad2\libfaad" /I "..\mp3gain" /I "..\mpeg4ip\lib\mp4v2" /I "..\mpeg4ip\include" /Zi /W3 /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /Fp".\Release/aacgain.pch" /Fo".\Release/" /Fd".\Release/" /c /GX 
 # ADD BASE MTL /nologo /win32 
 # ADD MTL /nologo /win32 
 # ADD BASE RSC /l 1033 

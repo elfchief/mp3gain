@@ -27,7 +27,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "libmp4v2_st"=..\mpeg4ip\lib\mp4v2\libmp4v2_st60.dsp - Package Owner=<4>
+Project: "libmp4v2"=..\mpeg4ip\lib\mp4v2\libmp4v260.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

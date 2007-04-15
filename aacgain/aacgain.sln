@@ -7,11 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaad", "..\faad2\libfaad
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmp4v2_st", "..\mpeg4ip\lib\mp4v2\libmp4v2_st60.vcproj", "{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmp4v2", "..\mpeg4ip\lib\mp4v2\libmp4v2.vcproj", "{ED0D0C02-4CD3-4644-9A8E-C242AB807FEF}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmissing60", "..\mpeg4ip\lib\gnu\libmissing60.vcproj", "{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmissing", "..\mpeg4ip\lib\gnu\libmissing.vcproj", "{569BBAA1-A9D4-4F04-AC3C-E6B131DC9314}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject

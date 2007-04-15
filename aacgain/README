@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+** Copyright (C) 2004-2007 David Lasker, Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.5
+AACGAIN VERSION 1.6
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -63,6 +63,16 @@ USAGE NOTES
     equivalents. You may use mp4dump (located in mpeg4ip\lib\mp4v2\util)
     to view the tags.
     
+WHAT'S NEW IN VERSION 1.6
+a) Files with a 'cprt' (copyright) tag are now processed correctly.
+   Previous versions of aacgain corrupted the metadata of files with a
+   copyright tag.
+b) AACGain now works on video or other files where the first audio track 
+   has a track number of other than 1. Previous versions required the
+   audio track to have a number of 1. AACGain will still only process
+   the first audio track found on a file. Thanks to Arthur Yarwood at
+   Sony Computer Entertainment Europe for this fix.
+
 WHAT'S NEW IN VERSION 1.5
 a) Running AACGain on Apple lossless or other unsupported file format 
    resulted in a crash with an unhandled exception. This is now fixed.
@@ -104,11 +114,11 @@ d) Uses portable versions of all library functions, and has been
    successfully compiled under Linux. Thanks to Prakash Punnoor
    for his help with this.
    
-BUILDING AACGAIN FROM SOURCE CODE
+BUILDING AACGAIN FOR WINDOWS FROM SOURCE CODE
 
-I created AACGain using MSVC++.NET 2003. Thanks to Glen Sawyer for converting
-the .sln/.vcproj files to .dsw/.dsp. Thanks to Prakash Punoor, the source 
-code is portable, and has been compiled under Linux.
+I created AACGain using MSVC++.NET 2003. Thanks to Glen Sawyer for 
+converting the .sln/.vcproj files to .dsw/.dsp. Thanks to Prakash Punoor, 
+the source code is portable, and has been compiled under Linux.
 
 In order to build AACGain from source code, the following components are 
 required. You may download them from the links listed below:
@@ -133,20 +143,27 @@ b) mp3gain
    cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain co -P mp3gain
    
 c) faad2 
-   Download the latest "FAAD2 CVS snapshot" from
+   Download the latest "FAAD2 CVS snapshot 15-09-2004" from
    http://www.audiocoding.com/modules/mydownloads/ AACGain is based on FAAD2 
-   as of Sept. 15, 2004. DO NOT DOWNLOAD THE REGULAR SOURCE FILE PACKAGE FROM
-   sourceforge.net or audiocoding.com. It is older and not compatible with the 
-   code in AACGain. You may also check out the latest source code from CVS.
+   as of Sept. 15, 2004. Since AACGain was developed, FAAD2 version 2.5 has
+   been released. I have not tried this version, since the previous version
+   meets my needs. If you want to try version 2.5, make sure the code
+   in aacgain/decoder.c and aacgain/syntax.c, which contains replacements
+   for the corresponding faad2 code, is still correct for the latest version.
    
-d) mpeg4ip version 1.2, download from http://www.mpeg4ip.net
-   Extract the files from the archive using a tool that writes
-   the text files with DOS-style line-endings (\r\n). Winzip works fine.
-   If the files are written with Unix-style line-endings (\r), MSVC++ 
-   will not be able to open the project files. If this happens, you 
-   can use unix2dos to repair the files. RENAME THE ROOT DIRECTORY FROM 
-   mpeg4ip-1.2 to mpeg4ip. You may also check out the source code from CVS, 
-   in which case the root directory will be correctly named mpeg4ip.
+d) mpeg4ip
+   Checkout mpeg4ip version 1.5.20 or later from CVS at 
+   http://sourceforge.net/cvs/?group_id=18676. The cvs checkout commands are:
+   cvs -d:pserver:anonymous@mpeg4ip.cvs.sourceforge.net:/cvsroot/mpeg4ip login
+   cvs -z3 -d:pserver:anonymous@mpeg4ip.cvs.sourceforge.net:/cvsroot/mpeg4ip co -P mpeg4ip
+    
+   Do NOT download the official mpeg4ip version 1.5.0.1. The fix for the
+   'cprt' bug in AACGain 1.6 requires mpeg4ip version 1.5.5 or later, which
+   has not yet been officially released. I am recommending you use version
+   1.5.20 because that is what I used to build AACGain 1.6. Unfortunately 
+   the mpeg4ip developers do not tag their internal versions, so the best
+   way to checkout a version identical to the one I used is to use 
+   the CVS checkout -D option with a date of 20070402.
    
 The components must be arranged in the following directory hierarchy:
 -- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
@@ -156,46 +173,39 @@ The components must be arranged in the following directory hierarchy:
       -- codebook
       -- fftw
    other directories are not used and can be pruned if desired
--- mpeg4ip (rename from mpeg4ip-1.2 to be consistent with sourceforge CVS)
+-- mpeg4ip
    -- include
    -- lib
-      -- mp4v2 containing libmp4v2_st60.dsp
+      -- mp4v2 containing libmp4v2.vcproj
          -- util
-      -- gnu containing libmissing60.dsp
+      -- gnu containing libmissing.vcproj
    other directories are not used and can be pruned if desired
--- mp3gain (this directory will be created when you checkout the cvs source)
+-- mp3gain
    -- mpglibDBL
       
-APPLY THE PATCH in file aacgain\mpeg4ip12.patch to mpeg4ip. This fixes
-2 issues with libmp4v2:
-a) Adds support for the iTunes "grouping" metadata tag.
-b) PREVENTS FILE CORRUPTION when a file is opened using MP4Modify or
-   MP4File::Modify and additional metadata tags are added.
-
-Bill May has checked these changes into mpeg4ip's CVS, so if you checked out
-the latest sources from http://sourceforge.net/cvs/?group_id=18676, instead
-of downloading the archive, you don't need to apply the patch.
-
-To apply the patch:
-a) cd mpeg4ip
-b) patch -p0 -i ..\aacgain\mpeg4ip12.patch
-c) If patch.exe fails with "Assertion failed: hunk, file patch.c, line 343", 
-   this means the line endings on the patch file and mpeg4ip source are not 
-   the same, i.e. one has Unix (\r) and the other has DOS (\n\r) line endings.
-   If this happens, use unix2dos or dos2unix so that the patch and source files
-   both have the same line endings.
-   
-If you don't have patch.exe, you can download it from
-http://gnuwin32.sourceforge.net The gnuwin32 distribution of patch.exe
-requires that you also install the dlls from packages LibIconv and LibIntl
-which may be downloaded from the same site.
+AACGain releases prior to 1.6 required applying a patch to mpeg4ip version
+1.2. No patches are necessary, now that we have upgraded to a later mp4v2
+release.
 
 Both .dsw/.dsp and .sln/.vcproj files are provided for use with MSVC++6
-or later. There should be 5 projects in your workspace/solution:
+or later. But since I can only test with MSVC++2003, use the .dsw/.dsp files
+at your own risk.
+
+Files mpeg4ip/lib/mp4v2/libmp4v2.vcproj and 
+mpeg4ip/lib/gnu/libmissing.vcproj are for MSVC++ 2005 (8.0). If you are
+like me, and too poor to have the latest MSVC++ version, you can use these files
+with MSVC++2003 by opening each file with a text editor and changing the 
+line:
+    Version="8.00"
+to
+    Version="7.10"
+
+Open aacgain/aacgain.vcproj or aacgain/aacgain.dsw. There should be 5 projects
+in your workspace/solution:
 1. aacgain
 2. libfaad
-3. libmissing60
-4. libmp4v2_st
+3. libmissing
+4. libmp4v2
 5. mp3gainlib
 
 Make the following changes to the libfaad project properties:
@@ -205,7 +215,38 @@ a) Change the C++/Code generation/Runtime Library property for libfaad to
 b) Change the Librarian/Ignore All Default Libraries property to 
    "Yes (/NODEFAULTLIB)" for both debug and release builds.
 
+Make the following changes to both libmp4v2 and libmissing projects:
+a) Change the C++/Code generation/Runtime Library property for libfaad to
+   "Single-threaded Debug (/MLd)" for debug build and "Single-threaded (/ML)"
+   for release build. 
+b) Change the C++/General/Additional Include Directories property
+   to "..\..\include"
+c) Change the C++/General/Debug Information Format property to
+   "Program Database (Zi)".
+d) If you are using MSVC++6.0, the mpeg4ip .dsp files have not been kept up to
+   date.You will need to add files virtual_io.cpp and virtual_io.h to libmp4v2,
+   and change the character set to Unicode (define _UNICODE) in both 
+   libmp4v2 and libmissing.
+   
 At this point, you may press F7 and cross your fingers:-)
+
+BUILDING AACGAIN FOR UNIX (LINUX/MAC OS X) FROM SOURCE CODE
+
+I am a windows-only programmer, so I can not vouch for or answer
+questions on the following, which was supplied by other AACGAIN
+users:
+
+Obtain the source code, and set up the directories, as described above
+for the Windows build. Expand the archive file unix_build_system.tar.bz2 
+that is checked into aacgain's CVS repository.
+
+Due to my overriding classes in mpeg4ip/mp4v2, it is not possible
+to dynamically link libmp4v2. It must be statically linked.
+
+Users building with mpeg4ip/mp4v2 version 1.5 report compile errors
+in mpeg4ip.h due to redefinition of struct iovec. This can be corrected
+either by deleting the struct from the header file, or else #define
+the symbol HAVE_STRUCT_IOVEC.
 
 HOW AACGAIN WORKS
 
@@ -221,7 +262,8 @@ corresponding files from faad2. The modifications allow the positions
 and original values of the global_gain fields to be saved.
 
 File MP4MetaFile.cpp subclasses mp4v2 class MP4File. Additional functionality
-was added in MP4MetaFile to modify the global_gain fields within a frame.
+was added in MP4MetaFile to modify the global_gain fields within a frame, and
+to optimize the resulting file in the same order as iTunes.
 
 aacgain.cpp is a wrapper for the above functionality.
 
@@ -237,7 +279,8 @@ as a learning exercise. I couldn't have done it without the help of others:
 1. Thanks to the user community at hydrogenaudio.org and audiocoding.com,
    especially Menno and Hans-Jürgen.
 2. Thanks to Bill May for helping me get started with mpeg4ip.
-3. Thanks to Prakash Punnoor and Hardloaf for their help with Linux and Mac.
+3. Thanks to Prakash Punnoor, Hardloaf, Ben Allison, and Miguel Angel Alvarez
+   for their help with Linux and Mac.
 4. Last, but not least, thanks to Glen Sawyer for creating mp3gain.
 
 Dave Lasker

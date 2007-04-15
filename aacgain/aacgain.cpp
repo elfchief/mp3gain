@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+** Copyright (C) David Lasker, 2004-2007 Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -53,7 +53,6 @@
 }
 
 GainDataPtr theGainData;
-static const MP4TrackId theTrack = 1;
 static const u_int32_t verbosity = MP4_DETAILS_ERROR|MP4_DETAILS_WARNING;
 
 //replay_gain tags
@@ -73,12 +72,12 @@ typedef struct
     struct stat savedAttributes;
 } PreserveTimestamp, *PreserveTimestampPtr;
 
-void modifyGain(MP4MetaFile* mp4MetaFile, int delta, GainFixupPtr gf)
+void modifyGain(MP4TrackId track, MP4MetaFile* mp4MetaFile, int delta, GainFixupPtr gf)
 {
     uint8_t new_gain = gf->orig_gain + (uint8_t)delta;
 
     //update global_gain
-    mp4MetaFile->ModifySampleByte(theTrack, gf->sampleId, new_gain, 
+    mp4MetaFile->ModifySampleByte(track, gf->sampleId, new_gain, 
         gf->sample_offset, gf->bit_offset);
 }
 
@@ -171,7 +170,7 @@ static int parseMp4File(GainDataPtr gd, ProgressCallback reportProgress, int com
     theGainData = gd;
     gd->GainHead = gd->GainTail = NULL;
     frameInfo.error = 0;
-    numSamples = mp4MetaFile->GetTrackNumberOfSamples(theTrack);
+    numSamples = mp4MetaFile->GetTrackNumberOfSamples(gd->track);
 
     for (sampleId = 1; sampleId <= numSamples; sampleId++)
     {
@@ -184,7 +183,7 @@ static int parseMp4File(GainDataPtr gd, ProgressCallback reportProgress, int com
 
         try 
         {
-            mp4MetaFile->ReadSample(theTrack, sampleId, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
+            mp4MetaFile->ReadSample(gd->track, sampleId, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
         } catch (MP4Error* e)
         {
             e->Print();
@@ -304,9 +303,9 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
 
     *gh = NULL;
 
-    //In order to allow processed files to play on iPod Shuffle, which is extremley sensitive to
+    //In order to allow processed files to play on iPod Shuffle, which is extremely sensitive to
     // file format, we always use a temp file. This runs the MP4File::Optimize function,
-    // which rewrites the processed file in the connanical order.
+    // which rewrites the processed file in the canonical order.
     use_temp = true;
 
     file_name_len = strlen(mp4_file_name);
@@ -338,6 +337,7 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
     }
 
     gd = new GainData;
+	gd->track = MP4_INVALID_TRACK_ID;
     gd->mp4MetaFile = NULL;
     gd->analyze = 0;
     gd->use_temp = use_temp;
@@ -366,7 +366,10 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
         }
         gd->free_atom_size = (u_int32_t)mp4MetaFile->GetFreeAtomSize();
         gd->mp4MetaFile = mp4MetaFile;
-        mp4MetaFile->GetTrackESConfiguration(theTrack, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
+
+		/* Find the first audio track, store in GainData struct. */
+		gd->track = mp4MetaFile->FindTrackId(0, MP4_AUDIO_TRACK_TYPE);
+        mp4MetaFile->GetTrackESConfiguration(gd->track, (u_int8_t**)(&buffer), (u_int32_t*)(&buffer_size));
     } catch (MP4Error* e)
     {
         /* unable to open file */
@@ -392,7 +395,7 @@ int aac_open(char *mp4_file_name, int use_temp, int preserve_timestamp, AACGainH
     if (NeAACDecInit2(hDecoder, buffer, buffer_size,
                     &gd->samplerate, &gd->channels) < 0)
     {
-        /* If some error initializing occured, skip the file */
+        /* If some error initializing occurred, skip the file */
         if (buffer)
             free(buffer);
         fprintf(stderr, "Error: file format not recognized.\n");
@@ -531,7 +534,7 @@ int aac_modify_gain(AACGainHandle gh, int left, int right,
         GainFixupPtr prev;
 
 		//update global_gain
-        modifyGain(mp4MetaFile, (gf->channel == 0) ? left : right, gf);
+        modifyGain(gd->track, mp4MetaFile, (gf->channel == 0) ? left : right, gf);
         prev = gf;
         gf = gf->next;
         free(prev);

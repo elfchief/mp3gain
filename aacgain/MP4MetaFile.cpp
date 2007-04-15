@@ -16,8 +16,8 @@
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
-
 #include "MP4MetaFile.h"
+
 #ifdef WIN32
 #include <process.h>
 #endif
@@ -162,20 +162,22 @@ const char* MP4MetaFile::TempFileName(const char* inputFile)
 #endif
     const char* lastDelim = strrchr(inputFile, delim);
     int dirLen;
+    char tempFileName[64];
+
     if (lastDelim)
     {
         //find the length of input file directory name (including trailing delim)
         dirLen = lastDelim - inputFile + 1;
         //copy the direcory name (including trailing delim)
-        strncpy(m_tempFileName, inputFile, dirLen);
+        strncpy(tempFileName, inputFile, dirLen);
     } else {
         dirLen = 0;
     }
 
 	u_int32_t i;
 	for (i = getpid(); i < 0xFFFFFFFF; i++) {
-		sprintf(m_tempFileName + dirLen, "tmp%u.mp4", i);
-		if (access(m_tempFileName, F_OK) != 0) {
+		sprintf(tempFileName + dirLen, "tmp%u.mp4", i);
+		if (access(tempFileName, F_OK) != 0) {
 			break;
 		}
 	}
@@ -183,9 +185,16 @@ const char* MP4MetaFile::TempFileName(const char* inputFile)
 		throw new MP4Error("can't create temporary file", "TempFileName");
 	}
 
+#ifdef WIN32
+        mbstowcs(m_tempFileName, tempFileName, strlen(tempFileName) + 1);
+#else
+        strncpy(m_tempFileName, tempFileName, strlen(tempFileName));
+#endif
+
+
     //need to strdup the result since it needs to outlast this instance of MP4MetaFile
     //caller is responsible for freeing the memory
-    return strdup(m_tempFileName);
+    return strdup(tempFileName);
 }
 
 //return the size of the 'free' atom used for padding between 'moov' and 'mdta'
@@ -208,10 +217,10 @@ void MP4MetaFile::Close()
 		SetIntegerProperty("moov.mvhd.modificationTime", 
 			MP4GetAbsTimestamp());
 
-		FinishWrite();
+        MP4MetaFile::FinishWrite();
 	}
 
-	fclose(m_pFile);
+	m_virtual_IO->Close(m_pFile);
 	m_pFile = NULL;
 }
 
@@ -256,6 +265,9 @@ void MP4MetaFile::Optimize(const char* orgFileName, const char* newFileName, u_i
 
 	// now switch over to writing the new file
 	MP4Free(m_fileName);
+	#ifdef _WIN32
+	MP4Free(m_fileName_w);
+	#endif
 
 	// create a temporary file if necessary
 	if (newFileName == NULL) {
@@ -264,7 +276,8 @@ void MP4MetaFile::Optimize(const char* orgFileName, const char* newFileName, u_i
 		m_fileName = MP4Stralloc(newFileName);
 	}
 
-	FILE* pReadFile = m_pFile;
+	void* pReadFile = m_pFile;
+	Virtual_IO *pReadIO = m_virtual_IO;
 	m_pFile = NULL;
 	m_mode = 'w';
 
@@ -278,16 +291,15 @@ void MP4MetaFile::Optimize(const char* orgFileName, const char* newFileName, u_i
 	((MyMP4RootAtom*)m_pRootAtom)->BeginOptimalWrite(freeAtomSize);
 
 	// write data in optimal order
-	RewriteMdat(pReadFile, m_pFile);
+	RewriteMdat(pReadFile, m_pFile, pReadIO, m_virtual_IO);
 
 	// finish writing
-	((MP4RootAtom*)m_pRootAtom)->FinishOptimalWrite();
-
+	((MyMP4RootAtom*)m_pRootAtom)->FinishOptimalWrite();
 
 	// cleanup
-	fclose(m_pFile);
+	m_virtual_IO->Close(m_pFile);
 	m_pFile = NULL;
-	fclose(pReadFile);
+	pReadIO->Close(pReadFile);
 
 	// move temporary file into place
 	if (newFileName == NULL) {
