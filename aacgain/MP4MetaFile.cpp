@@ -82,42 +82,6 @@ MP4MetaFile::MP4MetaFile(u_int32_t verbosity)
 {
 }
 
-bool MP4MetaFile::DeleteMetadataFreeForm(char *name)
-{
-    char s[256];
-    int	i =	0;
-
-    for (;;)
-    {
-        MP4BytesProperty *pMetadataProperty;
-        sprintf(s, "moov.udta.meta.ilst.----[%u].name",	i);
-        MP4Atom	*pTagNameAtom =	m_pRootAtom->FindAtom(s);
-        if (!pTagNameAtom)
-            return false;
-        pTagNameAtom->FindProperty("name.metadata",	(MP4Property**)&pMetadataProperty);
-        if (pMetadataProperty)
-        {
-            u_int8_t* pV;
-            u_int32_t VSize	= 0;
-            pMetadataProperty->GetValue(&pV, &VSize);
-            if (VSize != 0)
-            {
-                if ((VSize == strlen(name)) && (memcmp((char*)pV, name, VSize) == 0))
-                {
-                    MP4Free(pV);
-                    MP4Atom *p4dashesAtom = pTagNameAtom->GetParentAtom(); //the '----' atom
-                    MP4Atom *pIlstAtom = p4dashesAtom->GetParentAtom();
-                    pIlstAtom->DeleteChildAtom(p4dashesAtom);
-                    delete p4dashesAtom;
-                    return true;
-                }
-                MP4Free(pV);
-            }
-        }
-        i++;
-    }
-}
-
 void MP4MetaFile::ModifySampleByte(MP4TrackId trackId, MP4SampleId sampleId, u_int8_t byte,
                                    u_int32_t byteOffset, u_int8_t bitOffset)
 {
@@ -160,9 +124,9 @@ const char* MP4MetaFile::TempFileName(const char* inputFile)
 #else
     static const char delim = '/';
 #endif
+    char* tempFileName = (char*)malloc(strlen(inputFile) + 64);
     const char* lastDelim = strrchr(inputFile, delim);
     int dirLen;
-    char tempFileName[64];
 
     if (lastDelim)
     {
@@ -185,16 +149,8 @@ const char* MP4MetaFile::TempFileName(const char* inputFile)
 		throw new MP4Error("can't create temporary file", "TempFileName");
 	}
 
-#ifdef WIN32
-        mbstowcs(m_tempFileName, tempFileName, strlen(tempFileName) + 1);
-#else
-        strncpy(m_tempFileName, tempFileName, strlen(tempFileName));
-#endif
-
-
-    //need to strdup the result since it needs to outlast this instance of MP4MetaFile
     //caller is responsible for freeing the memory
-    return strdup(tempFileName);
+    return tempFileName;
 }
 
 //return the size of the 'free' atom used for padding between 'moov' and 'mdta'

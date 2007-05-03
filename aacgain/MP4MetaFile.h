@@ -44,7 +44,6 @@ class MP4MetaFile : public MP4File
 public:
     MP4MetaFile(u_int32_t verbosity = 0);
 
-    bool DeleteMetadataFreeForm(char *pName);
     void ModifySampleByte(MP4TrackId trackId, MP4SampleId sampleId, u_int8_t byte,
                           u_int32_t byteOffset, u_int8_t bitOffset);
     u_int64_t GetFileSize();

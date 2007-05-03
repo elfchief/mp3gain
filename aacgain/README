@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.6
+AACGAIN VERSION 1.7
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -60,9 +60,13 @@ USAGE NOTES
      - replaygain_undo
     These are all free-form metadata tags (moov.udta.meta.ilst.----)
     with 'data' text fields in the same format as the mp3gain
-    equivalents. You may use mp4dump (located in mpeg4ip\lib\mp4v2\util)
+    equivalents. You may use AtomicParsley (download from sourceforge)
     to view the tags.
     
+WHAT'S NEW IN VERSION 1.7
+a) If the total length of the directory plus file name path exceeded
+   64 bytes, memory corruption would occur. This has been corrected.
+
 WHAT'S NEW IN VERSION 1.6
 a) Files with a 'cprt' (copyright) tag are now processed correctly.
    Previous versions of aacgain corrupted the metadata of files with a
@@ -160,10 +164,10 @@ d) mpeg4ip
    Do NOT download the official mpeg4ip version 1.5.0.1. The fix for the
    'cprt' bug in AACGain 1.6 requires mpeg4ip version 1.5.5 or later, which
    has not yet been officially released. I am recommending you use version
-   1.5.20 because that is what I used to build AACGain 1.6. Unfortunately 
+   1.5.20 because that is what I used to build AACGain 1.7. Unfortunately 
    the mpeg4ip developers do not tag their internal versions, so the best
    way to checkout a version identical to the one I used is to use 
-   the CVS checkout -D option with a date of 20070402.
+   the CVS co -D option with a date of 20070402.
    
 The components must be arranged in the following directory hierarchy:
 -- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
@@ -189,7 +193,8 @@ release.
 
 Both .dsw/.dsp and .sln/.vcproj files are provided for use with MSVC++6
 or later. But since I can only test with MSVC++2003, use the .dsw/.dsp files
-at your own risk.
+at your own risk. I know for sure that the .dsp files packaged with
+mpeg4ip/mp4v2 are out of date.
 
 Files mpeg4ip/lib/mp4v2/libmp4v2.vcproj and 
 mpeg4ip/lib/gnu/libmissing.vcproj are for MSVC++ 2005 (8.0). If you are
@@ -200,7 +205,7 @@ line:
 to
     Version="7.10"
 
-Open aacgain/aacgain.vcproj or aacgain/aacgain.dsw. There should be 5 projects
+Open aacgain/aacgain.sln or aacgain/aacgain.dsw. There should be 5 projects
 in your workspace/solution:
 1. aacgain
 2. libfaad
