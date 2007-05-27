@@ -218,7 +218,7 @@ a) Change the C++/Code generation/Runtime Library property for libfaad to
    "Multi-threaded Debug (/MTd)" for debug build and "Multi-threaded (/MT)"
    for release build. 
 b) Change the C++/Optimization/Whole Program Optimization property to
-   Enable link-time code generation (/GL)
+   Enable link-time code generation (/GL) for release build
 
 Make the following changes to both libmp4v2 and libmissing projects:
 a) Change the C++/Code generation/Runtime Library property for libfaad to
