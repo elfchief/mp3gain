@@ -41,7 +41,7 @@ public:
     //Override MP4Track::FinishWrite to preserve original 
     // bufferSizeDB, maxBitrate and avgBitrate. This preserves the
     // original values of these properties, so that iTunes displays
-    // then as "whole" numbers, i.e 320KB instead of 319KB.
+    // them as "whole" numbers, i.e 320KB instead of 319KB.
     void FinishWrite()
     {
 	    // write out any remaining samples in chunk buffer
