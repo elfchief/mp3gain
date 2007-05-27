@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.7
+AACGAIN VERSION 1.7.1
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -48,9 +48,9 @@ USAGE NOTES
 8. The /w (wrap) flag is ignored for aac files, since allowing an aac file
    to wrap will leave it in an unplayable state.
 9. The /f (assume input file is an MPEG 2 Layer III) option is ignored
-   for AAC files. If a file starts with a 'ftyp' atom, it is assumed to be
-   AAC, even if /f was specified.
-10. The following metadata tags will be added to your files:
+   for mp4/m4a files. If a file starts with a 'ftyp' atom, it is assumed 
+   to be an mp4 container, even if /f was specified.
+10. The following metadata tags will be added to your mp4/m4a files:
      - replaygain_track_gain
      - replaygain_album_gain
      - replaygain_track_peak
@@ -63,6 +63,11 @@ USAGE NOTES
     equivalents. You may use AtomicParsley (download from sourceforge)
     to view the tags.
     
+WHAT'S NEW IN VERSION 1.7.1
+a) MSVC++ solution and project files have been converted to Visual
+   C++ 2005 Express Edition. Other than the version number, no other 
+   source code changes have been made.
+
 WHAT'S NEW IN VERSION 1.7
 a) If the total length of the directory plus file name path exceeded
    64 bytes, memory corruption would occur. This has been corrected.
@@ -120,9 +125,15 @@ d) Uses portable versions of all library functions, and has been
    
 BUILDING AACGAIN FOR WINDOWS FROM SOURCE CODE
 
-I created AACGain using MSVC++.NET 2003. Thanks to Glen Sawyer for 
-converting the .sln/.vcproj files to .dsw/.dsp. Thanks to Prakash Punoor, 
-the source code is portable, and has been compiled under Linux.
+MSVC++ solution and project files have been converted to for Visual C++
+2005 Express Edition. The MVSC++ 6.0 .dsw/.dsp files are no longer being
+maintained.
+
+In order to build with Visual C++ Express Edition, be sure to download the
+platform SDK, and follow the instructions on Microsoft's web site to enable
+WIN32 projects. YOU MUST ADD THE FOLLOWING ADDITIONAL INCLUDE PATH to
+Tools/Options/Projects & Solutions/VC++ Directories/Include files:
+C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include\mfc
 
 In order to build AACGain from source code, the following components are 
 required. You may download them from the links listed below:
@@ -140,20 +151,25 @@ b) mp3gain
    You must check out the source code from sourceforge's CVS repository. A CVS
    client is required. The zipped source code files available for download
    from http://mp3gain.sourceforge.net/download.php is currently at version 
-   1.4.6 and is not compatible with AACGain source code. When version 1.4.7 
-   is released, use of CVS will no longer be required. The commands to check 
+   1.4.6 and is not compatible with AACGain source code. The commands to check 
    out the mp3gain source code are:
    cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain login 
    cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/mp3gain co -P mp3gain
    
 c) faad2 
-   Download the latest "FAAD2 CVS snapshot 15-09-2004" from
+   Download the "FAAD2 CVS snapshot 15-09-2004" from
    http://www.audiocoding.com/modules/mydownloads/ AACGain is based on FAAD2 
    as of Sept. 15, 2004. Since AACGain was developed, FAAD2 version 2.5 has
-   been released. I have not tried this version, since the previous version
-   meets my needs. If you want to try version 2.5, make sure the code
-   in aacgain/decoder.c and aacgain/syntax.c, which contains replacements
-   for the corresponding faad2 code, is still correct for the latest version.
+   been released. There are non-compatible header file changes to version
+   2.5, so it AACGain will not build with it unless corresponding source
+   code changes are made.
+   
+   Recently the audiocoding.com web site has been down. You can also 
+   check out the source from the FAAC project's CVS repository on sourceforge. 
+   See the instructions at http://sourceforge.net/cvs/?group_id=704. The 
+   commands to check out the source are:
+   cvs -d:pserver:anonymous@faac.cvs.sourceforge.net:/cvsroot/faac login
+   cvs -z3 -d:pserver:anonymous@faac.cvs.sourceforge.net:/cvsroot/faac co -P faad2 -D 20040915
    
 d) mpeg4ip
    Checkout mpeg4ip version 1.5.20 or later from CVS at 
@@ -167,7 +183,7 @@ d) mpeg4ip
    1.5.20 because that is what I used to build AACGain 1.7. Unfortunately 
    the mpeg4ip developers do not tag their internal versions, so the best
    way to checkout a version identical to the one I used is to use 
-   the CVS co -D option with a date of 20070402.
+   the cvs co -D option with a date of 20070402.
    
 The components must be arranged in the following directory hierarchy:
 -- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
@@ -181,9 +197,8 @@ The components must be arranged in the following directory hierarchy:
    -- include
    -- lib
       -- mp4v2 containing libmp4v2.vcproj
-         -- util
       -- gnu containing libmissing.vcproj
-   other directories are not used and can be pruned if desired
+   other directories are not used and may be pruned if desired
 -- mp3gain
    -- mpglibDBL
       
@@ -191,22 +206,7 @@ AACGain releases prior to 1.6 required applying a patch to mpeg4ip version
 1.2. No patches are necessary, now that we have upgraded to a later mp4v2
 release.
 
-Both .dsw/.dsp and .sln/.vcproj files are provided for use with MSVC++6
-or later. But since I can only test with MSVC++2003, use the .dsw/.dsp files
-at your own risk. I know for sure that the .dsp files packaged with
-mpeg4ip/mp4v2 are out of date.
-
-Files mpeg4ip/lib/mp4v2/libmp4v2.vcproj and 
-mpeg4ip/lib/gnu/libmissing.vcproj are for MSVC++ 2005 (8.0). If you are
-like me, and too poor to have the latest MSVC++ version, you can use these files
-with MSVC++2003 by opening each file with a text editor and changing the 
-line:
-    Version="8.00"
-to
-    Version="7.10"
-
-Open aacgain/aacgain.sln or aacgain/aacgain.dsw. There should be 5 projects
-in your workspace/solution:
+Open aacgain/aacgain.sln. There should be 5 projects in your solution:
 1. aacgain
 2. libfaad
 3. libmissing
@@ -215,27 +215,24 @@ in your workspace/solution:
 
 Make the following changes to the libfaad project properties:
 a) Change the C++/Code generation/Runtime Library property for libfaad to
-   "Single-threaded Debug (/MLd)" for debug build and "Single-threaded (/ML)"
+   "Multi-threaded Debug (/MTd)" for debug build and "Multi-threaded (/MT)"
    for release build. 
-b) Change the Librarian/Ignore All Default Libraries property to 
-   "Yes (/NODEFAULTLIB)" for both debug and release builds.
+b) Change the C++/Optimization/Whole Program Optimization property to
+   Enable link-time code generation (/GL)
 
 Make the following changes to both libmp4v2 and libmissing projects:
 a) Change the C++/Code generation/Runtime Library property for libfaad to
-   "Single-threaded Debug (/MLd)" for debug build and "Single-threaded (/ML)"
+   "Multi-threaded Debug (/MTd)" for debug build and "Multi-threaded (/MT)"
    for release build. 
 b) Change the C++/General/Additional Include Directories property
    to "..\..\include"
-c) Change the C++/General/Debug Information Format property to
-   "Program Database (Zi)".
-d) If you are using MSVC++6.0, the mpeg4ip .dsp files have not been kept up to
-   date.You will need to add files virtual_io.cpp and virtual_io.h to libmp4v2,
-   and change the character set to Unicode (define _UNICODE) in both 
-   libmp4v2 and libmissing.
    
 At this point, you may press F7 and cross your fingers:-)
 
 BUILDING AACGAIN FOR UNIX (LINUX/MAC OS X) FROM SOURCE CODE
+
+Thanks to Prakash Punoor, the source code is portable, 
+and has been compiled for Linux and Mac OS X. 
 
 I am a windows-only programmer, so I can not vouch for or answer
 questions on the following, which was supplied by other AACGAIN
@@ -245,12 +242,12 @@ Obtain the source code, and set up the directories, as described above
 for the Windows build. Expand the archive file unix_build_system.tar.bz2 
 that is checked into aacgain's CVS repository.
 
-Due to my overriding classes in mpeg4ip/mp4v2, it is not possible
+Due to my subclassing classes in mpeg4ip/mp4v2, it is not possible
 to dynamically link libmp4v2. It must be statically linked.
 
 Users building with mpeg4ip/mp4v2 version 1.5 report compile errors
 in mpeg4ip.h due to redefinition of struct iovec. This can be corrected
-either by deleting the struct from the header file, or else #define
+either by deleting the struct from mpeg4ip.h, or else #define or -D
 the symbol HAVE_STRUCT_IOVEC.
 
 HOW AACGAIN WORKS
@@ -290,4 +287,3 @@ as a learning exercise. I couldn't have done it without the help of others:
 
 Dave Lasker
 dave@altosdesign.com
-April 14, 2005
