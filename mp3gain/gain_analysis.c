@@ -105,7 +105,7 @@ typedef signed int      Int32_t;
 #define YULE_FILTER     filterYule
 #define BUTTER_FILTER   filterButter
 #define RMS_PERCENTILE      0.95        // percentile which is louder than the proposed level
-#define MAX_SAMP_FREQ   48000.          // maximum allowed sample frequency [Hz]
+#define MAX_SAMP_FREQ   96000.          // maximum allowed sample frequency [Hz]
 #define RMS_WINDOW_TIME     0.050       // Time slice size [s]
 #define STEPS_per_dB      100.          // Table entries per dB
 #define MAX_dB            120.          // Table entries for 0...MAX_dB (normal max. values are 70...80 dB)
