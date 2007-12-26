@@ -21,6 +21,12 @@ without decoding and re-encoding.</p>
 <hr />
 <p>
 <strong>Latest news:</strong><br />
+<em>25 Dec 2007</em><br />
+Wow, people are still <a href="translation.php">translating</a> MP3Gain!<br />
+Just added <a href="help/Thai.mp3gain.ini">Thai</a>.
+</p>
+<hr />
+<p>
 <em>19 March 2005</em><br />
 Just a reminder that the new AAC part of mp3gain is <strong>experimental</strong>. It's simply
 newer, so problems are still being found (and fixed). Use it at your own risk, and I'd suggest
