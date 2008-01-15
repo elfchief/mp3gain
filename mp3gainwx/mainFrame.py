@@ -44,9 +44,12 @@ class mainFrame(wx.Frame):
         wxglade_tmp_menu.Append(wx.ID_EXIT, "E&xit", "Quit this program", wx.ITEM_NORMAL)
         self.mainMenu.Append(wxglade_tmp_menu, "&File")
         wxglade_tmp_menu = wx.Menu()
-        wxglade_tmp_menu.Append(ID_MENU_MODE_TRACK, "&Track", "\"Track\" analysis and gain", wx.ITEM_RADIO)
-        wxglade_tmp_menu.Append(ID_MENU_MODE_ALBUM, "&Album", "\"Album\" analysis and gain", wx.ITEM_RADIO)
-        wxglade_tmp_menu.Append(ID_MENU_MODE_MANUAL, "&Manual", "Manual gain change", wx.ITEM_RADIO)
+        self.trackMenu = wx.MenuItem(wxglade_tmp_menu, ID_MENU_MODE_TRACK, "&Track", "\"Track\" analysis and gain", wx.ITEM_CHECK)
+        wxglade_tmp_menu.AppendItem(self.trackMenu)
+        self.albumMenu = wx.MenuItem(wxglade_tmp_menu, ID_MENU_MODE_ALBUM, "&Album", "\"Album\" analysis and gain", wx.ITEM_CHECK)
+        wxglade_tmp_menu.AppendItem(self.albumMenu)
+        self.manualMenu = wx.MenuItem(wxglade_tmp_menu, ID_MENU_MODE_MANUAL, "&Manual", "Manual gain change", wx.ITEM_CHECK)
+        wxglade_tmp_menu.AppendItem(self.manualMenu)
         self.mainMenu.Append(wxglade_tmp_menu, "&Mode")
         wxglade_tmp_menu = wx.Menu()
         wxglade_tmp_menu.Append(ID_MENU_TRACK_ANALYSIS, "Track Analysis", "Calculate ReplayGain for each mp3 file", wx.ITEM_NORMAL)
@@ -101,9 +104,9 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnClearFiles, id=ID_MENU_CLEAR_FILES)
         self.Bind(wx.EVT_MENU, self.OnClearAll, id=ID_MENU_CLEAR_ALL)
         self.Bind(wx.EVT_MENU, self.OnExit, id=wx.ID_EXIT)
-        self.Bind(wx.EVT_MENU, self.OnModeChange, id=ID_MENU_MODE_TRACK)
-        self.Bind(wx.EVT_MENU, self.OnModeChange, id=ID_MENU_MODE_ALBUM)
-        self.Bind(wx.EVT_MENU, self.OnModeChange, id=ID_MENU_MODE_MANUAL)
+        self.Bind(wx.EVT_MENU, self.OnModeChange, self.trackMenu)
+        self.Bind(wx.EVT_MENU, self.OnModeChange, self.albumMenu)
+        self.Bind(wx.EVT_MENU, self.OnModeChange, self.manualMenu)
         self.Bind(wx.EVT_MENU, self.OnTrackAnalysis, id=ID_MENU_TRACK_ANALYSIS)
         self.Bind(wx.EVT_MENU, self.OnAlbumAnalysis, id=ID_MENU_ALBUM_ANALYSIS)
         self.Bind(wx.EVT_MENU, self.OnTrackGain, id=ID_MENU_TRACK_GAIN)
@@ -119,13 +122,23 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_COMMAND_SCROLL, self.OnVolumeChange, id=ID_SLIDER_VOLUME)
         # end wxGlade
 
-        self.mode = TRACK_MODE
         self.trackGainIcon = wx.Bitmap("res/big_adjust_radio.xpm", wx.BITMAP_TYPE_ANY)
         self.trackAnalysisIcon = wx.Bitmap("res/big_scan_radio.xpm", wx.BITMAP_TYPE_ANY)
         self.albumGainIcon = wx.Bitmap("res/big_adjust_album.xpm", wx.BITMAP_TYPE_ANY)
         self.albumAnalysisIcon = wx.Bitmap("res/big_scan_album.xpm", wx.BITMAP_TYPE_ANY)
         self.manualGainIcon = wx.Bitmap("res/big_adjust_constant.xpm", wx.BITMAP_TYPE_ANY)
-
+        
+        self.config = wx.Config("wxMP3Gain")
+        try:
+            self.mode = int(self.config.Read("Mode"))
+        except ValueError:
+            self.mode = TRACK_MODE
+        if self.mode != ALBUM_MODE and self.mode != MANUAL_MODE:
+            # in case invalid mode was stored in config
+            self.mode = TRACK_MODE
+        
+        self.UpdateMode()
+        
     def __set_properties(self):
         # begin wxGlade: mainFrame.__set_properties
         self.SetTitle("MP3Gain")
@@ -141,7 +154,6 @@ class mainFrame(wx.Frame):
         self.mainToolbar.SetToolBitmapSize((48, 48))
         self.mainToolbar.Realize()
         # end wxGlade
-
         self.mainList.InsertColumn(0,"Path/File")
         self.mainList.InsertColumn(1,"Volume")
         self.mainList.InsertColumn(2,"clipping")
@@ -237,29 +249,41 @@ class mainFrame(wx.Frame):
         self.cancelProcessing = True
         self.Close()
 
-    def OnModeChange(self, event): # wxGlade: mainFrame.<event_handler>
+    def UpdateMode(self):
         tb = self.mainToolbar
         
         tb.DeleteTool(ID_TOOL_ANALYZE)
         tb.DeleteTool(ID_TOOL_GAIN)
-
-        id = event.GetId()
-        if id == ID_MENU_MODE_TRACK:
+        self.albumMenu.Check(False)
+        self.trackMenu.Check(False)
+        self.manualMenu.Check(False)
+        
+        if self.mode == TRACK_MODE:
+            self.trackMenu.Check(True)
             tb.InsertLabelTool(3,ID_TOOL_GAIN, "Track Gain", self.trackGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
             tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Track Analysis", self.trackAnalysisIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
-            self.mode = TRACK_MODE
-        elif id == ID_MENU_MODE_ALBUM:
+        elif self.mode == ALBUM_MODE:
+            self.albumMenu.Check(True)
             tb.InsertLabelTool(3,ID_TOOL_GAIN, "Album Gain", self.albumGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
             tb.InsertLabelTool(3,ID_TOOL_ANALYZE, "Album Analysis", self.albumAnalysisIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Do ReplayGain analysis on files", "Do ReplayGain analysis on files")
-            self.mode = ALBUM_MODE
         else:
+            self.manualMenu.Check(True)
             tb.InsertLabelTool(3,ID_TOOL_GAIN, "Manual Gain", self.manualGainIcon, wx.NullBitmap, wx.ITEM_NORMAL, "Change volume of files", "Change volume of files")
-            self.mode = MANUAL_MODE
-            
-        tb.Realize()
 
+        tb.Realize()
+        
         self.EnableStuff(True)
 
+    def OnModeChange(self, event): # wxGlade: mainFrame.<event_handler>
+        id = event.GetId()
+        if id == ID_MENU_MODE_TRACK:
+            self.mode = TRACK_MODE
+        elif id == ID_MENU_MODE_ALBUM:
+            self.mode = ALBUM_MODE
+        else:
+            self.mode = MANUAL_MODE
+
+        self.UpdateMode()        
 
     def OnAnalysisButton(self, event): # wxGlade: mainFrame.<event_handler>
         if self.mode == TRACK_MODE:
