@@ -121,7 +121,9 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.OnCancel, id=ID_TOOL_CANCEL)
         self.Bind(wx.EVT_COMMAND_SCROLL, self.OnVolumeChange, id=ID_SLIDER_VOLUME)
         # end wxGlade
-
+        
+        wx.EVT_CLOSE(self, self.OnCloseWindow)
+        
         self.trackGainIcon = wx.Bitmap("res/big_adjust_radio.xpm", wx.BITMAP_TYPE_ANY)
         self.trackAnalysisIcon = wx.Bitmap("res/big_scan_radio.xpm", wx.BITMAP_TYPE_ANY)
         self.albumGainIcon = wx.Bitmap("res/big_adjust_album.xpm", wx.BITMAP_TYPE_ANY)
@@ -201,6 +203,10 @@ class mainFrame(wx.Frame):
         d = wx.MessageDialog(self, "Event handler '"+msg+"' not implemented yet!", "Not implemented", wx.OK)
         d.ShowModal()
         d.Destroy()
+    
+    def OnCloseWindow(self, event):
+        self.config.Write("Mode", str(self.mode))
+        self.Destroy()
         
     def OnAddFiles(self, event): # wxGlade: mainFrame.<event_handler>
         d = wx.FileDialog(self, "Choose mp3 files", "", "", "MP3 files (*.mp3)|*.mp3", wx.OPEN|wx.MULTIPLE|wx.CHANGE_DIR)
