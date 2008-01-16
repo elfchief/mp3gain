@@ -130,7 +130,20 @@ class mainFrame(wx.Frame):
         self.albumAnalysisIcon = wx.Bitmap("res/big_scan_album.xpm", wx.BITMAP_TYPE_ANY)
         self.manualGainIcon = wx.Bitmap("res/big_adjust_constant.xpm", wx.BITMAP_TYPE_ANY)
         
+        # ---- Load User Preferences
+        
         self.config = wx.Config("wxMP3Gain")
+        
+        try:
+            vol = float(self.config.Read("Target","89.0"))
+        except ValueError:
+            vol = 89.0
+        if vol < 80.0 or vol > 105.0:
+            vol = 89.0
+        
+        self.volumeSlider.SetValue(vol * 10.0)
+        self.ChangeVolumeLabel()
+
         try:
             self.mode = int(self.config.Read("Mode"))
         except ValueError:
@@ -139,6 +152,23 @@ class mainFrame(wx.Frame):
             # in case invalid mode was stored in config
             self.mode = TRACK_MODE
         
+        #do "Maximize window" BEFORE setting window size; otherwise, un-maximize won't shrink
+        maximized = self.config.Read("Maximized")
+        if maximized == "1":
+            self.Maximize()
+        
+        try:
+            width = int(self.config.Read("Width"))
+            height = int(self.config.Read("Height"))
+        except ValueError:
+            width = 675
+            height = 475
+            
+        if width < 675:
+            width = 675
+        if height < 350:
+            height = 350
+        self.SetSize((width, height))
         self.UpdateMode()
         
     def __set_properties(self):
@@ -147,7 +177,7 @@ class mainFrame(wx.Frame):
         _icon = wx.EmptyIcon()
         _icon.CopyFromBitmap(wx.Bitmap("res/mp3gain.xpm", wx.BITMAP_TYPE_ANY))
         self.SetIcon(_icon)
-        self.SetSize((629, 476))
+        self.SetSize((675, 475))
         self.mainStatusbar.SetStatusWidths([-1])
         # statusbar fields
         mainStatusbar_fields = ["Ready"]
@@ -189,9 +219,8 @@ class mainFrame(wx.Frame):
         mainSplit.Add(self.panel_2, 0, wx.EXPAND, 0)
         self.SetSizer(mainSplit)
         self.Layout()
-        self.SetSize((629, 476))
+        self.SetSize((675, 475))
         # end wxGlade
-        self.ChangeVolumeLabel()
 
     def NotImpYet(self, msg):
         d = wx.MessageDialog(self, "Event handler '"+msg+"' not implemented yet!", "Not implemented", wx.OK)
@@ -199,6 +228,17 @@ class mainFrame(wx.Frame):
         d.Destroy()
     
     def OnCloseWindow(self, event):
+        # --- Save User Preferences
+        self.config.Write("Target",str(self.volumeSlider.GetValue() / 10.0))
+
+        if self.IsMaximized():
+            self.config.Write("Maximized","1")
+            #DON'T save the window size if maximized
+        else:
+            self.config.Write("Maximized","0")
+            size = self.GetSize()
+            self.config.Write("Width", str(size.GetWidth()))
+            self.config.Write("Height", str(size.GetHeight()))
         self.config.Write("Mode", str(self.mode))
         self.Destroy()
         
@@ -329,7 +369,10 @@ class mainFrame(wx.Frame):
 
     def ChangeVolumeLabel(self):
         targetVolume = self.volumeSlider.GetValue() / 10.0
-        self.volumeLabel.SetLabel("%0.1f dB" % targetVolume)
+        if targetVolume < 100:
+            self.volumeLabel.SetLabel("%0.1f dB  " % targetVolume)
+        else:
+            self.volumeLabel.SetLabel("%0.1f dB" % targetVolume)
 
     def AddFileToList(self, path):
         if not path.lower().endswith('.mp3'):

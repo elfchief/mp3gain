@@ -9,7 +9,7 @@
         <menubar>1</menubar>
         <statusbar>1</statusbar>
         <toolbar>1</toolbar>
-        <size>629, 476</size>
+        <size>675, 475</size>
         <object class="wxMenuBar" name="mainMenu" base="EditMenuBar">
             <menus>
                 <menu name="" label="&amp;File">
