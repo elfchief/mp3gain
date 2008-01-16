@@ -21,7 +21,6 @@ class mainFrame(wx.Frame):
         
         # Menu Bar
         self.mainMenu = wx.MenuBar()
-        self.SetMenuBar(self.mainMenu)
         global ID_MENU_ADD_FILES; ID_MENU_ADD_FILES = wx.NewId()
         global ID_MENU_ADD_FOLDER; ID_MENU_ADD_FOLDER = wx.NewId()
         global ID_MENU_CLEAR_FILES; ID_MENU_CLEAR_FILES = wx.NewId()
@@ -60,6 +59,7 @@ class mainFrame(wx.Frame):
         wxglade_tmp_menu.Append(ID_MENU_ALBUM_GAIN, "Album Gain", "Apply suggested Album gain to each folder", wx.ITEM_NORMAL)
         wxglade_tmp_menu.Append(ID_MENU_MANUAL_GAIN, "Manual Gain", "Apply user-selected gain change to each file", wx.ITEM_NORMAL)
         self.mainMenu.Append(wxglade_tmp_menu, "Gain")
+        self.SetMenuBar(self.mainMenu)
         # Menu Bar end
         self.mainStatusbar = self.CreateStatusBar(1, 0)
         
@@ -122,7 +122,7 @@ class mainFrame(wx.Frame):
         self.Bind(wx.EVT_COMMAND_SCROLL, self.OnVolumeChange, id=ID_SLIDER_VOLUME)
         # end wxGlade
         
-        wx.EVT_CLOSE(self, self.OnCloseWindow)
+        self.Bind(wx.EVT_CLOSE, self.OnCloseWindow)
         
         self.trackGainIcon = wx.Bitmap("res/big_adjust_radio.xpm", wx.BITMAP_TYPE_ANY)
         self.trackAnalysisIcon = wx.Bitmap("res/big_scan_radio.xpm", wx.BITMAP_TYPE_ANY)
@@ -177,25 +177,19 @@ class mainFrame(wx.Frame):
         sizer_2.Add(self.targetLabel, 0, 0, 0)
         sizer_2.Add(self.volumeSlider, 1, wx.EXPAND, 0)
         sizer_2.Add(self.volumeLabel, 0, 0, 0)
-        self.panel_1.SetAutoLayout(True)
         self.panel_1.SetSizer(sizer_2)
-        sizer_2.Fit(self.panel_1)
-        sizer_2.SetSizeHints(self.panel_1)
         mainSplit.Add(self.panel_1, 0, wx.EXPAND, 0)
         mainSplit.Add(self.mainList, 1, wx.EXPAND, 0)
         grid_sizer_1.Add(self.fileProgressLabel, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.Add(self.fileProgress, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.Add(self.totalProgressLabel, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.Add(self.totalProgress, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
-        self.panel_2.SetAutoLayout(True)
         self.panel_2.SetSizer(grid_sizer_1)
-        grid_sizer_1.Fit(self.panel_2)
-        grid_sizer_1.SetSizeHints(self.panel_2)
         grid_sizer_1.AddGrowableCol(1)
         mainSplit.Add(self.panel_2, 0, wx.EXPAND, 0)
-        self.SetAutoLayout(True)
         self.SetSizer(mainSplit)
         self.Layout()
+        self.SetSize((629, 476))
         # end wxGlade
         self.ChangeVolumeLabel()
 
