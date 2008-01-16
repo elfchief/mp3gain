@@ -204,15 +204,15 @@ class mainFrame(wx.Frame):
         grid_sizer_1 = wx.FlexGridSizer(2, 2, 0, 0)
         sizer_2 = wx.BoxSizer(wx.HORIZONTAL)
         mainSplit.Add(self.static_line_1, 0, wx.EXPAND, 0)
-        sizer_2.Add(self.targetLabel, 0, 0, 0)
+        sizer_2.Add(self.targetLabel, 0, wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5)
         sizer_2.Add(self.volumeSlider, 1, wx.EXPAND, 0)
-        sizer_2.Add(self.volumeLabel, 0, 0, 0)
+        sizer_2.Add(self.volumeLabel, 0, wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5)
         self.panel_1.SetSizer(sizer_2)
         mainSplit.Add(self.panel_1, 0, wx.EXPAND, 0)
         mainSplit.Add(self.mainList, 1, wx.EXPAND, 0)
         grid_sizer_1.Add(self.fileProgressLabel, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.Add(self.fileProgress, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
-        grid_sizer_1.Add(self.totalProgressLabel, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 0)
+        grid_sizer_1.Add(self.totalProgressLabel, 0, wx.LEFT|wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 5)
         grid_sizer_1.Add(self.totalProgress, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
         self.panel_2.SetSizer(grid_sizer_1)
         grid_sizer_1.AddGrowableCol(1)
@@ -369,10 +369,11 @@ class mainFrame(wx.Frame):
 
     def ChangeVolumeLabel(self):
         targetVolume = self.volumeSlider.GetValue() / 10.0
+        label = "%0.1f dB" % targetVolume
+        
         if targetVolume < 100:
-            self.volumeLabel.SetLabel("%0.1f dB  " % targetVolume)
-        else:
-            self.volumeLabel.SetLabel("%0.1f dB" % targetVolume)
+            label += "  "
+        self.volumeLabel.SetLabel(label)
 
     def AddFileToList(self, path):
         if not path.lower().endswith('.mp3'):
