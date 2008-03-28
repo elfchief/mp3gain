@@ -7,6 +7,11 @@ include("start.php");
 ?>
 <h1 class="hide">News</h1>
 <p>
+<em>28 Mar 2008</em><br />
+Thomas Dieffenbach has created a <a href="http://sourceforge.net/projects/easymp3gain">Linux GUI</a> for MP3Gain. It just went beta, so check it out and give him feedback
+</p>
+<hr />
+<p>
 <em>25 Dec 2007</em><br />
 Wow, people are still <a href="translation.php">translating</a> MP3Gain!<br />
 Just added <a href="help/Thai.mp3gain.ini">Thai</a>.
