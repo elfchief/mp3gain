@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.7.2
+AACGAIN VERSION 1.8
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -76,7 +76,7 @@ You may email me questions, but there is no guarantee of a response.
 If you have what you believe to be a valid .m4a/.mp3 file that is 
 not processed correctly by aacgain, please attach it to your email.
     
-WHAT'S NEW IN VERSION 1.7.2
+WHAT'S NEW IN VERSION 1.8
 a) Built with mpeg4ip/mp4v2 version 1.6.1. aacgain 1.7.1 was built with
    version 1.5.20. mp4v2 version 1.6.1 corrects problems that corrupted 
    video files containing Quicktime chapter markers.
