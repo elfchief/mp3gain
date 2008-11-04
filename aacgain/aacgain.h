@@ -22,7 +22,7 @@
 
 //external interface to aacgain.c
 
-#define AACGAIN_VERSION "1.7.1"
+#define AACGAIN_VERSION "1.8.0"
 
 #include "gain_analysis.h"
 

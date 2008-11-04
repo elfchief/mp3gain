@@ -209,7 +209,9 @@ static int parseMp4File(GainDataPtr gd, ProgressCallback reportProgress, int com
             reportProgress(percent, (unsigned int)mp4MetaFile->GetFileSize());
         }
 
-        if (frameInfo.error > 0)
+		//ignore error 4 (scalefactor out of range) which seems to happen on some tracks
+		//other errors are fatal
+        if ((frameInfo.error > 0) && (frameInfo.error!=4))
         {
             fprintf(stderr, "Error: invalid file format %s, code=%d\n",
                 gd->mp4file_name, frameInfo.error);

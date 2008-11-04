@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) 2004-2007 David Lasker, Altos Design, Inc.
+** Copyright (C) 2004-2008 David Lasker, Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-AACGAIN VERSION 1.7.1
+AACGAIN VERSION 1.7.2
 
 AACgain is a modification to Glen Sawyer's mp3gain, to support AAC 
 (mp4/m4a/QuickTime) files as well as mp3 files. If you are not familiar with
@@ -63,6 +63,29 @@ USAGE NOTES
     equivalents. You may use AtomicParsley (download from sourceforge)
     to view the tags.
     
+SUPPPORT
+This is free software. No support is provided. 
+
+You may try to post
+questions on the Hydrogen Audio AAC Tech forum:
+http://www.hydrogenaudio.org/forums/index.php?showforum=14
+I regularly monitor this forum, and use it to announce new releases
+of aacgain.
+
+You may email me questions, but there is no guarantee of a response.
+If you have what you believe to be a valid .m4a/.mp3 file that is 
+not processed correctly by aacgain, please attach it to your email.
+    
+WHAT'S NEW IN VERSION 1.7.2
+a) Built with mpeg4ip/mp4v2 version 1.6.1. aacgain 1.7.1 was built with
+   version 1.5.20. mp4v2 version 1.6.1 corrects problems that corrupted 
+   video files containing Quicktime chapter markers.
+b) Built with latest mp3gain version 1.4.7 sources checked into CVS. 
+   The mp3gain changes made since 1.7.1 support sample rates up to 96000.
+   Previous versions had a maxmimum sample rate of 48000.
+c) Ignores faad2 "scalefactor out of range" errors. These errors resulted
+   in "invalid file format" errors on apparently good files.
+
 WHAT'S NEW IN VERSION 1.7.1
 a) MSVC++ solution and project files have been converted to Visual
    C++ 2005 Express Edition. Other than the version number, no other 
@@ -127,7 +150,8 @@ BUILDING AACGAIN FOR WINDOWS FROM SOURCE CODE
 
 MSVC++ solution and project files have been converted to for Visual C++
 2005 Express Edition. The MVSC++ 6.0 .dsw/.dsp files are no longer being
-maintained.
+maintained. I have attempted to build with aacgain with Visual C++ 2008
+Express Edition.
 
 In order to build with Visual C++ Express Edition, be sure to download the
 platform SDK, and follow the instructions on Microsoft's web site to enable
@@ -172,18 +196,13 @@ c) faad2
    cvs -z3 -d:pserver:anonymous@faac.cvs.sourceforge.net:/cvsroot/faac co -P faad2 -D 20040915
    
 d) mpeg4ip
-   Checkout mpeg4ip version 1.5.20 or later from CVS at 
+   Checkout mpeg4ip version 1.6.1 or later from CVS at 
    http://sourceforge.net/cvs/?group_id=18676. The cvs checkout commands are:
    cvs -d:pserver:anonymous@mpeg4ip.cvs.sourceforge.net:/cvsroot/mpeg4ip login
    cvs -z3 -d:pserver:anonymous@mpeg4ip.cvs.sourceforge.net:/cvsroot/mpeg4ip co -P mpeg4ip
     
-   Do NOT download the official mpeg4ip version 1.5.0.1. The fix for the
-   'cprt' bug in AACGain 1.6 requires mpeg4ip version 1.5.5 or later, which
-   has not yet been officially released. I am recommending you use version
-   1.5.20 because that is what I used to build AACGain 1.7. Unfortunately 
-   the mpeg4ip developers do not tag their internal versions, so the best
-   way to checkout a version identical to the one I used is to use 
-   the cvs co -D option with a date of 20070402.
+   You may also try to use the mpeg4ip version 1.6.1 tarball, although there
+   are reports that it is corrupted.
    
 The components must be arranged in the following directory hierarchy:
 -- aacgain containing aacgain.dsw/.sln, aacgain.dsp/.vcproj and source files
