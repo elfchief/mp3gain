@@ -64,6 +64,7 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 <b>New Translations (not yet included in main download)</b><br />
 Download the file and place it in your MP3Gain folder. The new language will appear in the "Languages" menu in MP3Gain.
 <ul>
+    <li><a href="lang/Portugues_Brasil.mp3gain.ini">Brazilian Portuguese</a> (updated version from the one in the installer)</li>
     <li><a href="lang/Danish.mp3gain.ini">Danish</a></li>
     <li><a href="lang/Lithuanian.mp3gain.ini">Lithuanian</a></li>
     <li><a href="lang/Norsk.mp3gain.ini">Norwegian</a></li>
