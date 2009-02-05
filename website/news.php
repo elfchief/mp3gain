@@ -7,6 +7,11 @@ include("start.php");
 ?>
 <h1 class="hide">News</h1>
 <p>
+<em>5 Feb 2009</em><br />
+"REIKA" has translated the <a href="help/mp3gain-japanese.zip">Help file into Japanese</a>.
+</p>
+<hr />
+<p>
 <em>9 Jan 2009</em><br />
 Luiz Gaspar has updated the <a href="lang/Portugues_Brasil.mp3gain.ini">Brazilian Portuguese</a> translation.
 </p>

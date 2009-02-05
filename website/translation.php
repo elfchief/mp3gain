@@ -84,6 +84,7 @@ Pick a language, and just un-zip the file into your MP3Gain folder:
 	<li><a href="help/mp3gain-finnish.zip">Finnish</a></li>
 	<li><a href="help/mp3gain-french.zip">French</a></li>
 	<li><a href="help/mp3gain-deutsch.zip">German</a></li>
+	<li><a href="help/mp3gain-japanese.zip">Japanese</a></li>
 	<li><a href="help/mp3gain-nederlands.zip">Nederlands</a></li>
     <li><a href="help/mp3gain-russian.zip">Russian</a></li>
     <li><a href="help/mp3gain-espanol.zip">Spanish</a></li>
