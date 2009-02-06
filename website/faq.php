@@ -15,7 +15,7 @@ include("start.php");
 	loud the file actually sounds to a human's ears.
 	<p>To hear the difference between &quot;maximizing&quot; (peak normalization) and Replay Gain volume normalization,
 	<ol>
-		<li>Download this <a href=\"http://mp3gain.sourceforge.net/maxampdemo.zip\">sample file</a>
+		<li>Download this <a href=\"maxampdemo.zip\">sample file</a>
 		<li>Unzip the two mp3 files, noting their current maximum amplitudes as indicated in the filenames
 		<li>Open MP3Gain
 		<li>Go to &quot;Options -&gt; Advanced...&quot; and make sure the &quot;Enable Maximizing features&quot; option is checked
