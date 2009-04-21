@@ -7,6 +7,11 @@ include("start.php");
 ?>
 <h1 class="hide">News</h1>
 <p>
+<em>21 Apr 2009</em><br />
+Pierre le Lidgeu has updated both the <a href="help/mp3gain-french.zip">French Help file</a> and the <a href="lang/French.mp3gain.ini">French translation file</a> for version 1.2.5.
+</p>
+<hr />
+<p>
 <em>5 Feb 2009</em><br />
 "REIKA" has translated the <a href="help/mp3gain-japanese.zip">Help file into Japanese</a>.
 </p>
