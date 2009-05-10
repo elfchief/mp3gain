@@ -22,7 +22,7 @@ without decoding and re-encoding.</p>
 <p>
 <strong>Latest news:</strong><br />
 <em>10 May 2009</em><br />
-&#174;an Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
+Zan Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
 </p>
 <hr />
 <p>

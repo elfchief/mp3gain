@@ -8,7 +8,7 @@ include("start.php");
 <h1 class="hide">News</h1>
 <p>
 <em>10 May 2009</em><br />
-&#174;an Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
+Zan Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
 </p>
 <hr />
 <p>
