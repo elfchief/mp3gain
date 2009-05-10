@@ -7,6 +7,11 @@ include("start.php");
 ?>
 <h1 class="hide">News</h1>
 <p>
+<em>10 May 2009</em><br />
+&#174;an Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
+</p>
+<hr />
+<p>
 <em>21 Apr 2009</em><br />
 Pierre le Lidgeu has updated both the <a href="help/mp3gain-french.zip">French Help file</a> and the <a href="lang/French.mp3gain.ini">French translation file</a> for version 1.2.5.
 </p>
