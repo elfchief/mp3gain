@@ -21,6 +21,11 @@ without decoding and re-encoding.</p>
 <hr />
 <p>
 <strong>Latest news:</strong><br />
+<em>25 May 2009</em><br />
+The people who made the program SuperMp3Normalizer have chosen to re-name their product "MP3Gain PRO". I had nothing to do with this product, so don't email me support questions ;)
+</p>
+<hr />
+<p>
 <em>10 May 2009</em><br />
 Zan Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
 </p>
