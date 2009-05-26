@@ -18,14 +18,21 @@ analysis</a> to determine how loud the file actually <i>sounds</i> to the human 
 Also, the changes MP3Gain makes are completely lossless.
 There is no quality lost in the change because the program adjusts the mp3 file directly, 
 without decoding and re-encoding.</p>
-<hr />
 <p>
-<strong>Latest news:</strong><br />
-<em>25 May 2009</em><br />
-The people who made the program SuperMp3Normalizer have chosen to re-name their product "MP3Gain PRO". I had nothing to do with this product, so don't email me support questions ;)
+<h3>Note about &quot;Mp3Gain PRO&quot;</h3>
+The author of <a href="http://www.mp3doctor.com">MP3Doctor</a> recently renamed his &quot;SuperMp3Normalizer&quot; program to &quot;<a href="http://www.mp3gain-pro.com">Mp3Gain PRO</a>&quot;.
+I did not write this new program, so please do not email me any support questions about it.<br/>
+If you're interested, here are the main technical differences between &quot;Mp3Gain PRO&quot; and my, uh, &quot;classic&quot;(?) MP3Gain:
+<ul>
+	<li>&quot;Mp3Gain&quot; PRO does volume normalization <em>inside</em> the mp3, not just between separate mp3s.
+		So if you feel a song is too quiet at the beginning (or middle, or end), then it can boost the volume just for that part.</li>
+	<li>The changes &quot;Mp3Gain PRO&quot; makes are <em>not</em> undo-able. In order to make its fine-tuned adjustments, it must re-encode the mp3 file.</li>
+</ul>
+Anyhow, check it out if you're interested. But don't ask me any questions ;)
 </p>
 <hr />
 <p>
+<strong>Latest news:</strong><br />
 <em>10 May 2009</em><br />
 Zan Smogavc and his friend have translated MP3Gain into <a href="lang/Slovenscina.mp3gain.ini">Slovenian</a>.
 </p>
