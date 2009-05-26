@@ -25,7 +25,7 @@ I did not write this new program, so please do not email me any support question
 If you're interested, here are the main technical differences between &quot;Mp3Gain PRO&quot; and my, uh, &quot;classic&quot;(?) MP3Gain:
 <ul>
 	<li>&quot;Mp3Gain PRO&quot; does volume normalization <em>inside</em> the mp3, not just between separate mp3s.
-		So if you feel a song is too quiet at the beginning (or middle, or end), then it can boost the volume just for that part.</li>
+		So if you feel a song is too quiet at the beginning (or middle, or end), then it can boost the volume just for that part. Pretty cool, if that's what you need.</li>
 	<li>The changes &quot;Mp3Gain PRO&quot; makes are <em>not</em> undo-able. In order to make its fine-tuned adjustments, it must re-encode the mp3 file.</li>
 </ul>
 Anyhow, check it out if you're interested. But don't ask me any questions ;)
