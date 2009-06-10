@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <memory.h>
 #include <string.h>
+#include <fcntl.h>
 #ifdef WIN32
 #include <io.h>
-#include <fcntl.h>
+#else
+#include <unistd.h>
 #endif
 
 #ifndef WIN32
@@ -325,86 +327,21 @@ int truncate_file (char *filename, long truncLength) {
 
 #else
 
-/* if other OS specific truncate commands are available, this would be a good place to put them... */
+	int fd;
 
-    FILE *orig;
-    FILE *tmp;
-    char *newfilename;
-    char buff[10000];
-    long actualRead;
-    long byteCount;
-    
-	byteCount = strlen(filename);
-    newfilename = (char *)malloc(byteCount + 5);
-
-    strcpy(newfilename,filename);
-	if ((filename[byteCount-3] == 'T' || filename[byteCount-3] == 't') &&
-			(filename[byteCount-2] == 'M' || filename[byteCount-2] == 'm') &&
-			(filename[byteCount-1] == 'P' || filename[byteCount-1] == 'p')) {
-		strcat(newfilename,".TMP");
-	}
-	else {
-		newfilename[byteCount-3] = 'T';
-		newfilename[byteCount-2] = 'M';
-		newfilename[byteCount-1] = 'P';
-	}
-
-    orig = fopen(filename,"rb");
-    if (orig == NULL)
-        return 0;
-    tmp = fopen(newfilename,"wb");
-    if (tmp == NULL) {
-        fclose(orig);
-        return 0;
-    }
-
-    byteCount = truncLength;
-
-    while (byteCount > 0) {
-        if (byteCount > 10000) {
-            actualRead = fread(buff,1,10000,orig);
-        } else {
-            actualRead = fread(buff,1,byteCount,orig);
-        }
-        if (actualRead > 0) {
-            fwrite(buff,1,actualRead,tmp);
-        } else {
-            break;
-        }
-        byteCount -= actualRead;
-    }
-    fclose(orig);
-
-    fflush(tmp);
-    byteCount = ftell(tmp);
-    fclose(tmp);
-    if (byteCount != truncLength) {
-        deleteFile(newfilename);
-        free(newfilename);
-		passError( MP3GAIN_UNSPECIFED_ERROR, 3,
-            "Not enough temp space on disk to modify ", filename, 
-            "\nPlease free some space\n");
-        return 0;
-    }
-    
-	if (deleteFile(filename)) {
-        deleteFile(newfilename); /* get rid of temp file */
-        free(newfilename);
-		passError( MP3GAIN_UNSPECIFED_ERROR, 3,
-            "Can't open ", filename, " for modifying\n");
+	fd = open(filename, O_RDWR);
+	if (fd < 0)
+		return 0;
+	if (ftruncate(fd, truncLength)) {
+		close(fd);
+		passError( MP3GAIN_UNSPECIFED_ERROR, 3, "Could not truncate ",
+			filename, "\n");
 		return 0;
 	}
-	if (moveFile(newfilename, filename)) {
-        free(newfilename);
-		passError( MP3GAIN_UNSPECIFED_ERROR, 9,
-            "Problem re-naming ", newfilename, " to ", filename, 
-            "\nThe mp3 was correctly modified, but you will need to re-name ", 
-            newfilename, " to ", filename, 
-            " yourself.\n");
-		return 0;
-	};
-    free(newfilename);
-    return 1;
+	close(fd);
+
+	return 1;
+
 #endif
 }
 
