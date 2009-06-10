@@ -36,6 +36,10 @@
 #define M3G_ERR_CANT_MAKE_TMP -2
 #define M3G_ERR_NOT_ENOUGH_TMP_SPACE -3
 #define M3G_ERR_RENAME_TMP -4
+#define M3G_ERR_FILEOPEN   -5
+#define M3G_ERR_READ       -6
+#define M3G_ERR_WRITE      -7
+#define M3G_ERR_TAGFORMAT  -8
 
 #include "rg_error.h"
 
