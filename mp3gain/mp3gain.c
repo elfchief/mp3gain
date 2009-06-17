@@ -2,8 +2,8 @@
  *  mp3gain.c - analyzes mp3 files, determines the perceived volume, 
  *      and adjusts the volume of the mp3 accordingly
  *
- *  Copyright (C) 2001-2004 Glen Sawyer
- *  AAC support (C) 2004-2005 David Lasker, Altos Design, Inc.
+ *  Copyright (C) 2001-2009 Glen Sawyer
+ *  AAC support (C) 2004-2009 David Lasker, Altos Design, Inc.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -1278,9 +1278,9 @@ void wrapExplanation() {
 static
 void errUsage(char *progname) {
 	showVersion(progname);
-	fprintf(stderr,"copyright(c) 2001-2004 by Glen Sawyer\n");
+	fprintf(stderr,"copyright(c) 2001-2009 by Glen Sawyer\n");
 #ifdef AACGAIN
-	fprintf(stderr,"AAC support copyright(c) 2004 David Lasker, Altos Design, Inc.\n");
+	fprintf(stderr,"AAC support copyright(c) 2004-2009 David Lasker, Altos Design, Inc.\n");
 #endif
 	fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
 #ifdef AACGAIN
@@ -1299,9 +1299,9 @@ void errUsage(char *progname) {
 static
 void fullUsage(char *progname) {
 		showVersion(progname);
-		fprintf(stderr,"copyright(c) 2001-2004 by Glen Sawyer\n");
+		fprintf(stderr,"copyright(c) 2001-2009 by Glen Sawyer\n");
 #ifdef AACGAIN
-	    fprintf(stderr,"AAC support copyright(c) 2004 David Lasker, Altos Design, Inc.\n");
+	    fprintf(stderr,"AAC support copyright(c) 2004-2009 David Lasker, Altos Design, Inc.\n");
 #endif
 		fprintf(stderr,"uses mpglib, which can be found at http://www.mpg123.de\n");
 #ifdef AACGAIN

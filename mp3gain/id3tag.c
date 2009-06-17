@@ -50,6 +50,10 @@
 #include "mp3gain.h"
 
 
+#ifdef WIN32
+#define strcasecmp(x,y) _stricmp(x,y)
+#endif
+
 #define DBG(x)
 /*#define DBG(x) (printf x)*/
 
