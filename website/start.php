@@ -19,7 +19,7 @@
     }
 </script>
 <div id="header">
-<a href="index.php"><img src="images/mp3gainlogosmall.gif" alt="MP3Gain" WIDTH="64" HEIGHT="64" border="0" align="center"><img src="images/mp3gainlogo.gif" alt="MP3Gain" align="center" width="223" height="55" border="0"></a>
+<a style='text-decoration:none' href="index.php"><img src="images/mp3gainlogosmall.gif" alt="MP3Gain" WIDTH="64" HEIGHT="64" border="0" align="center" valign="top"> <img src="images/mp3gainlogo.gif" alt="MP3Gain" align="center" width="255" height="77" border="0"></a>
 </div>
 <div id="menu">
 <ul>
