@@ -845,7 +845,7 @@ int changeGain(char *filename AACGAIN_ARG(AACGainHandle aacH), int leftgainchang
 			if (singlechannel) {
 				if ((curframe[3] >> 6) & 0x01) { /* if mode is NOT stereo or dual channel */
 					passError( MP3GAIN_FILEFORMAT_NOTSUPPORTED, 2,
-                        filename, ": Can't adjust single channel for mono or joint stereo");
+                        filename, ": Can't adjust single channel for mono or joint stereo\n");
 					ok = 0;
 				}
 			}
