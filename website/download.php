@@ -14,7 +14,7 @@ $Gsz = 5;
 
 $Cx = 1;
 $Cy = 5;
-$Cz = 1;
+$Cz = 2;
 
 $downloads = array ( "MP3Gain-Windows %28Stable%29/$Gsx.$Gsy.$Gsz" => array ("MP3Gain-Windows (Stable)", array (
 							array ("mp3gain-win-".$Gsx."_".$Gsy."_".$Gsz.".exe","Normal MP3Gain install for version $Gsx.$Gsy.$Gsz<br>
