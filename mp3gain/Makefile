@@ -11,9 +11,9 @@ CFLAGS= -Wall -O2 -DHAVE_MEMCPY
 
 # all known MS Windows OS define the ComSpec environment variable
 ifdef ComSpec
-	ifndef OSTYPE
-		OSTYPE = win
-	endif
+ifndef OSTYPE
+	OSTYPE = win
+endif
 	EXE_EXT = .exe
 else
 	EXE_EXT =
@@ -60,9 +60,9 @@ endif
 install:
 ifneq ($(OSTYPE),win)
 	cp -p mp3gain$(EXE_EXT) "$(INSTALL_PATH)"
-	ifeq ($(OSTYPE),beos)
-		mimeset -f "$(INSTALL_PATH)/mp3gain$(EXE_EXT)"
-	endif
+ifeq ($(OSTYPE),beos)
+	mimeset -f "$(INSTALL_PATH)/mp3gain$(EXE_EXT)"
+endif
 else
 	@echo install target is not implemented on windows
 endif
