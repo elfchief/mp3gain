@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+** Copyright (C) David Lasker, 2004-2010 Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 //external interface to aacgain.c
 
-#define AACGAIN_VERSION "1.8.0"
+#define AACGAIN_VERSION "1.9.0"
 
 #include "gain_analysis.h"
 

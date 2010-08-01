@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+** Copyright (C) David Lasker, 2004-2010 Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -37,8 +37,9 @@ typedef struct GainFixup
 typedef struct GainData
 {
     char *mp4file_name;
-    const char *temp_name;
-    void *mp4MetaFile;
+    char *temp_name;
+	void *mp4File;
+	void *itmfList;
     void *hDecoder;
     void* preserve_timestamp;
     int track;
@@ -50,7 +51,6 @@ typedef struct GainData
     GainFixupPtr GainHead, GainTail;
     decode_t peak;
     unsigned char min_gain, max_gain;
-    unsigned int free_atom_size;
 } GainData, *GainDataPtr;
 
 #ifdef __cplusplus

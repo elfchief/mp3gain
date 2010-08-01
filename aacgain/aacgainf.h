@@ -1,6 +1,6 @@
 /*
 ** aacgain - modifications to mp3gain to support mp4/m4a files
-** Copyright (C) David Lasker, 2004 Altos Design, Inc.
+** Copyright (C) David Lasker, 2004-2010 Altos Design, Inc.
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 
 #define ERR_NO_MEM    1000
 
-void aacgain_raw_data_block(NeAACDecHandle hDecoder, NeAACDecFrameInfo *hInfo,
+void aacgain_raw_data_block(NeAACDecStruct *hDecoder, NeAACDecFrameInfo *hInfo,
                     bitfile *ld, program_config *pce, drc_info *drc);
 
 #endif

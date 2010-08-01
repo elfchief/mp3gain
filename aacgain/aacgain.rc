@@ -7,8 +7,9 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
-
+//change afxres.h to windows.h so Windows Platform SDK not required
+//#include "afxres.h"
+#include "windows.h" 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
@@ -53,8 +54,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,8,0,0
- PRODUCTVERSION 1,8,0,0
+ FILEVERSION 1,9,0,0
+ PRODUCTVERSION 1,9,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -72,12 +73,12 @@ BEGIN
             VALUE "Comments", "Derived from Glen Sawyer's mp3gain. Licensed under GNU Public License."
             VALUE "CompanyName", "Altos Design, Inc."
             VALUE "FileDescription", "aacgain"
-            VALUE "FileVersion", "1, 8, 0, 0"
+            VALUE "FileVersion", "1, 9, 0, 0"
             VALUE "InternalName", "aacgain"
-            VALUE "LegalCopyright", "Copyright (C) 2004-2008 Altos Design, Inc."
+            VALUE "LegalCopyright", "Copyright (C) 2004-2010 Altos Design, Inc."
             VALUE "OriginalFilename", "aacgain.exe"
             VALUE "ProductName", " aacgain"
-            VALUE "ProductVersion", "1, 8, 0, 0"
+            VALUE "ProductVersion", "1, 9, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

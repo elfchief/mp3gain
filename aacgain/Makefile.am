@@ -1,19 +1,26 @@
 bin_PROGRAMS = aacgain
 
-if do_static_build
-AACGAIN_EXT_LIBS = $(top_builddir)/faad2/libfaad/libfaad.la $(top_builddir)/mpeg4ip/lib/mp4v2/libmp4v2.la
-else
-AACGAIN_EXT_LIBS = -lfaad -lmp4v2
-endif
+AACGAIN_EXT_LIBS = $(top_srcdir)/faad2/libfaad/libfaad.la $(top_srcdir)/mp4v2/libmp4v2.la 
 
-# set the include path found by configure
-INCLUDES = -I$(top_srcdir)/mp3gain -I$(top_srcdir)/mpeg4ip/lib/mp4v2 \
-	-I$(top_srcdir)/mpeg4ip/include -I$(top_srcdir)/faad2/libfaad -I$(top_srcdir)/faad2/include \
-	$(all_includes)
+# zap DEFAULT_INCLUDES which would have included 
+# mp3gain/mpglibDB which contains the wrong config.h
+# required to compile the modified faad2 files
+DEFAULT_INCLUDES =
 
-# the library search path.
-aacgain_LDFLAGS = $(all_libraries)
-aacgain_SOURCES = aacgain.cpp decoder.c MP4MetaFile.cpp syntax.c
-aacgain_LDADD = $(AACGAIN_EXT_LIBS)\
-	$(top_builddir)/mp3gain/mpglibDBL/libmpglib.la \
-	$(top_builddir)/mp3gain/libmp3gain.la
+# include path
+INCLUDES = -I$(top_srcdir)/mp4v2/include \
+	-I$(top_srcdir)/mp4v2 \
+	-I$(top_srcdir)/faad2/libfaad \
+	-I$(top_srcdir)/faad2/include \
+	-I$(top_srcdir)/mp3gain
+
+# do a static build (see README.linux for details)
+aacgain_LDFLAGS = -static
+
+# source files to build
+aacgain_SOURCES = aacgain.cpp decoder.c syntax.c MP4MetaFile.cpp
+
+# library search path
+aacgain_LDADD = $(AACGAIN_EXT_LIBS) \
+	$(top_builddir)/mp3gain/libmp3gain.la \
+	$(top_builddir)/mp3gain/mpglibDBL/libmpglib.la
