@@ -41,6 +41,7 @@ for more details.
 
 3) Set up the build environment for aacgain as follows:
    cd <top_srcdir>/aacgain/linux
+   chmod +x prepare.sh (sorry I am unable to make this file executable in CVS)
    ./prepare.sh
    This runs autoreconf to create the configure script, and applies a
    required patch to mp3gain/mpglibDBL to allow it to #include the
