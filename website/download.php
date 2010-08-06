@@ -22,7 +22,7 @@ $Cz = 2;
 # Source files used to create the mp3gain(.exe) back end
 $Csx = $Cx;
 $Csy = $Cy;
-$Csz = $Cz."_r1";
+$Csz = $Cz."_r2";
 
 $downloads = array ( "MP3Gain-Windows %28Stable%29/$Gsx.$Gsy.$Gsz" => array ("MP3Gain-Windows (Stable)", array (
 							array ("mp3gain-win-".$Gsx."_".$Gsy."_".$Gsz.".exe","Normal MP3Gain install for version $Gsx.$Gsy.$Gsz<br>
