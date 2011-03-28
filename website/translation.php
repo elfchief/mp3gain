@@ -21,7 +21,6 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 		<li>Chinese (Simplified)</li>
 		<li>Chinese (Traditional)</li>
 		<li>Croatian</li>
-		<li>Dutch (*)</li>
 		<li>Finnish</li>
 		<li>French (<strong>UPDATED BELOW</strong>)</li>
 	</ul>
@@ -36,7 +35,7 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 		<li>Italian</li>
 		<li>Japanese</li>
 		<li>Korean</li>
-		<li>Nederlands (*)</li>
+		<li>Nederlands (**)</li>
 	</ul>
 </td>
 <td valign="top" width="33%">
@@ -54,10 +53,11 @@ If you want to translate the MP3Gain <em>Help file</em> into another language, t
 </td></tr>
 </table>
 </p>
-<p>(*) - Yes, I realize that &quot;Dutch&quot; and &quot;Nederlands&quot; are the same thing,
-	as are &quot;Greek&quot; and &quot;Hellenic&quot;.
-	But in both cases, I've been sent two separate translations and <em>I</em> don't know Dutch or Greek,
+<p>(*) - Yes, I realize that &quot;Greek&quot; and &quot;Hellenic&quot; are the same thing.
+	But I've been sent two separate translations and <em>I</em> don't know Greek,
 	so I can't tell if one is &quot;better&quot;
+</p>
+<p>(**) - There is also an outdated &quot;Dutch&quot; translation included in the installer. The &quot;Nederlands&quot; translation matches the <a href="help/mp3gain-nederlands.zip">&quot;Help&quot; file</a> translation.
 </p>
 <p>
 
