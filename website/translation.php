@@ -83,6 +83,7 @@ Download the file and place it in your MP3Gain folder. The new language will app
 <b>Help file translations</b><br>
 Pick a language, and just un-zip the file into your MP3Gain folder:
 <ul>
+	<li><a href="help/mp3gain-brasil.zip">Brazilian Portuguese</a></li>
 	<li><a href="help/mp3gain-bulgarian.zip">Bulgarian</a></li>
 	<li><a href="help/mp3gain-catala.zip">Catalan</a></li>
 	<li><a href="help/mp3gain-cesky.zip">Czech</a></li>
@@ -91,7 +92,6 @@ Pick a language, and just un-zip the file into your MP3Gain folder:
 	<li><a href="help/mp3gain-deutsch.zip">German</a></li>
 	<li><a href="help/mp3gain-japanese.zip">Japanese</a></li>
 	<li><a href="help/mp3gain-nederlands.zip">Nederlands</a></li>
-	<li><a href="help/mp3gain-brasil.zip">Brazilian Portuguese</a></li>
     <li><a href="help/mp3gain-russian.zip">Russian</a></li>
     <li><a href="help/mp3gain-espanol.zip">Spanish</a></li>
 	<li><a href="help/mp3gain-turkce.zip">Turkish</a></li>
