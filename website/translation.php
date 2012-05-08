@@ -69,6 +69,7 @@ Download the file and place it in your MP3Gain folder. The new language will app
     <li><a href="lang/French.mp3gain.ini">French</a> (updated for version 1.2.5)</li>
     <li><a href="lang/Portugues_Brasil.mp3gain.ini">Brazilian Portuguese</a> (updated version from the one in the installer)</li>
     <li><a href="lang/Danish.mp3gain.ini">Danish</a></li>
+    <li><a href="lang/Indonesian.mp3gain.ini">Indonesian</a></li>
     <li><a href="lang/Latvian.mp3gain.ini">Latvian</a></li>
     <li><a href="lang/Lithuanian.mp3gain.ini">Lithuanian</a></li>
     <li><a href="lang/Norsk.mp3gain.ini">Norwegian</a></li>
