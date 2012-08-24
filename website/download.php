@@ -56,7 +56,7 @@ $downloads = array ( "MP3Gain-Windows %28Stable%29/$Gsx.$Gsy.$Gsz" => array ("MP
 <h1 class="hide">Downloads</h1>
 <p><strong>AACGain support</strong>: You will also need to <a href="http://www.rarewares.org/aac.html">download AACGain</a>, rename it to "mp3gain.exe", and put it in the MP3Gain folder after installation.
 <p>Here's a list of what you'll find at the SourceForge <a href="https://sourceforge.net/projects/mp3gain/files/">download page for MP3Gain</a>.<br>
-The <a href="http://projects.sappharad.com/tools/mp3gain.html">MP3Gain Express page</a> has information about a Mac OS X version of MP3Gain.
+There are two Mac ports that I know of: <a href="http://homepage.mac.com/beryrinaldo/AudioTron/MacMP3Gain/">MacMP3Gain</a>, and <a href="http://projects.sappharad.com/tools/mp3gain.html">MP3Gain Express</a>.
 <p>
 <table class="tableBorder">
 <?php
