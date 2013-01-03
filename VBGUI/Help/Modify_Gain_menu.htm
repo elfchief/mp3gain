@@ -1,0 +1,96 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<html>
+
+<head>
+
+<title>Modify Gain menu</title>
+
+<link rel=StyleSheet href=NewDefault.css>
+
+</head>
+
+<body>
+
+<h3>Modify Gain menu</h3>
+
+<hr>
+The <b>Modify Gain</b> menu has the following items, 
+which are also available by right-clicking in the file list (<a href="#Popup">note</a>):
+
+<p>
+
+<table>
+<col style="width: 33.728%; font-weight: bold;">
+<col style="width: 66.272%;">
+
+<tr>
+<td>Apply Track Gain <span style="white-space: nowrap">(Ctrl-G)</span></td>
+<td>This will volume-correct all files listed in the 
+ <a href="File_List.htm">File List</a> to match 
+ the <a href="Target_Volume.htm">Target Volume</a>.</td></tr>
+
+<tr>
+<td>Apply Album Gain <span style="white-space: nowrap">(Ctrl-B)</span></td>
+<td>This will volume-correct 
+ all files listed in the <a href="File_List.htm">File List</a> so that 
+ the overall album volume matches the <a href="Target_Volume.htm">Target 
+ Volume</a>.</td></tr>
+
+<tr>
+<td><a name=ConstantGain></a>Apply 
+ Constant Gain... <span style="white-space: nowrap">(Ctrl-O)</span></td>
+<td>This will launch the <b>Constant Gain</b> dialog.
+<p>
+<center><img src="ConstantGain.jpg" width=255 height=274></center>
+<p>
+Here you can specify an 
+ absolute gain change in dB instead 
+ of a <a href="Target_Volume.htm">Target Volume</a>. Just 
+ move the slider until the <b>dB</b> field 
+ indicates the amount of gain desired. Increments 
+ are in 1.5 dB.
+<p>
+You can also apply gain to just the right or left channel if the mp3 is stereo or dual-channel. Check 
+ the <b>Apply to only one channel</b> 
+ box and then choose which channel by clicking the radio button beside 
+ the desired channel.</td></tr>
+
+<tr>
+<td>Apply Max No-clip Gain for Each file <span style="white-space: nowrap">(Ctrl-X)</span></td>
+<td><i>(Only visible when <a href="Options_menu.htm#Maximizing">Maximizing</a> features are enabled)</i><br>
+This will change the gain on each mp3 file so that it is as loud as possible without clipping.
+<p>
+<i>NOTE</i> - This is <b>not</b> a good way to make all your mp3s the same volume. Different mp3s
+can have very different ratios between their <i>maximum</i> amplitude and their <i>average</i>
+amplitude.<br>
+But if you don't care about volume differences between your mp3s and just want them each to be as
+loud as possible, then this is the function to use.
+</td></tr>
+
+<tr>
+<td>Apply Max No-clip Gain for Album <span style="white-space: nowrap">(Ctrl-L)</span></td>
+<td><i>(Only visible when <a href="Options_menu.htm#Maximizing">Maximizing</a> features are enabled)</i><br>
+This will look at each folder in the file list, find the single maximum gain which will not cause any
+clipping in any of the mp3s in the folder, and then apply that single gain change to all the mp3s in the folder.
+<p>
+I use this feature myself when burning mix CDs of my mp3s. I copy all the mp3s that will be on the
+CD into one folder, do <b>Track Gain</b> on the folder, and then use this function on the folder.
+This way, the mp3s are all the same volume, but the whole CD will be as loud as possible without
+any of the mp3s clipping.
+</td></tr>
+
+<tr>
+<td>Undo Gain changes</td>
+<td>If <a href="Tags.htm">tags</a> are enabled (i.e. "Options - Tags - Ignore" is <i>not</i> checked), then selecting this menu option will undo all gain changes to the mp3 files in the list</td>
+</tr>
+
+</table>
+
+<p>
+<a name="Popup"></a><b>(note)</b> - When you use the right-click popup menu, MP3Gain will only perform the chosen function
+on files that are currently selected in the <a href="File_List.htm" >File List</a>.
+
+</body>
+
+</html>

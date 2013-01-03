@@ -1,0 +1,14 @@
+mondrian ICON "mp3gain.ico"
+
+#include "wx/msw/wx.rc"
+
+big_add_files_bmp BITMAP "res/big_add_files.bmp"
+big_add_folder_bmp BITMAP "res/big_add_folder.bmp"
+big_scan_radio_bmp BITMAP "res/big_scan_radio.bmp"
+big_scan_album_bmp BITMAP "res/big_scan_album.bmp"
+big_adjust_radio_bmp BITMAP "res/big_adjust_radio.bmp"
+big_adjust_album_bmp BITMAP "res/big_adjust_album.bmp"
+big_adjust_constant_bmp BITMAP "res/big_adjust_constant.bmp"
+big_remove_files_bmp BITMAP "res/big_remove_files.bmp"
+big_remove_all_bmp BITMAP "res/big_remove_all.bmp"
+big_stop_bmp BITMAP "res/big_stop.bmp"

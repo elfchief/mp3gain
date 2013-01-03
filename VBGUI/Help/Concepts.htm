@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<html>
+
+<head>
+
+<title>Concepts</title>
+
+<link rel=StyleSheet href=NewDefault.css>
+
+
+
+</head>
+
+<body>
+
+<h3>Concepts</h3>
+<hr >
+
+
+<b>Peak Normalization</b>
+
+<p>
+
+Most 
+programs that "normalize" sound files do so by adjusting all the samples so that 
+the loudest single sample is at some specified value. This is not a good way to 
+make all the files actually have the same loudness. First of all, the 
+human ear does not hear the loudness of single samples. It averages out 
+sounds over time. Secondly, today's 
+popular music CDs are heavily compressed. The sound 
+engineers making the CD raise the average level so that it sounds much louder, 
+while compressing the loudest parts so that they don't distort. A typical 
+ uncompressed sound file might look like this:
+
+<p>
+
+<center><IMG height=107 src="Wave1.jpg" width=248></center>
+
+<p>
+
+A typical compressed sound file might look like this:
+
+<p>
+
+<center><IMG height=107 src="Wave2.jpg" width=248></center>
+
+<p>
+
+Both of these files have 
+ a peak sample at about 100%, but the compressed file has a much louder 
+ <i>average</i> level. 
+It sounds much 
+louder when played back. So 
+ to do actual loudness normalization instead of peak normalization, we 
+ need to calculate how loud the file actually sounds. MP3Gain uses the 
+ <a href="http://replaygain.hydrogenaudio.org">Replay Gain</a> algorithm to calculate 
+ this loudness.
+<p>
+<b><a name=Lossless></a>Lossless Gain Adjustment</b>
+
+<p>
+
+The bad news: MP3Gain 
+ can only adjust the volume of your mp3 files in steps of 1.5 dB.
+
+<p>
+
+The good news: 1.5 dB 
+ is a small enough step for most practical purposes. Most humans can just 
+ barely hear a volume change of 1 dB.
+
+<p>
+
+The other good news is 
+ that this volume adjustment is completely lossless. In other words, if 
+ you adjust an mp3 by -6 dB and then change your mind, you can adjust it 
+ again by +6 dB and it will be <i>exactly</i> the same as it was before you made 
+ the first adjustment.
+
+<p>
+
+Here's the technical reason 
+ why it's lossless, and also why the smallest change possible is 1.5 dB:
+
+<p>
+
+The mp3 format stores 
+ the sound information in small chunks called "frames". Each frame represents 
+ a fraction of a second of sound. In each frame there is a "global gain" 
+ field. This field is an 8-bit integer (so its value can be a whole number 
+ from 0 to 255).</p>
+
+<p>
+
+When an mp3 player decodes 
+ the sound in the frame, it uses the global gain field to multiply the 
+ decoded sound samples by 2<sup>(gain / 4)</sup>.
+
+<p>
+
+So if you add 1 to this 
+ gain field in all the frames in the mp3, you effectively multiply the 
+ amplitude of the whole file by 2<sup>(1/4)</sup> = 119% = +1.5 dB.
+
+<p>
+
+Likewise, if you subtract 
+ 1 from the global gain, you multiply the amplitude by 2<sup>(-1/4)</sup> = 84% 
+ = -1.5 dB.</p>
+
+
+</body>
+
+</html>
